@@ -12,10 +12,11 @@ import java.io.PrintWriter;
 public class MainPage extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
         writer.println("App to holidays! ver.0.01\n");
         writer.println("Created by jAvalanche");
+        writer.println(req.getParameter("username") + " " + req.getParameter("password"));
     }
 }
