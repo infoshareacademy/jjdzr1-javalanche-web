@@ -25,6 +25,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
         Template template = TemplateProvider.createTemplate(getServletContext(), "main.ftlh");
 
