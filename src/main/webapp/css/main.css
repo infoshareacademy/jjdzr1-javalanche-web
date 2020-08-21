@@ -1,89 +1,36 @@
-#wrapper {
-    overflow-x: hidden;
+p {
+    line-height: 1.5em;
 }
 
-#sidebar-wrapper {
-    min-height: 100vh;
-    margin-left: -15rem;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
-    transition: margin .25s ease-out;
+body {
+    color: #606468;
+    font: 87.5%/1.5em 'Lato', sans-serif;
 }
 
-#sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
+.navbar-nav, .nav-link-main, .nav-link{
+    color: #f1f1f1;
 }
 
-#sidebar-wrapper .list-group {
-    width: 15rem;
-}
-
-.dropbtn {
-    background-color: transparent;
+.dropdown-item{
     color: black;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+    font: 87.5%/1.5em 'Lato', sans-serif;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
+.dropdown-item.active{
+    background-color: #555;
+    color: white;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+.dropdown-item a:hover:not(.active) {
+    background-color: #555;
+    color: white;
 }
 
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+.mr-auto, .nav-link-main{
+    right: auto !important;
+    left: 0px;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: rgba(94, 104, 95, 0.6);
-}
-
-#page-content-wrapper {
-    min-width: 100vw;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-    margin-left: 0;
-}
-
-.navbarSupportedContent.topnav {
-    margin-right: 10px;
-}
-
-@media (min-width: 768px) {
-    #sidebar-wrapper {
-        margin-left: 0;
-    }
-
-    #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        margin-left: -15rem;
-    }
-
+.bs-example{
+    margin: 20px;
 }

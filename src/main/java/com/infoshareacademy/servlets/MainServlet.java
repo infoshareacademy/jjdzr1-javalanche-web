@@ -38,6 +38,7 @@ public class MainServlet extends HttpServlet {
         dataModel.put("password", password);
 
         try {
+            resp.setCharacterEncoding("UTF-8");
             template.process(dataModel, writer);
         } catch (TemplateException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);

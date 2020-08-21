@@ -4,13 +4,14 @@ body {
 }
 
 .sidebar {
-    margin-top: 30px;
+    margin-top: 55px;
     padding: 0;
-    width: 140px;
+    width: 130px;
     background-color: #f1f1f1;
     position: fixed;
     height: 100%;
     overflow: auto;
+    color: #606468;
 }
 
 .sidebar a {
@@ -18,6 +19,7 @@ body {
     color: black;
     padding: 16px;
     text-decoration: none;
+    align-items: center;
 }
 
 .sidebar a.active {

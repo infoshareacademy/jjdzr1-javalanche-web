@@ -1,5 +1,5 @@
 <#include "header.ftlh">
-
+<link rel="stylesheet" href="/css/index.css">
 <div class="main">
     <div class="container">
         <div style="text-align: center;">
@@ -34,7 +34,7 @@
                 </div> <!-- end login -->
                 <div class="logo">
                     <p>
-                        Kalendarz urlopów 1
+                        Kalendarz urlopï¿½w 1
                     </p>
                     <p>
                         jAvalanche
