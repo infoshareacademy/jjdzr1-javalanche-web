@@ -17,5 +17,6 @@ public class MainPage extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.println("App to holidays! ver.0.01\n");
         writer.println("Created by jAvalanche");
+
     }
 }
