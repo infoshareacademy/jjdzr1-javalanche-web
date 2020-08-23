@@ -1,13 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE HTML>
-<html lang="pl">
-<head>
-    <link rel="stylesheet" href="/css/index.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body>
+<#include "header.ftlh">
 
 <div class="main">
     <div class="container">
@@ -15,7 +6,7 @@
             <div class="middle">
                 <div id="login">
 
-                    <form action="/main" method="post">
+                    <form action="/login" method="post">
 
                         <fieldset class="clearfix">
 
@@ -43,7 +34,7 @@
                 </div> <!-- end login -->
                 <div class="logo">
                     <p>
-                        Kalendarz urlopÃ³w
+                        Kalendarz urlopów 1
                     </p>
                     <p>
                         jAvalanche
