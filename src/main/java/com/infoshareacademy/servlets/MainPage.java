@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/main")
+@WebServlet("/main1")
 public class MainPage extends HttpServlet {
 
     @Override
