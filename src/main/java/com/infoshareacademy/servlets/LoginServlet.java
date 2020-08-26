@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
 
         Template template = TemplateProvider.createTemplate(getServletContext(), "login.ftlh");
@@ -41,17 +42,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username.equals("jan@kowalski.pl") && password.equals("1234")){
+        if (username.equals("jan@kowalski.pl") && password.equals("1234")) {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
             view.forward(req, resp);
 
-        }
-        else {
+        } else {
             Template template = TemplateProvider.createTemplate(getServletContext(), "login.ftlh");
             Map<String, Object> dataModel = new HashMap<>();
 
