@@ -47,6 +47,7 @@ public class CalendarViewServlet extends HttpServlet {
         }
         dataModel.put("dates", dateList);
 
+
         /* TODO
             Tworzymy listę użytkowników aby dodać do wierszy
             W późniejszym etapie metoda do usunięcia
@@ -86,4 +87,5 @@ public class CalendarViewServlet extends HttpServlet {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
+
 }

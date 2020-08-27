@@ -18,11 +18,9 @@
                             </p> <!-- JS because of IE support; better: placeholder="Password" -->
 
                             <div>
-                                <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text"
-                                                                                                     href="#">Zapomniałeś hasła?
+                                <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Zapomniałeś hasła?
                                 </a></span>
-                                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit"
-                                                                                                          value="Zaloguj"></span>
+                                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Zaloguj"></span>
                             </div>
 
                         </fieldset>
