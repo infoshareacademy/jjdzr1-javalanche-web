@@ -26,6 +26,7 @@ public class UserRepository {
         usersList.add(new User(3, "Tomek@wp.pl", "3333", "Tomek", "Tomaszewski", 1, 26));
         usersList.add(new User(4, "Wojtek@wp.pl", "4444", "Wojtek", "Wojciechowski", 1, 26));
         usersList.add(new User(5, "Marek@wp.pl", "5555", "Marek", "Markowski", 1, 26));
+        usersList.add(new User(6, "mietek@wp.pl", "5555", "Mietek", "Mietkowski", 1, 26));
         setUsersList(usersList);
     }
 

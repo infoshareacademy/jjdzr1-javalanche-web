@@ -42,7 +42,7 @@ public class CalendarViewServlet extends HttpServlet {
         LocalDate date = LocalDate.now();
         List<LocalDate> dateList = new ArrayList<>();
         dateList.add(date);
-        for (int i = 1; i < 15; i++) {
+        for (int i = 1; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
             dateList.add(dateList.get(i-1).plusDays(1));
         }
         dataModel.put("dates", dateList);
