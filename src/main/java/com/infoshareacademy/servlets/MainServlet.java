@@ -1,10 +1,9 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

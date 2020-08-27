@@ -1,7 +1,6 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.model.DayOff;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -20,6 +19,7 @@ public class DayOffRepository {
         dayOffList.add(new DayOff(1,LocalDate.of(2020,9,1),LocalDate.of(2020,9,2),1,2));
         dayOffList.add(new DayOff(2,LocalDate.of(2020,9,5),LocalDate.of(2020,9,8),3,4));
         dayOffList.add(new DayOff(3,LocalDate.of(2020,9,2),LocalDate.of(2020,9,6),5,5));
+        dayOffList.add(new DayOff(3,LocalDate.of(2020,9,15),LocalDate.of(2020,9,20),5,6));
         setDayOffList(dayOffList);
     }
 }
