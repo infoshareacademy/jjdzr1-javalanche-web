@@ -34,7 +34,7 @@
                 </div> <!-- end login -->
                 <div class="logo">
                     <p>
-                        Kalendarz urlopów 1
+                        Kalendarz urlopï¿½w 1
                     </p>
                     <p>
                         jAvalanche
