@@ -33,7 +33,7 @@ body {
 
     color: #606468;
     font: 87.5%/1.5em 'Open Sans', sans-serif;
-    margin: 0;
+
 }
 
 a {
@@ -148,3 +148,6 @@ fieldset{
     display: flex;
     width: 600px;
 }
+
+
+

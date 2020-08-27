@@ -1,10 +1,9 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +24,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
         Template template = TemplateProvider.createTemplate(getServletContext(), "main.ftlh");
 
@@ -37,6 +37,7 @@ public class MainServlet extends HttpServlet {
         dataModel.put("password", password);
 
         try {
+            resp.setCharacterEncoding("UTF-8");
             template.process(dataModel, writer);
         } catch (TemplateException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
