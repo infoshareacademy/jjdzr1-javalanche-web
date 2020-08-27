@@ -1,4 +1,4 @@
-package com.infoshareacademy.freemarker;
+package com.infoshareacademy;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

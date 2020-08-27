@@ -1,7 +1,7 @@
 package com.infoshareacademy.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 public class DayOff {
     private int id;
@@ -9,6 +9,10 @@ public class DayOff {
     private LocalDate endDay;
     private int idOfUser;
     private int daysOffSum;
+    private List<LocalDate> daysOffList = new ArrayList<>();
+
+    public DayOff() {
+    }
 
     public DayOff(int id, LocalDate startDay, LocalDate endDay, int idOfUser, int daysOffSum) {
         this.id = id;
@@ -16,6 +20,7 @@ public class DayOff {
         this.endDay = endDay;
         this.idOfUser = idOfUser;
         this.daysOffSum = daysOffSum;
+        setDaysOffList();
     }
 
     public int getId() {
@@ -58,6 +63,21 @@ public class DayOff {
         this.daysOffSum = daysOffSum;
     }
 
+    public List<LocalDate> getDaysOffList() {
+        return daysOffList;
+    }
+
+    public void setDaysOffList() {
+        List<LocalDate> daysOffList = new ArrayList<>();
+        LocalDate localDate = startDay;
+        for (int i = 0; i < daysOffSum; i++) {
+            daysOffList.add(localDate.plusDays(i));
+            System.out.println(localDate.plusDays(i));
+        }
+        System.out.println(daysOffList.toString());
+        this.daysOffList = daysOffList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,6 +99,7 @@ public class DayOff {
                 ", endDay=" + endDay +
                 ", idOfUser=" + idOfUser +
                 ", daysOffSum=" + daysOffSum +
+                ", daysOffList=" + daysOffList +
                 '}';
     }
 }

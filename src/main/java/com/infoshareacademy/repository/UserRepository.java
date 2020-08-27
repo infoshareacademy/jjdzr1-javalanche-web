@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class UserRepository {
     private ArrayList<User> usersList = new ArrayList<>();
 
+    public UserRepository() {
+    }
+
     public ArrayList<User> getUsersList() {
         return usersList;
     }
