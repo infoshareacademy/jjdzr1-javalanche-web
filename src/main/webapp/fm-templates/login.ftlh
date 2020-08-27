@@ -33,17 +33,8 @@
 
                 </div> <!-- end login -->
                 <div class="logo">
-                    <p>
-<<<<<<< HEAD
-                        Kalendarz urlop�w 1
-                    </p>
-                    <p>
-                        jAvalanche
-=======
                         <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
                     <p>Kalendarz urlopów</p>
->>>>>>> develop
-                    </p>
 
                     <div class="clearfix"></div>
                 </div>
