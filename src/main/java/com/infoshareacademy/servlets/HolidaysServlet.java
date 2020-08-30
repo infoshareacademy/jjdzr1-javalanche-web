@@ -3,15 +3,18 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.TemplateProvider;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
+import com.infoshareacademy.api.ServerResponse;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -33,9 +36,21 @@ public class HolidaysServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        logger.log(Level.SEVERE, "TEST LOGGER'a Z LINI NR. 35!!!");
+        logger.log(Level.SEVERE, holidaysList().toString());
 
         dataModel.put("holidays", holidaysList());
+
+        holidaysList().forEach(System.out::println);
+
+        try{
+            ServletContext context = getServletContext();
+            InputStream inp = context.getResourceAsStream("db_holidaysNational.json");
+            if (inp != null) {
+        }
+        }
+        catch(Exception e){
+
+        }
 
         try {
             template.process(dataModel, writer);
@@ -45,6 +60,9 @@ public class HolidaysServlet extends HttpServlet {
     }
 
        private List<Holidays> holidaysList(){
-            return HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
+           HolidaysJsonData holidaysJsonData = HolidaysJsonData.readDataFromJsonFile();
+           ServerResponse serverResponse = holidaysJsonData.getServerResponse();
+           List<Holidays> holidays = serverResponse.getHolidays();
+           return holidays;
     }
 }

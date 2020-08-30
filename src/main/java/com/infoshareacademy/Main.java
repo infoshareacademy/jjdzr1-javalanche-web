@@ -1,5 +1,6 @@
 package com.infoshareacademy;
 
+
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
 import com.infoshareacademy.configurations.PropertiesReader;
@@ -16,6 +17,9 @@ public class Main {
         holidays.stream().forEach(s -> System.out.println(s));
 
         System.out.println(new PropertiesReader().getDateFormat());
+
+        PropertiesReader propertiesReader = new PropertiesReader();
+        propertiesReader.getDateFormat();
 
     }
 
