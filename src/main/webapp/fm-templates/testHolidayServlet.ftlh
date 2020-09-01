@@ -2,10 +2,13 @@
     <div>
         This is the holidays test servlet.
 
-<#--        <#list holidays as holiday>
-            <li>
-                <p>${holiday.getName}</p>
+        <#list holidays as holiday>
+            <li>Name: ${holiday.getName()}
+                / Date: ${holiday.getHolidayDate().getHolidayDateTime().getDay()}
+                ${holiday.getHolidayDate().getHolidayDateTime().getMonth()}
+                ${holiday.getHolidayDate().getHolidayDateTime().getYear()}
             </li>
-        </#list>-->
+        </#list>
+
     </div>
 </body>

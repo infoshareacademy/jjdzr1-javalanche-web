@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,21 +33,8 @@ public class HolidaysServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        logger.log(Level.SEVERE, holidaysList().toString());
-
         dataModel.put("holidays", holidaysList());
 
-        holidaysList().forEach(System.out::println);
-
-        try{
-            ServletContext context = getServletContext();
-            InputStream inp = context.getResourceAsStream("db_holidaysNational.json");
-            if (inp != null) {
-        }
-        }
-        catch(Exception e){
-
-        }
 
         try {
             template.process(dataModel, writer);
@@ -60,9 +44,6 @@ public class HolidaysServlet extends HttpServlet {
     }
 
        private List<Holidays> holidaysList(){
-           HolidaysJsonData holidaysJsonData = HolidaysJsonData.readDataFromJsonFile();
-           ServerResponse serverResponse = holidaysJsonData.getServerResponse();
-           List<Holidays> holidays = serverResponse.getHolidays();
-           return holidays;
+           return HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
     }
 }
