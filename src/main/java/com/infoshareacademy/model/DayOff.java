@@ -1,7 +1,13 @@
 package com.infoshareacademy.model;
 
+import com.infoshareacademy.api.HolidayDate;
+import com.infoshareacademy.api.Holidays;
+import com.infoshareacademy.api.HolidaysJsonData;
+
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DayOff {
     private int id;
@@ -72,10 +78,10 @@ public class DayOff {
         LocalDate localDate = startDay;
         for (int i = 0; i < daysOffSum; i++) {
             daysOffList.add(localDate.plusDays(i));
-            System.out.println(localDate.plusDays(i));
+            //System.out.println(localDate.plusDays(i));
         }
-        System.out.println(daysOffList.toString());
-        this.daysOffList = daysOffList;
+        //System.out.println(daysOffList.toString());
+        this.daysOffList = removeDayOffIfNationalHoliday(daysOffList);
     }
 
     @Override
@@ -101,5 +107,31 @@ public class DayOff {
                 ", daysOffSum=" + daysOffSum +
                 ", daysOffList=" + daysOffList +
                 '}';
+    }
+
+    private List<LocalDate> removeDayOffIfNationalHoliday(List<LocalDate> daysOffList){
+
+        for(int i = 0; i < daysOffList.size(); i++){
+            for(int j = 0; j < nationalHolidaysParserToLocalDays().size(); j++){
+
+                System.out.println(daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j)));
+                if (daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j))){
+                    daysOffList.remove(i);
+                }
+            }
+        }
+
+        return daysOffList;
+    }
+
+    private List<LocalDate> nationalHolidaysParserToLocalDays(){
+        List<LocalDate> datesAaLocalDate = new ArrayList<>();
+        List<Holidays> holidays = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
+        for(Holidays holiday : holidays){
+            datesAaLocalDate.add(LocalDate.of(holiday.getHolidayDate().getHolidayDateTime().getYear(),
+                                               holiday.getHolidayDate().getHolidayDateTime().getMonth(),
+                                               holiday.getHolidayDate().getHolidayDateTime().getDay()));
+        }
+        return datesAaLocalDate;
     }
 }

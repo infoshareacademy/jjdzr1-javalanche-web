@@ -3,11 +3,12 @@
         This is the holidays test servlet.
 
         <#list holidays as holiday>
-            <li>Name: ${holiday.getName()}
+            ${holiday}
+<#--            <li>Name: ${holiday.getName()}
                 / Date: ${holiday.getHolidayDate().getHolidayDateTime().getDay()}
                 ${holiday.getHolidayDate().getHolidayDateTime().getMonth()}
                 ${holiday.getHolidayDate().getHolidayDateTime().getYear()}
-            </li>
+            </li>-->
         </#list>
 
     </div>

@@ -20,6 +20,9 @@ public class DayOffRepository {
         dayOffList.add(new DayOff(2,LocalDate.of(2020,9,5),LocalDate.of(2020,9,8),3,4));
         dayOffList.add(new DayOff(3,LocalDate.of(2020,9,2),LocalDate.of(2020,9,6),5,5));
         dayOffList.add(new DayOff(3,LocalDate.of(2020,9,15),LocalDate.of(2020,9,20),5,6));
+        dayOffList.add(new DayOff(2,LocalDate.of(2020,11,9),LocalDate.of(2020,11,12),5,4));
         setDayOffList(dayOffList);
     }
+
+
 }

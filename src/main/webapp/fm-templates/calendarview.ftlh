@@ -22,14 +22,22 @@
     .tg-sort-desc:after{border-bottom:none;border-width:5px 5px 0}@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;margin: auto 0px;}}</style>
 <div class="tg-wrap"><table id="tg-5PShg" class="tg">
         <thead>
-<#--Logika do wy¶wietlania nag³ówka-->
+<#--Logika do wyï¿½wietlania nagï¿½ï¿½wka-->
         <tr>
             <th class="tg-0pky">User name</th>
             <#list dates as date>
-                <th class="tg-0pky">${date}</th>
+                <th class="tg-0pky">${date}
+                    <#list holidays as holiday>
+                        <#if holiday.getHolidayDate().getHolidayDateTime().getDay() == date.getDayOfMonth()
+                        && holiday.getHolidayDate().getHolidayDateTime().getMonth() == date.getMonthValue()>
+                            ${holiday.getName()}
+                        </#if>
+                    </#list>
+
+                </th>
             </#list>
         </tr>
-<#--Logika do wy¶wietlania urlopu w kalendarzu-->
+<#--Logika do wyï¿½wietlania urlopu w kalendarzu-->
         <#list users as user>
             <tr>
                 <th>

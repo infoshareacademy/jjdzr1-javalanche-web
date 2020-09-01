@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,20 @@ public class HolidaysServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
+        List<LocalDate>nationalHolidays = new ArrayList<>();
+        List<Holidays>parsedNationalHolidays = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
+        for(Holidays holiday : parsedNationalHolidays){
+            int year = holiday.getHolidayDate().getHolidayDateTime().getYear();
+            int month = holiday.getHolidayDate().getHolidayDateTime().getMonth();
+            int day = holiday.getHolidayDate().getHolidayDateTime().getDay();
+            nationalHolidays.add(LocalDate.of(year, month, day));
+        }
+        dataModel.put("holidays", nationalHolidays);
+/*
+
         dataModel.put("holidays", holidaysList());
+        dataModel.put("holidays", HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays());
+*/
 
 
         try {
