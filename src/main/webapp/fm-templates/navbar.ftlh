@@ -17,7 +17,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 <#--                        <a class="dropdown-item" href="#">${username}</a>-->
-                        <a class="dropdown-item" href="#">${name}</a>
+                        <a class="dropdown-item" href="#">Someone</a>
                         <a class="dropdown-item" href="#">Ustawienia</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/login">Wyloguj</a>

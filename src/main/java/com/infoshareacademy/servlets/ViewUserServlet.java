@@ -1,7 +1,9 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.UserRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +32,14 @@ public class ViewUserServlet extends HttpServlet {
 
         Template template = TemplateProvider.createTemplate(getServletContext(), "viewUser.ftlh");
 
-        Map<String, Object> dataModel = new HashMap<>();
+        Map<String, UserRepository> dataModel = new HashMap<>();
+        UserRepository userRepository = new UserRepository();
+        userRepository.fillUsersList();
 
-        DayOffRepository dayOffRepository = new DayOffRepository();
-        dayOffRepository.fillDayOffList();
+//        DayOffRepository dayOffRepository = new DayOffRepository();
+//        dayOffRepository.fillDayOffList();
 
-        dataModel.put("daysOff", dayOffRepository);
+        dataModel.put("users", userRepository);
 
         try {
             template.process(dataModel, writer);
