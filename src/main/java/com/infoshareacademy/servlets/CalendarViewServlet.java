@@ -37,50 +37,6 @@ public class CalendarViewServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        /* TODO
-            Tworzymy listę dat do nagłówka
-            W późniejszym etapie metoda do przesunięcia w odrębną klasę
-         */
-        LocalDate date = LocalDate.now();
-        List<LocalDate> dateList = new ArrayList<>();
-        dateList.add(date);
-        for (int i = 1; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear())*12; i++) {
-            dateList.add(dateList.get(i-1).plusDays(1));
-        }
-        dataModel.put("dates", dateList);
-
-        /* TODO
-            Tworzymy listę użytkowników aby dodać do wierszy
-            W późniejszym etapie metoda do usunięcia
-         */
-        UserRepository userRepository = new UserRepository();
-        userRepository.fillUsersList();
-        dataModel.put("users", userRepository.getUsersList());
-
-        /* TODO
-            Tworzymy listę dni wolnych aby wyświetlać w tabeli
-            W późniejszym etapie metoda do usunięcia
-         */
-
-        DayOffRepository dayOffRepository = new DayOffRepository();
-        dayOffRepository.fillDayOffList();
-        dataModel.put("daysoff", dayOffRepository.getDayOffList());
-
-        /*
-        Adding title to a date which is a national holiday
-         */
-        List<LocalDate>nationalHolidays = new ArrayList<>();
-        List<Holidays>parsedNationalHolidays = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
-        for(Holidays holiday : parsedNationalHolidays){
-            int year = holiday.getHolidayDate().getHolidayDateTime().getYear();
-            int month = holiday.getHolidayDate().getHolidayDateTime().getMonth();
-            int day = holiday.getHolidayDate().getHolidayDateTime().getDay();
-            nationalHolidays.add(LocalDate.of(year, month, day));
-        }
-
-        //dataModel.put("holidays", nationalHolidays);
-        dataModel.put("holidays", parsedNationalHolidays);
-
         try {
             template.process(dataModel, writer);
         } catch (TemplateException e) {

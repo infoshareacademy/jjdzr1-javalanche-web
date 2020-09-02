@@ -125,7 +125,6 @@
                             </button>
                         </th>
                         <%
-
                         } else {
                         %>
                         <th scope="col" class="m-0 p-0">
@@ -153,9 +152,7 @@
                         dayOffRepository.fillDayOffList();
                         UserRepository userRepository = new UserRepository();
                         userRepository.fillUsersList();
-
                         Map<User, List<LocalDate>> userListMap = new HashMap<>();
-
                         for (User user : userRepository.getUsersList()) {
                             List<LocalDate> tempDayOffList = new ArrayList<>();
                             for (DayOff dayOff : dayOffRepository.getDayOffList()) {
@@ -182,7 +179,6 @@
                                 <%
                                     for (LocalDate localDate: dateList) {
                                         if (userListMap.get(user).contains(localDate)) {
-
                                 %>
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-success rounded-0 m-0 p-0"
@@ -191,7 +187,6 @@
                             </button>
                         </th>
                         <%
-
                         } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday") || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")) {
                         %>
                         <th scope="col" class="m-0 p-0">
@@ -246,7 +241,6 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-
 </script>
 <script>
     $(document).ready(function(){
