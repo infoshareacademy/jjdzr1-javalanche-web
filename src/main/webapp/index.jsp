@@ -155,6 +155,7 @@
                         userRepository.fillUsersList();
 
                         Map<User, List<LocalDate>> userListMap = new HashMap<>();
+                        String modalUserId = null;
 
                         for (User user : userRepository.getUsersList()) {
                             List<LocalDate> tempDayOffList = new ArrayList<>();
@@ -168,17 +169,42 @@
                             userListMap.put(user, tempDayOffList);
                         }
                         for (User user : userRepository.getUsersList()) {
+                            modalUserId = "modalUser".concat(String.valueOf(user.getId()));
                     %>
                     <tr>
                         <th scope="col" class="m-0 p-0"
                             style="vertical-align: middle; text-align: end; font-size: x-small">
-                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0"
+                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0" data-toggle="modal" data-target=#<%=modalUserId %>
                                     style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
                                 <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
                                 </p>
                                 <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
                                 </p>
                             </button>
+                            <div id="<%=modalUserId%>" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+<%--                                            <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+                                            <h4 class="modal-title">Employee overview</h4>
+                                        </div>
+                                        <div class="modal-body" style="vertical-align: middle; text-align: left; font-size: medium;">
+                                            <p>Employee Id: <%= userRepository.getUsersList().get(user.getId()-1).getId() %></p>
+                                            <p>Name: <%= userRepository.getUsersList().get(user.getId()-1).getFirstName() %></p>
+                                            <p>Last name: <%= userRepository.getUsersList().get(user.getId()-1).getLastName() %></p>
+                                            <p>Email address: <%= userRepository.getUsersList().get(user.getId()-1).getEmail() %></p>
+                                            <p>Number of remaining days off: <%= userRepository.getUsersList().get(user.getId()-1).getDaysOffLeft() %></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                                 <%
                                     for (LocalDate localDate: dateList) {
                                         if (userListMap.get(user).contains(localDate)) {
@@ -236,6 +262,7 @@
         </div>
     </div>
 </div>
+
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.TemplateProvider;
+import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.UserRepository;
 import freemarker.template.Template;
