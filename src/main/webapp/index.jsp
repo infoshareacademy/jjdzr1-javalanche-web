@@ -98,6 +98,12 @@
 
         <div class="container-fluid">
             <div class="container-fluid" style="overflow: auto">
+                <br>
+                <h3>
+                    Search by user:
+                </h3>
+                <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+
                 <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
                     <thead>
                     <tr>
@@ -141,7 +147,7 @@
                         %>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="calendarTable">
                     <%
                         DayOffRepository dayOffRepository = new DayOffRepository();
                         dayOffRepository.fillDayOffList();
@@ -243,6 +249,16 @@
         $("#wrapper").toggleClass("toggled");
     });
 
+</script>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#calendarTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 </body>
 
