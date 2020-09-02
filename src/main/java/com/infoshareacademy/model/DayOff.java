@@ -8,19 +8,17 @@ public class DayOff {
     private LocalDate startDay;
     private LocalDate endDay;
     private int idOfUser;
-    private int daysOffSum;
-    private List<LocalDate> daysOffList = new ArrayList<>();
+    private List<LocalDate> listOfDays = new ArrayList<>();
 
     public DayOff() {
     }
 
-    public DayOff(int id, LocalDate startDay, LocalDate endDay, int idOfUser, int daysOffSum) {
+    public DayOff(int id, LocalDate startDay, LocalDate endDay, int idOfUser) {
         this.id = id;
         this.startDay = startDay;
         this.endDay = endDay;
         this.idOfUser = idOfUser;
-        this.daysOffSum = daysOffSum;
-        setDaysOffList();
+        setListOfDays(startDay, endDay);
     }
 
     public int getId() {
@@ -55,33 +53,31 @@ public class DayOff {
         this.idOfUser = idOfUser;
     }
 
-    public int getDaysOffSum() {
-        return daysOffSum;
+    public List<LocalDate> getListOfDays() {
+        return listOfDays;
     }
 
-    public void setDaysOffSum(int daysOffSum) {
-        this.daysOffSum = daysOffSum;
-    }
+    public void setListOfDays(LocalDate startDay, LocalDate endDay) {
+        List<LocalDate> listOfDays = new ArrayList<>();
+        LocalDate date = startDay;
 
-    public List<LocalDate> getDaysOffList() {
-        return daysOffList;
-    }
+        do {
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("saturday") || date.getDayOfWeek().toString().equalsIgnoreCase("sunday")){
+                date = date.plusDays(1);
+            }
+            else {
+                listOfDays.add(date);
+                date = date.plusDays(1);
+            }
+        } while (date.isBefore(endDay));
 
-    public void setDaysOffList() {
-        List<LocalDate> daysOffList = new ArrayList<>();
-        LocalDate localDate = startDay;
-        for (int i = 0; i < daysOffSum; i++) {
-            daysOffList.add(localDate.plusDays(i));
-            System.out.println(localDate.plusDays(i));
-        }
-        System.out.println(daysOffList.toString());
-        this.daysOffList = daysOffList;
+        this.listOfDays = listOfDays;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof DayOff)) return false;
         DayOff dayOff = (DayOff) o;
         return id == dayOff.id;
     }
@@ -98,8 +94,7 @@ public class DayOff {
                 ", startDay=" + startDay +
                 ", endDay=" + endDay +
                 ", idOfUser=" + idOfUser +
-                ", daysOffSum=" + daysOffSum +
-                ", daysOffList=" + daysOffList +
+                ", listOfDays=" + listOfDays +
                 '}';
     }
 }
