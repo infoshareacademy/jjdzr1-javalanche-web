@@ -22,4 +22,11 @@ public class DayOffRepository {
         dayOffList.add(new DayOff(3,LocalDate.of(2020,9,2),LocalDate.of(2020,9,6),5,5));
         setDayOffList(dayOffList);
     }
+
+    @Override
+    public String toString() {
+        return "DayOffRepository{" +
+                "dayOffList=" + dayOffList.get(1).toString() +
+                '}';
+    }
 }

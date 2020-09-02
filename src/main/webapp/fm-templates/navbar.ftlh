@@ -16,7 +16,8 @@
                         Profil
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">${username}</a>
+<#--                        <a class="dropdown-item" href="#">${username}</a>-->
+                        <a class="dropdown-item" href="#">${name}</a>
                         <a class="dropdown-item" href="#">Ustawienia</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/login">Wyloguj</a>
@@ -49,7 +50,7 @@
 
         <li class="nav-item dropdown ml-auto">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                ${username}
+<#--                ${username}-->
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Profil</a>
