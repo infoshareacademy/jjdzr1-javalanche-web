@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HolidaysJsonData {
@@ -58,6 +59,10 @@ public class HolidaysJsonData {
         }
 
         return gson.fromJson(jsonReader, HolidaysJsonData.class);
+    }
+
+    public static List<Holidays> returnOnlyHolidaysAsList(){
+        return new ArrayList<>(HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays());
     }
 
 }
