@@ -116,17 +116,15 @@
                             for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear())*3; i++) {
                                 dateList.add(LocalDate.now().plusDays(i));
 
-                                Holidays foundHoliday = null;
-                                boolean isNationalHoliday = false;
-                                String message = "";
+                                    boolean isNationalHoliday = false;
+                                    String message = "";
 
-                                for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
-                                    if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))){
-                                        isNationalHoliday = true;
-                                        foundHoliday = nationalHoliday;
-                                        message = nationalHoliday.getName();
+                                    for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
+                                        if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))){
+                                            isNationalHoliday = true;
+                                            message = nationalHoliday.getName();
+                                        }
                                     }
-                                }
 
                                 if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
                                         || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")
@@ -136,7 +134,7 @@
                             <button type="button" class="btn btn-warning rounded-0 m-0 p-0"
                                     style="height: 50px; width: 70px; font-size: xx-small"
                                     disabled>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= message%>
+                                <p style="margin-top: auto; margin-bottom: auto"><%= message.toUpperCase()%>
                                 </p>
                                 <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
                                 </p>
@@ -200,17 +198,11 @@
                                 <%
                                     for (LocalDate localDate: dateList) {
 
-                                        Holidays foundHoliday = null;
                                         boolean isNationalHoliday = false;
-                                        String message = "";
-                                        int i = 0;
 
                                         for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
                                             if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(localDate)){
                                                 isNationalHoliday = true;
-                                                foundHoliday = nationalHoliday;
-                                                message = nationalHoliday.getName();
-                                                i++;
                                             }
                                         }
 
@@ -232,6 +224,7 @@
                                     data-toggle="modal" data-target=".modalDay"
                                     style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
                                     disabled><%= localDate%>
+
                             </button>
                         </th>
                         <% } else {

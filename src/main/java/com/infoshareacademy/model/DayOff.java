@@ -4,10 +4,13 @@ import com.infoshareacademy.api.HolidayDate;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
 
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DayOff {
     private int id;
@@ -24,7 +27,7 @@ public class DayOff {
         this.startDay = startDay;
         this.endDay = endDay;
         this.idOfUser = idOfUser;
-        setListOfDays(startDay, endDay);
+        this.listOfDays = setListOfDays();
     }
 
     public int getId() {
@@ -63,7 +66,7 @@ public class DayOff {
         return listOfDays;
     }
 
-    public void setListOfDays(LocalDate startDay, LocalDate endDay) {
+ /*   public void setListOfDays(LocalDate startDay, LocalDate endDay) {
         List<LocalDate> listOfDays = new ArrayList<>();
         LocalDate date = startDay;
 
@@ -77,17 +80,29 @@ public class DayOff {
             }
         } while (date.isBefore(endDay));
     }
+*/
 
-    public void setDaysOffList() {
+
+    public List<LocalDate> setListOfDays() {
         List<LocalDate> daysOffList = new ArrayList<>();
-        LocalDate localDate = startDay;
-        for (int i = 0; i < this.listOfDays.size(); i++) {
-            daysOffList.add(localDate.plusDays(i));
-            //System.out.println(localDate.plusDays(i));
+        LocalDate dayOfStart = this.startDay;
+        LocalDate dayOfEnd = this.endDay;
+        long daysBetween = DAYS.between(dayOfStart, dayOfEnd);
+
+        for (long i = 0; i <= daysBetween; i++) {
+            System.out.println(dayOfStart.plusDays(i));
+            if(dayOfStart.plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
+                    || dayOfStart.plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday"))
+            {
+                System.out.println("Is saturday or sunday");
+            }
+            else {
+                daysOffList.add(dayOfStart.plusDays(i));
+            }
         }
-        //System.out.println(daysOffList.toString());
-        this.listOfDays = removeDayOffIfNationalHoliday(daysOffList);
+        return removeDayOffIfNationalHoliday(daysOffList);
     }
+
 
     @Override
     public boolean equals(Object o) {

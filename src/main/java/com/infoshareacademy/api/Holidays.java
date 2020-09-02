@@ -105,4 +105,15 @@ public class Holidays {
                             ,getHolidayDate().getHolidayDateTime().getMonth()
                             ,getHolidayDate().getHolidayDateTime().getDay());
     }
+
+    static public Holidays returnsAnyHolidayIsDateMatch(LocalDate localDate){
+
+        for(Holidays holidayDate : HolidaysJsonData.returnOnlyHolidaysAsList()){
+            if (holidayDate.getHolidayDateInLocalDateFormat().equals(localDate)){
+                return holidayDate;
+            }
+        }
+        return null;
+    }
+
 }
