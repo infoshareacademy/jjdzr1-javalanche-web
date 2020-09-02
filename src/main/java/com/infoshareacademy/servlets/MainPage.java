@@ -15,7 +15,7 @@ public class MainPage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        writer.println("com.infoshareacademy.App to holidays! ver.0.01\n");
+        writer.println("App to holidays! ver.0.01\n");
         writer.println("Created by jAvalanche");
 
     }
