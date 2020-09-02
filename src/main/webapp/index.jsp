@@ -52,7 +52,7 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush">
-            <a href="index.jsp" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
@@ -206,9 +206,7 @@
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
                                     data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                                    formmethod="post"
-                                    input type="hidden" name="date" value="<%=localDate%>"><%= localDate%>
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%= localDate%>
                             </button>
                         </th>
                         <%
