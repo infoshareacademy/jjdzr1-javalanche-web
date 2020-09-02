@@ -3,6 +3,7 @@ package com.infoshareacademy.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Holidays {
@@ -97,5 +98,11 @@ public class Holidays {
     @Override
     public String toString() {
         return "name: " + name + "\n" + "description: " + description + "\n" + country.toString() + "\n" + holidayDate.toString() + "\n" + "type: " + type + "\n" + "locations: " + locations + "\n" + "states: " + states + "\n" + "\n";
+    }
+
+    public LocalDate getHolidayDateInLocalDateFormat(){
+        return LocalDate.of(getHolidayDate().getHolidayDateTime().getYear()
+                            ,getHolidayDate().getHolidayDateTime().getMonth()
+                            ,getHolidayDate().getHolidayDateTime().getDay());
     }
 }
