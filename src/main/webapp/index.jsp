@@ -6,7 +6,9 @@
 <%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
 <%@ page import="com.infoshareacademy.model.DayOff" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
+<%@ page import="com.infoshareacademy.api.Holidays" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -110,14 +112,32 @@
                         <th scope="col" class="m-0 p-0"></th>
                         <%
                             List<LocalDate> dateList = new ArrayList<>();
-                            for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
+
+                            for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear())*3; i++) {
                                 dateList.add(LocalDate.now().plusDays(i));
-                                if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday") || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")) {
+
+                                Holidays foundHoliday = null;
+                                boolean isNationalHoliday = false;
+                                String message = "";
+
+                                for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
+                                    if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))){
+                                        isNationalHoliday = true;
+                                        foundHoliday = nationalHoliday;
+                                        message = nationalHoliday.getName();
+                                    }
+                                }
+
+                                if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
+                                        || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")
+                                        || isNationalHoliday) {
                         %>
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-warning rounded-0 m-0 p-0"
                                     style="height: 50px; width: 70px; font-size: xx-small"
                                     disabled>
+                                <p style="margin-top: auto; margin-bottom: auto"><%= message%>
+                                </p>
                                 <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
                                 </p>
                                 <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i)%>
@@ -164,6 +184,7 @@
                             }
                             userListMap.put(user, tempDayOffList);
                         }
+
                         for (User user : userRepository.getUsersList()) {
                     %>
                     <tr>
@@ -178,6 +199,21 @@
                             </button>
                                 <%
                                     for (LocalDate localDate: dateList) {
+
+                                        Holidays foundHoliday = null;
+                                        boolean isNationalHoliday = false;
+                                        String message = "";
+                                        int i = 0;
+
+                                        for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
+                                            if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(localDate)){
+                                                isNationalHoliday = true;
+                                                foundHoliday = nationalHoliday;
+                                                message = nationalHoliday.getName();
+                                                i++;
+                                            }
+                                        }
+
                                         if (userListMap.get(user).contains(localDate)) {
                                 %>
                         <th scope="col" class="m-0 p-0">
@@ -187,7 +223,9 @@
                             </button>
                         </th>
                         <%
-                        } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday") || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")) {
+                        } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday")
+                                || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")
+                                || isNationalHoliday) {
                         %>
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"

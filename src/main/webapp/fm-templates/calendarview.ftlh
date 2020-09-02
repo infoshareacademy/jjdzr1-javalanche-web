@@ -1,1 +1,0 @@
-<#include "/src/main/webapp/index.jsp">
