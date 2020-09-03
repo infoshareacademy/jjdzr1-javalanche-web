@@ -17,13 +17,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
+<title>Kalendarz urlopów</title>
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"></link>
@@ -88,13 +87,14 @@
                         <a class="nav-link" href="#">Ustawienia</a>
                     </li>
                     <script>
-                        $(document).ready(function() {
+                        $(document).ready(function () {
                             $(".dropdown-toggle").dropdown();
                         });
                     </script>
                     <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profil
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -126,15 +126,15 @@
                             for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
                                 dateList.add(LocalDate.now().plusDays(i));
 
-                                    boolean isNationalHoliday = false;
-                                    String message = "";
+                                boolean isNationalHoliday = false;
+                                String message = "";
 
-                                    for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
-                                        if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))){
-                                            isNationalHoliday = true;
-                                            message = nationalHoliday.getName();
-                                        }
+                                for (Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()) {
+                                    if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))) {
+                                        isNationalHoliday = true;
+                                        message = nationalHoliday.getName();
                                     }
+                                }
 
                                 if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
                                         || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")
@@ -284,10 +284,10 @@
     });
 </script>
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#calendarTable tr").filter(function() {
+            $("#calendarTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
