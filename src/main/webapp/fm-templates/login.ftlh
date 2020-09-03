@@ -31,10 +31,8 @@
 
                 </div> <!-- end login -->
                 <div class="logo">
-                    <p>
                         <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
                     <p>Kalendarz urlopów</p>
-                    </p>
 
                     <div class="clearfix"></div>
                 </div>
