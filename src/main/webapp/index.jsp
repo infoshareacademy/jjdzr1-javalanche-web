@@ -24,6 +24,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"></link>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
@@ -44,6 +48,7 @@
 
     <!-- Custom styles for table   -->
     <link href="css/table_date.css" rel="stylesheet">
+
 
 </head>
 
@@ -67,7 +72,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-primary" id="menu-toggle">Menu</button>
+            <button class="btn btn-outline-dark" id="menu-toggle">Menu</button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +87,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
+                    <script>
+                        $(document).ready(function() {
+                            $(".dropdown-toggle").dropdown();
+                        });
+                    </script>
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profil
                         </a>
@@ -92,6 +103,7 @@
                             <a class="dropdown-item" href="/login">Wyloguj</a>
                         </div>
                     </li>
+
                 </ul>
             </div>
         </nav>
@@ -102,7 +114,7 @@
                 <h3>
                     Wyszukaj użytkownika:
                 </h3>
-                <input class="form-control" id="myInput" type="text" placeholder="Wyszukaj"><br>
+                <input class="form-control" id="myInput" type="text" placeholder="Wyszukaj..."><br>
 
                 <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
                     <thead>
@@ -281,6 +293,7 @@
         });
     });
 </script>
+
 </body>
 
 </html>
