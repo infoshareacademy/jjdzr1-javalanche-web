@@ -52,14 +52,14 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Start Bootstrap</div>
+        <div class="sidebar-heading">
+            <img src="/images/javalanche2.jpg" alt="logo" width="144" height="60"/>
+        </div>
         <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Pracownicy</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Wnioski urlopowe</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Widok kalendarza</a>
+
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -67,7 +67,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+            <button class="btn btn-primary" id="menu-toggle">Menu</button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,21 +77,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profil
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Ustawienia</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="/login">Wyloguj</a>
                         </div>
                     </li>
                 </ul>
@@ -102,9 +100,9 @@
             <div class="container-fluid" style="overflow: auto">
                 <br>
                 <h3>
-                    Search by user:
+                    Wyszukaj użytkownika:
                 </h3>
-                <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+                <input class="form-control" id="myInput" type="text" placeholder="Wyszukaj"><br>
 
                 <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
                     <thead>
@@ -189,7 +187,7 @@
                         <th scope="col" class="m-0 p-0"
                             style="vertical-align: middle; text-align: end; font-size: x-small">
                             <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0"
-                                    style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
+                                    style="vertical-align: middle; text-align: center; font-size: small; width: 100px; height: 50px">
                                 <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
                                 </p>
                                 <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
