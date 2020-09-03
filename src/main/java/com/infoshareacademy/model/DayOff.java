@@ -66,23 +66,6 @@ public class DayOff {
         return listOfDays;
     }
 
- /*   public void setListOfDays(LocalDate startDay, LocalDate endDay) {
-        List<LocalDate> listOfDays = new ArrayList<>();
-        LocalDate date = startDay;
-
-        do {
-            if (date.getDayOfWeek().toString().equalsIgnoreCase("saturday") || date.getDayOfWeek().toString().equalsIgnoreCase("sunday")){
-                date = date.plusDays(1);
-            }
-            else {
-                listOfDays.add(date);
-                date = date.plusDays(1);
-            }
-        } while (date.isBefore(endDay));
-    }
-*/
-
-
     public List<LocalDate> setListOfDays() {
         List<LocalDate> daysOffList = new ArrayList<>();
         LocalDate dayOfStart = this.startDay;
@@ -102,7 +85,6 @@ public class DayOff {
         }
         return removeDayOffIfNationalHoliday(daysOffList);
     }
-
 
     @Override
     public boolean equals(Object o) {
