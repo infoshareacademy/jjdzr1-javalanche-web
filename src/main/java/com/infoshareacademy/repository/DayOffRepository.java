@@ -23,7 +23,8 @@ public class DayOffRepository {
         dayOffList.add(new DayOff(3,LocalDate.of(2020,9,2),LocalDate.of(2020,9,4),3));
         dayOffList.add(new DayOff(4,LocalDate.of(2020,9,14),LocalDate.of(2020,9,18),4));
         dayOffList.add(new DayOff(5,LocalDate.of(2020,9,1),LocalDate.of(2020,9,23),5));
-        dayOffList.add(new DayOff(6,LocalDate.of(2020,10,30),LocalDate.of(2020,11,12),8));
+        dayOffList.add(new DayOff(6,LocalDate.of(2020,10,20),LocalDate.of(2020,11,23),7));
+        dayOffList.add(new DayOff(7,LocalDate.of(2020,10,30),LocalDate.of(2020,12,31),8));
         setDayOffList(dayOffList);
     }
 

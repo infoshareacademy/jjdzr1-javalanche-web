@@ -27,7 +27,7 @@ public class DayOff {
         this.startDay = startDay;
         this.endDay = endDay;
         this.idOfUser = idOfUser;
-        this.listOfDays = setListOfDays();
+        setListOfDays(startDay, endDay);
     }
 
     public int getId() {
@@ -66,24 +66,21 @@ public class DayOff {
         return listOfDays;
     }
 
-    public List<LocalDate> setListOfDays() {
-        List<LocalDate> daysOffList = new ArrayList<>();
-        LocalDate dayOfStart = this.startDay;
-        LocalDate dayOfEnd = this.endDay;
-        long daysBetween = DAYS.between(dayOfStart, dayOfEnd);
+    public void setListOfDays(LocalDate startDay, LocalDate endDay) {
+        List<LocalDate> listOfDays = new ArrayList<>();
+        LocalDate date = startDay;
 
-        for (long i = 0; i <= daysBetween; i++) {
-            System.out.println(dayOfStart.plusDays(i));
-            if(dayOfStart.plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                    || dayOfStart.plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday"))
-            {
-                System.out.println("Is saturday or sunday");
+        do {
+            if (date.getDayOfWeek().toString().equalsIgnoreCase("saturday") || date.getDayOfWeek().toString().equalsIgnoreCase("sunday")){
+                date = date.plusDays(1);
             }
             else {
-                daysOffList.add(dayOfStart.plusDays(i));
+                listOfDays.add(date);
+                date = date.plusDays(1);
             }
-        }
-        return removeDayOffIfNationalHoliday(daysOffList);
+        } while (date.isBefore(endDay));
+
+        this.listOfDays = removeDayOffIfNationalHoliday(listOfDays);
     }
 
     @Override
@@ -112,16 +109,14 @@ public class DayOff {
 
     private List<LocalDate> removeDayOffIfNationalHoliday(List<LocalDate> daysOffList){
 
-        for(int i = 0; i < daysOffList.size(); i++){
+        for(int i = 0; i < daysOffList.size()-1; i++){
             for(int j = 0; j < nationalHolidaysParserToLocalDays().size(); j++){
 
-                System.out.println(daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j)));
                 if (daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j))){
                     daysOffList.remove(i);
                 }
             }
         }
-
         return daysOffList;
     }
 
