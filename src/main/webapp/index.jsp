@@ -85,7 +85,7 @@
                         <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Ustawienia</a>
                     </li>
                     <script>
                         $(document).ready(function() {
@@ -221,7 +221,7 @@
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-success rounded-0 m-0 p-0"
                                     data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Day Off
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Urlop
                             </button>
                         </th>
                         <%
