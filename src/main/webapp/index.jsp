@@ -1,14 +1,11 @@
 <%@ page import="com.infoshareacademy.model.User" %>
 <%@ page import="com.infoshareacademy.repository.UserRepository" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
 <%@ page import="com.infoshareacademy.model.DayOff" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
-<%@ page import="com.infoshareacademy.api.Holidays" %><%--
+<%@ page import="com.infoshareacademy.api.Holidays" %>
+<%@ page import="java.util.*" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -17,7 +14,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
-<title>Kalendarz urlopów</title>
+<title>Holiday calendar</title>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,9 +57,9 @@
             <img src="/images/javalanche2.jpg" alt="logo" width="144" height="60"/>
         </div>
         <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action bg-light">Pracownicy</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Wnioski urlopowe</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Widok kalendarza</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Employees</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Holiday request</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Calendar view</a>
 
         </div>
     </div>
@@ -70,8 +67,8 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-outline-dark" id="menu-toggle">Menu</button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+            <button class="btn btn-outline-light" id="menu-toggle">Menu</button>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,10 +78,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">Main page<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ustawienia</a>
+                        <a class="nav-link" href="#">Settings</a>
                     </li>
                     <script>
                         $(document).ready(function () {
@@ -95,12 +92,12 @@
 
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profil
+                            Profile
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Ustawienia</a>
+                            <a class="dropdown-item" href="#">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/login">Wyloguj</a>
+                            <a class="dropdown-item" href="/login">Logout</a>
                         </div>
                     </li>
 
@@ -112,9 +109,9 @@
             <div class="container-fluid" style="overflow: auto">
                 <br>
                 <h3>
-                    Wyszukaj użytkownika:
+                    Search for employee:
                 </h3>
-                <input class="form-control" id="myInput" type="text" placeholder="Wyszukaj..."><br>
+                <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
                 <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
                     <thead>
@@ -221,7 +218,7 @@
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-success rounded-0 m-0 p-0"
                                     data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Urlop
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Day off
                             </button>
                         </th>
                         <%

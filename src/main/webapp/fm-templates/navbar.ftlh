@@ -11,19 +11,9 @@
             <div class="navbar-nav ml-auto">
                 <a href="ustawienia uzytkownika" class="nav-item nav-link">
                     <span class="Ustawienia"></span></a>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profil
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">${username}</a>
-                        <a class="dropdown-item" href="#">Ustawienia</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/login">Wyloguj</a>
-                    </div>
-                </li>
             </div>
         </div>
+        
     </nav>
 </div>
 
