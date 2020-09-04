@@ -37,28 +37,28 @@ public class LoginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-//TODO autentication
-       // if (isAuthenticated(username, password)) {
+//TODO authentication
+        if (isAuthenticated(username, password)) {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/main.jsp");
             view.forward(req, resp);
 
-      //  } else {
-//            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
-//            view.forward(req, resp);
-//        }
+        } else {
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
+            view.forward(req, resp);
+        }
     }
 
-//    private boolean isAuthenticated(String username, String password){
-//        UserRepository userRepository = new UserRepository();
-//        userRepository.fillUsersList();
-//        boolean isAuthenticated = false;
-//        for (User user: userRepository.getUsersList()
-//        ) {
-//            if (user.getEmail().equalsIgnoreCase(username) && user.getPassword().equals(password)){
-//                isAuthenticated = true;
-//                break;
-//            }
-//        }
-//        return isAuthenticated;
-//    }
+    private boolean isAuthenticated(String username, String password){
+        UserRepository userRepository = new UserRepository();
+        userRepository.fillUsersList();
+        boolean isAuthenticated = false;
+        for (User user: userRepository.getUsersList()
+        ) {
+            if (user.getEmail().equalsIgnoreCase(username) && user.getPassword().equals(password)){
+                isAuthenticated = true;
+                break;
+            }
+        }
+        return isAuthenticated;
+    }
 }
