@@ -1,6 +1,8 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.api.Holidays;
+import com.infoshareacademy.api.HolidaysJsonData;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.UserRepository;
 import freemarker.template.Template;

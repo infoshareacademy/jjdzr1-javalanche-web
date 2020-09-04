@@ -1,7 +1,16 @@
 package com.infoshareacademy.model;
 
+import com.infoshareacademy.api.HolidayDate;
+import com.infoshareacademy.api.Holidays;
+import com.infoshareacademy.api.HolidaysJsonData;
+
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DayOff {
     private int id;
@@ -71,7 +80,7 @@ public class DayOff {
             }
         } while (date.isBefore(endDay));
 
-        this.listOfDays = listOfDays;
+        this.listOfDays = removeDayOffIfNationalHoliday(listOfDays);
     }
 
     @Override
@@ -96,5 +105,29 @@ public class DayOff {
                 ", idOfUser=" + idOfUser +
                 ", listOfDays=" + listOfDays +
                 '}';
+    }
+
+    private List<LocalDate> removeDayOffIfNationalHoliday(List<LocalDate> daysOffList){
+
+        for(int i = 0; i < daysOffList.size()-1; i++){
+            for(int j = 0; j < nationalHolidaysParserToLocalDays().size(); j++){
+
+                if (daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j))){
+                    daysOffList.remove(i);
+                }
+            }
+        }
+        return daysOffList;
+    }
+
+    private List<LocalDate> nationalHolidaysParserToLocalDays(){
+        List<LocalDate> datesAaLocalDate = new ArrayList<>();
+        List<Holidays> holidays = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
+        for(Holidays holiday : holidays){
+            datesAaLocalDate.add(LocalDate.of(holiday.getHolidayDate().getHolidayDateTime().getYear(),
+                                               holiday.getHolidayDate().getHolidayDateTime().getMonth(),
+                                               holiday.getHolidayDate().getHolidayDateTime().getDay()));
+        }
+        return datesAaLocalDate;
     }
 }
