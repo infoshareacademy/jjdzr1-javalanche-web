@@ -42,6 +42,7 @@ function modules() {
   return merge(bootstrap, jquery);
 }
 
+
 // Watch files
 function watchFiles() {
   gulp.watch("./**/*.css", browserSyncReload);
