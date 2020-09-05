@@ -21,6 +21,9 @@
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
+  $(document).ready(function() {
+    $(".dropdown-toggle").dropdown();
+  });
 
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
@@ -4417,4 +4420,5 @@
   Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+
 //# sourceMappingURL=bootstrap.js.map

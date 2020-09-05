@@ -1,5 +1,8 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.TemplateProvider;
+import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -26,18 +29,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
-
-        Template template = TemplateProvider.createTemplate(getServletContext(), "login.ftlh");
-
-        Map<String, Object> dataModel = new HashMap<>();
-
-        dataModel.put("zmienna", "Moja Zmianne");
-
-        try {
-            template.process(dataModel, writer);
-        } catch (TemplateException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-        }
+        RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
     }
 
     @Override
@@ -46,20 +38,28 @@ public class LoginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-
-        if (username.equals("jan@kowalski.pl") && password.equals("1234")) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
+//TODO authentication
+        if (isAuthenticated(username, password)) {
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/main.jsp");
             view.forward(req, resp);
 
         } else {
-            Template template = TemplateProvider.createTemplate(getServletContext(), "login.ftlh");
-            Map<String, Object> dataModel = new HashMap<>();
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
+            view.forward(req, resp);
+        }
+    }
 
-            try {
-                template.process(dataModel, writer);
-            } catch (TemplateException e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
+    private boolean isAuthenticated(String username, String password){
+        UserRepository userRepository = new UserRepository();
+        userRepository.fillUsersList();
+        boolean isAuthenticated = false;
+        for (User user: userRepository.getUsersList()
+        ) {
+            if (user.getEmail().equalsIgnoreCase(username) && user.getPassword().equals(password)){
+                isAuthenticated = true;
+                break;
             }
         }
+        return isAuthenticated;
     }
 }
