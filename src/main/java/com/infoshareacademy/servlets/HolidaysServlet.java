@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.TemplateProvider;
+import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
 import com.infoshareacademy.api.ServerResponse;
