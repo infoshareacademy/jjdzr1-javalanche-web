@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -45,6 +46,15 @@ public class FormsServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         Template template = TemplateProvider.createTemplate(getServletContext(), "form.ftlh");
+
+
+        String email = req.getParameter("e-mail");
+        String password = req.getParameter("password");
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+
+        String startDay = req.getParameter("startDay");
+        String endDay = req.getParameter("endDate");
 
         Map<String, Object> dataModel = new HashMap<>();
 
