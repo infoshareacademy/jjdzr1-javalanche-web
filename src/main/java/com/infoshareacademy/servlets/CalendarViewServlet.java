@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.TemplateProvider;
+import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
 import com.infoshareacademy.repository.DayOffRepository;
@@ -42,8 +42,6 @@ public class CalendarViewServlet extends HttpServlet {
         } catch (TemplateException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
-
-
     }
 
     @Override

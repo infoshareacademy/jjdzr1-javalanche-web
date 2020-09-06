@@ -13,7 +13,7 @@
                     <span class="Ustawienia"></span></a>
             </div>
         </div>
-        
+
     </nav>
 </div>
 
@@ -39,7 +39,7 @@
 
         <li class="nav-item dropdown ml-auto">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                ${username}
+<#--                ${username}-->
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Profil</a>
