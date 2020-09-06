@@ -1,11 +1,6 @@
 <%@ page import="com.infoshareacademy.model.User" %>
 <%@ page import="com.infoshareacademy.repository.UserRepository" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
-<%@ page import="com.infoshareacademy.model.DayOff" %>
-<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
-<%@ page import="com.infoshareacademy.api.Holidays" %>
-<%@ page import="java.util.*" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -44,7 +39,6 @@
 
     <!-- Custom styles for table   -->
     <link href="css/table_date.css" rel="stylesheet">
-
 
 </head>
 
