@@ -6,44 +6,49 @@
 <body>
 <div class="container">
     <form action="/forms" method="post">
-            <div class="row">
-                <div class="form-group form-field-width">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group form-field-width">
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
+        <label>Add user request</label>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
             </div>
-            <div class="row">
-                <div>
-                    <input class="form-control form-field-width" type="text" placeholder="First Name">
-                </div>
-                <div>
-                    <input class="form-control form-field-width" type="text" placeholder="Surname">
-                </div>
+            <div class="form-group col-md-6">
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
             </div>
-            <div class="row">
-                <button type="reset" class="btn btn-dark form-field-width">Reset</button>
-                <button type="submit" class="btn btn-dark form-field-width">Submit</button>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="inputFirstName" class="form-control" id="inputFirstName" placeholder="First Name">
             </div>
+            <div class="form-group col-md-6">
+                <input type="inputSurname" class="form-control" id="inputSurname" placeholder="Surname">
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="button-position btn btn-dark" type="submit" class="btn btn-dark button-position">Submit</button>
+            <button class="button-position btn btn-dark" type="reset" class="btn btn-dark button-position">Reset</button>
+        </div>
     </form>
 
     <form action="/forms" method="post">
-        <div class="row">
-            <div>
-                <input class="form-control form-field-width" type="date" id="startDay" name="trip-start"
+        <p>.</p>
+        <p>.</p>
+        <p>.</p>
+        <label>Place holiday request</label>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="form-control form-field-width form-group" type="date" id="startDay" name="trip-start"
                        value="2018-07-22"
                        min="2018-01-01" max="2018-12-31">
             </div>
-            <div>
-                <input class="form-control form-field-width" type="date" id="endDay" name="trip-end"
+            <div class="form-group col-md-6">
+                <input class="col form-control form-field-width form-group" type="date" id="endDay" name="trip-end"
                        value="2018-07-22"
                        min="2018-01-01" max="2018-12-31">
             </div>
         </div>
-        <div class="row">
-            <button type="reset" class="btn btn-dark form-field-width">Reset</button>
-            <button type="submit" class="btn btn-dark form-field-width">Submit</button>
+        <div class="button-container">
+            <button class="button-position btn btn-dark" type="submit" class="btn btn-dark button-position">Submit</button>
+            <button class="button-position btn btn-dark" type="reset" class="btn btn-dark button-position">Reset</button>
         </div>
     </form>
 </div>

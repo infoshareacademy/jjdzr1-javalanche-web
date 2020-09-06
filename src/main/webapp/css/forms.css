@@ -1,10 +1,26 @@
+
 .container {
-    left: 50%;
-    position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: 50%;
+    margin: 0 auto;
 }
+
+
+/*
+.button-container {
+    padding: 2px;
+    margin: 2px;
+}
+*/
+
+.button-position {
+    display: inline-block;
+    cursor: pointer;
+    float: right;
+    padding: 10px;
+    margin: 5px;
+}
+/*
 
 .form-field-width {
     margin: 5px;
-}
+}*/
