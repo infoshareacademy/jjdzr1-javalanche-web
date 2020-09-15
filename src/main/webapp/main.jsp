@@ -6,8 +6,8 @@
 <%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
 <%@ page import="com.infoshareacademy.api.Holidays" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.infoshareacademy.service.DayOffDaoService" %>
-<%@ page import="com.infoshareacademy.service.UserDaoService" %><%--
+<%@ page import="com.infoshareacademy.service.DayOffService" %>
+<%@ page import="com.infoshareacademy.service.UserService" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -127,8 +127,8 @@
                     </tr>
                     </thead>
                     <%
-                        DayOffDaoService dayOffDaoService = (DayOffDaoService) request.getAttribute("dayOffDaoService");
-                        UserDaoService userDaoService = (UserDaoService) request.getAttribute("userDaoService");
+                        DayOffService dayOffDaoService = (DayOffService) request.getAttribute("dayOffDaoService");
+                        UserService userDaoService = (UserService) request.getAttribute("userDaoService");
                     %>
                     <tbody id="calendarTable">
                     <%

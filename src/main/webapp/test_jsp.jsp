@@ -1,4 +1,13 @@
-<%--
+<%@ page import="com.infoshareacademy.model.User" %>
+<%@ page import="com.infoshareacademy.repository.UserRepository" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
+<%@ page import="com.infoshareacademy.model.DayOff" %>
+<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
+<%@ page import="com.infoshareacademy.api.Holidays" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.infoshareacademy.service.DayOffService" %>
+<%@ page import="com.infoshareacademy.service.UserService" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -48,43 +57,14 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
+
         <%@include file="navbar.jsp"%>
 
         <!-- testowa czesc strony -->
         <div class="container-fluid">
-            <br>
-            <h3>Holiday request</h3><br><br>
+            <h3>TEST</h3>
 
-            <form method="get" action="/addholidayrequest">
-                <div class="form-group row">
-                    <label for="startDay" class="col-sm-1 col-form-label">First day:</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="firstDay" name="firstDay">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="endDay" class="col-sm-1 col-form-label">Last day:</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="lastDay"  name="lastDay">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputTypeOfLeave" class="col-sm-1 col-form-label">Type of leave:</label>
-                    <div class="col-sm-3">
-                        <select id="inputTypeOfLeave" class="form-control">
-                            <option>Vacation leave</option>
-                            <option>Maternity leave</option>
-                            <option>Parental leave</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-5">
-                        <button type="submit" class="btn btn-primary">Send request</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        <div>
         <!-- // testowa czesc strony -->
     </div>
 

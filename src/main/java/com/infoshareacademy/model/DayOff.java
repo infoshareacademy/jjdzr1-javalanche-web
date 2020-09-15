@@ -15,11 +15,11 @@ public class DayOff implements Serializable {
     @Column(name = "dayOff_id", nullable = false)
     private int id;
 
-    @Column(name = "dayOff_startDay", nullable = false)
-    private LocalDate startDay;
+    @Column(name = "dayOff_firstDay", nullable = false)
+    private LocalDate firstDay;
 
-    @Column(name = "dayOff_endDay", nullable = false)
-    private LocalDate endDay;
+    @Column(name = "dayOff_lastDay", nullable = false)
+    private LocalDate lastDay;
 
     @ManyToOne
     private User user;
@@ -39,20 +39,20 @@ public class DayOff implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getStartDay() {
-        return startDay;
+    public LocalDate getFirstDay() {
+        return firstDay;
     }
 
-    public void setStartDay(LocalDate startDay) {
-        this.startDay = startDay;
+    public void setFirstDay(LocalDate firstDay) {
+        this.firstDay = firstDay;
     }
 
-    public LocalDate getEndDay() {
-        return endDay;
+    public LocalDate getLastDay() {
+        return lastDay;
     }
 
-    public void setEndDay(LocalDate endDay) {
-        this.endDay = endDay;
+    public void setLastDay(LocalDate lastDay) {
+        this.lastDay = lastDay;
     }
 
     public User getUser() {
@@ -88,8 +88,8 @@ public class DayOff implements Serializable {
     public String toString() {
         return "DayOff{" +
                 "id=" + id +
-                ", startDay=" + startDay +
-                ", endDay=" + endDay +
+                ", firstDay=" + firstDay +
+                ", lastDay=" + lastDay +
                 ", user=" + user +
                 ", listOfDays=" + listOfDays +
                 '}';

@@ -1,7 +1,11 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.service.DayOffDaoService;
-import com.infoshareacademy.service.UserDaoService;
+import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.UserRepository;
+import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -9,21 +13,21 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 
     @Inject
-    UserDaoService userDaoService;
+    private UserService userService;
     @Inject
-    DayOffDaoService dayOffDaoService;
+    private DayOffService dayOffService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        req.setAttribute("userDaoService", userDaoService);
-        req.setAttribute("dayOffDaoService", dayOffDaoService);
+        req.setAttribute("users", userService.getAll());
 
         HttpSession session = req.getSession();
 
@@ -41,14 +45,12 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        req.setAttribute("userDaoService", userDaoService);
-        req.setAttribute("dayOffDaoService", dayOffDaoService);
+//        List<UserDto> users = userDaoService.getAll();
+//
+//        req.setAttribute("userDaoService", userDaoService);
+//        req.setAttribute("dayOffDaoService", dayOffDaoService);
 
         HttpSession session = req.getSession();
-
-        System.out.println("\n\n\n\n");
-        System.out.println(session.getAttribute("username"));
-        System.out.println("\n\n\n\n");
 
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/main.jsp");

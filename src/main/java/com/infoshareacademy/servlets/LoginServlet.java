@@ -1,8 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.UserDaoService;
-
+import com.infoshareacademy.service.ValidationService;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,12 +12,10 @@ import java.util.logging.Logger;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    Logger logger = Logger.getLogger(getClass().getName());
+    private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     @Inject
-    UserDaoService userDaoService;
-
-    private User loggedUser;
+    ValidationService validationService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,8 +31,8 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         HttpSession session;
 
-        if (isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
+        if (validationService.isAuthenticated(username, password)) {
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/test_jsp.jsp");
 
             session = req.getSession();
             session.setAttribute("username", username);
@@ -44,29 +40,8 @@ public class LoginServlet extends HttpServlet {
             view.forward(req, resp);
 
         } else {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/login");
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
             view.forward(req, resp);
         }
-    }
-
-
-    private boolean isAuthenticated(String username, String password){
-        boolean isAuthenticated = false;
-        for (User user: userDaoService.getAll()) {
-            if (user.getEmail().equals(username) && user.getPassword().equals(password)){
-                isAuthenticated = true;
-                setLoggedUser(user);
-                break;
-            }
-        }
-        return isAuthenticated;
-    }
-
-    public User getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void setLoggedUser(User loggedUser) {
-        this.loggedUser = loggedUser;
     }
 }
