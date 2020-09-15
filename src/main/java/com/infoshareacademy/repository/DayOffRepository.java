@@ -28,6 +28,12 @@ public class DayOffRepository {
         setDayOffList(dayOffList);
     }
 
+    @Override
+    public String toString() {
+        return "DayOffRepository{" +
+                "dayOffList=" + dayOffList.get(1).toString() +
+                '}';
+    }
 
 
 
