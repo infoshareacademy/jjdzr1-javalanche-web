@@ -4,6 +4,7 @@ import com.infoshareacademy.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,13 +49,29 @@ public class FormsServlet extends HttpServlet {
         Template template = TemplateProvider.createTemplate(getServletContext(), "form.ftlh");
 
 
-        String email = req.getParameter("e-mail");
-        String password = req.getParameter("password");
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
+        String email = req.getParameter("addUserEmail");
+        String password = req.getParameter("addUserPassword");
+        String firstName = req.getParameter("addUserFirstName");
+        String lastName = req.getParameter("addUserSurname");
 
         String startDay = req.getParameter("startDay");
         String endDay = req.getParameter("endDate");
+
+
+        RequestDispatcher view = getServletContext().getRequestDispatcher("/forms");
+
+        String htmlRespone = "<html>";
+        htmlRespone += "Your email is: " + email + "\n";
+        htmlRespone += "Your password is: " + password + "\n";
+        htmlRespone += "Your firstName is: " + firstName + "\n";
+        htmlRespone += "Your lastName is: " + lastName + "\n";
+        htmlRespone += "</html>";
+
+        // return response
+        writer.println(htmlRespone);
+
+        logger.log(Level.INFO, email + " " + password + " " + firstName + " " + lastName);
+        writer.write(email + " " + password + " " + firstName + " " + lastName);
 
         Map<String, Object> dataModel = new HashMap<>();
 
