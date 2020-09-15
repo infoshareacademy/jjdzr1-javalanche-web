@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/main.jsp");
         }
         else {
-            view = getServletContext().getRequestDispatcher("/login");
+            view = getServletContext().getRequestDispatcher("/404.html");
         }
 
         view.forward(req, resp);
@@ -54,7 +54,7 @@ public class MainServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/main.jsp");
         }
         else {
-            view = getServletContext().getRequestDispatcher("/login");
+            view = getServletContext().getRequestDispatcher("/404.html");
         }
 
         view.forward(req, resp);
