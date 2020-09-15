@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>jAvalanche</title>
-    <meta http-equiv="Refresh" content="0; URL=http://localhost:8080/login.jsp">
+    <meta http-equiv="Refresh" content="0; URL=http://localhost:8080/login">
 </head>
 <body>
 

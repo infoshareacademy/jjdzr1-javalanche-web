@@ -5,7 +5,9 @@
 <%@ page import="com.infoshareacademy.model.DayOff" %>
 <%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
 <%@ page import="com.infoshareacademy.api.Holidays" %>
-<%@ page import="java.util.*" %><%--
+<%@ page import="java.util.*" %>
+<%@ page import="com.infoshareacademy.service.DayOffDaoService" %>
+<%@ page import="com.infoshareacademy.service.UserDaoService" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -51,47 +53,12 @@
 <body>
 <div class="d-flex" id="wrapper">
 
-    <%@ include file="sidebar.jsp"%>
+    <%@ include file="sidebar.jsp" %>
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-            <button class="btn btn-outline-light" id="menu-toggle">Menu</button>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Main page<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Settings</a>
-                    </li>
-                    <script>
-                        $(document).ready(function () {
-                            $(".dropdown-toggle").dropdown();
-                        });
-                    </script>
-                    <li class="nav-item dropdown">
-
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profile
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/login.jsp">Logout</a>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </nav>
+        <%@include file="navbar.jsp"%>
 
         <div class="container-fluid">
             <div class="container-fluid" style="overflow: auto">
@@ -159,116 +126,100 @@
                         %>
                     </tr>
                     </thead>
+                    <%
+                        DayOffDaoService dayOffDaoService = (DayOffDaoService) request.getAttribute("dayOffDaoService");
+                        UserDaoService userDaoService = (UserDaoService) request.getAttribute("userDaoService");
+                    %>
                     <tbody id="calendarTable">
                     <%
-                        DayOffRepository dayOffRepository = new DayOffRepository();
-                        dayOffRepository.fillDayOffList();
-                        UserRepository userRepository = new UserRepository();
-                        userRepository.fillUsersList();
-                        Map<User, List<LocalDate>> userListMap = new HashMap<>();
-                        String modalUserId = null;
-                        for (User user : userRepository.getUsersList()) {
-                            List<LocalDate> tempDayOffList = new ArrayList<>();
-                            for (DayOff dayOff : dayOffRepository.getDayOffList()) {
-                                if (user.getId() == dayOff.getIdOfUser()) {
-                                    for (LocalDate date : dayOff.getListOfDays()) {
-                                        tempDayOffList.add(date);
-                                    }
-                                }
-                            }
-                            userListMap.put(user, tempDayOffList);
-                        }
-
-                        for (User user : userRepository.getUsersList()) {
-                            modalUserId = "modalUser".concat(String.valueOf(user.getId()));
+                        for (User u : userDaoService.getAll()) {
+                            List<LocalDate> listOfDaysOff = new ArrayList<>();
+                            dayOffDaoService.getDaysOffByUserId(u.getId()).forEach(dayOff -> {
+                                dayOff.getListOfDays().forEach(localDate -> {
+                                    listOfDaysOff.add(localDate);
+                                });
+                            });
                     %>
+                    <!-- Pęta do wyświetlania użytkowników -->
                     <tr>
-                        <th scope="col" class="m-0 p-0"
+                        <!-- Wyświetlanie kolumny z użytkownikami -->
+                        <td scope="col" class="m-0 p-0"
                             style="vertical-align: middle; text-align: end; font-size: x-small">
-                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0" data-toggle="modal" data-target=#<%=modalUserId %>
+                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0" data-toggle="modal"
+                                    data-target=#
                                     style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
-                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
+                                <p style="margin-top: auto; margin-bottom: auto"><%= u.getFirstName()%>
                                 </p>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
+                                <p style="margin-top: auto; margin-bottom: auto"><%= u.getLastName()%>
                                 </p>
                             </button>
-                            <div id="<%=modalUserId%>" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
+                        </td>
+                        <!--// Wyświetlanie kolumny z użytkownikami -->
+                        <!-- Wyświetlanie wierszy kalendarza dla każdego użytkownika -->
+                        <%
+                            for (int i = 0; i < 30; i++) {
+                                if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
+                                        || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")) {
+                        %>
+                        <td scope="col" class="m-0 p-0">
+                            <button type="button" class="btn btn-secondary rounded-0 m-0 p-0" data-toggle="modal"
+                                    data-target=".modalDay"
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
+                                    disabled><%=LocalDate.now().plusDays(i)%>
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <%--                                            <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-                                            <h4 class="modal-title">Employee overview</h4>
-                                        </div>
-                                        <div class="modal-body" style="vertical-align: middle; text-align: left; font-size: medium;">
-                                            <p>Employee Id: <%= userRepository.getUsersList().get(user.getId()-1).getId() %></p>
-                                            <p>Name: <%= userRepository.getUsersList().get(user.getId()-1).getFirstName() %></p>
-                                            <p>Last name: <%= userRepository.getUsersList().get(user.getId()-1).getLastName() %></p>
-                                            <p>Email address: <%= userRepository.getUsersList().get(user.getId()-1).getEmail() %></p>
-                                            <p>Number of remaining days off: <%= userRepository.getUsersList().get(user.getId()-1).getDaysOffLeft() %></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                                <%
-                                    for (LocalDate localDate: dateList) {
-
-                                        boolean isNationalHoliday = false;
-
-                                        for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
-                                            if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(localDate)){
-                                                isNationalHoliday = true;
-                                            }
-                                        }
-
-                                        if (userListMap.get(user).contains(localDate)) {
-                                %>
-                        <th scope="col" class="m-0 p-0">
+                            </button>
+                        </td>
+                        <%
+                        }
+                                else if (listOfDaysOff.contains(LocalDate.now().plusDays(i))) {
+                        %>
+                        <td scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-success rounded-0 m-0 p-0"
                                     data-toggle="modal" data-target=".modalDay"
                                     style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Day off
                             </button>
-                        </th>
+                        </td>
                         <%
-                        } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                                || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")
-                                || isNationalHoliday) {
+                        }
+                                else {
                         %>
-                        <th scope="col" class="m-0 p-0">
+                        <td scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
                                     data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                                    disabled><%= localDate%>
-
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%= LocalDate.now().plusDays(i)%>
                             </button>
-                        </th>
-                        <% } else {
-                        %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
-                                    data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%= localDate%>
-                            </button>
-                        </th>
+                        </td>
                         <%
                                 }
                             }
                         %>
-                        </th>
+                        <!--// Wyświetlanie wierszy kalendarza dla każdego użytkownika-->
                     </tr>
+
                     <%
                         }
                     %>
+                    <!--// Pęta do wyświetlania użytkowników -->
                     </tbody>
                 </table>
             </div>
         </div>
+        <!-- testowa czesc strony -->
+        <div>
+            <% for (Cookie c: request.getCookies()) {
+            %>
+                <br><%= c.getName()%>
+                <br><%= c.getValue()%>
+                <br><% if (c.getName().equalsIgnoreCase("id"))%><%=userDaoService.getUserById(Integer.parseInt(c.getValue()))%>
+            <%
+                }
+            %>
+
+        </div>
+        <!-- // testowa czesc strony -->
     </div>
+
+
     <!-- /#page-content-wrapper -->
 </div>
 <!-- /#wrapper -->
