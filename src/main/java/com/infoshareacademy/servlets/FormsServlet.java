@@ -1,7 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.TemplateProvider;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.servlet.RequestDispatcher;
@@ -28,16 +26,7 @@ public class FormsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
 
-        Template template = TemplateProvider.createTemplate(getServletContext(), "form.ftlh");
-
         Map<String, Object> dataModel = new HashMap<>();
-
-        try {
-            template.process(dataModel, writer);
-        } catch (TemplateException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-        }
-
 
     }
 
@@ -45,8 +34,6 @@ public class FormsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = resp.getWriter();
-
-        Template template = TemplateProvider.createTemplate(getServletContext(), "form.ftlh");
 
 
         String email = req.getParameter("addUserEmail");
@@ -75,10 +62,5 @@ public class FormsServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        try {
-            template.process(dataModel, writer);
-        } catch (TemplateException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-        }
     }
 }
