@@ -13,9 +13,19 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher view = getServletContext().getRequestDispatcher("/logout.jsp");
+        resp.setCharacterEncoding("UTF-8");
+        RequestDispatcher view;
+
         HttpSession session = req.getSession();
-        session.invalidate();
-        view.forward(req, resp);
+
+        if (session.getAttribute("username") != null) {
+            view = getServletContext().getRequestDispatcher("/logout.jsp");
+            session.invalidate();
+        }
+        else {
+            view = getServletContext().getRequestDispatcher("/404.html");
+            session.invalidate();
+        }
+        view.forward(req,resp);
     }
 }

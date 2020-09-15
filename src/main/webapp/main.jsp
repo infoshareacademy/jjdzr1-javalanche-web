@@ -206,14 +206,7 @@
         </div>
         <!-- testowa czesc strony -->
         <div>
-            <% for (Cookie c: request.getCookies()) {
-            %>
-                <br><%= c.getName()%>
-                <br><%= c.getValue()%>
-                <br><% if (c.getName().equalsIgnoreCase("id"))%><%=userDaoService.getUserById(Integer.parseInt(c.getValue()))%>
-            <%
-                }
-            %>
+
 
         </div>
         <!-- // testowa czesc strony -->
