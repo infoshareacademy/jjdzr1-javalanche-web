@@ -32,7 +32,7 @@
                 <%
                     List<LocalDate> dateList = new ArrayList<>();
 
-                    for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear())*4; i++) {
+                    for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
                         dateList.add(LocalDate.now().plusDays(i));
 
                         boolean isNationalHoliday = false;
@@ -201,6 +201,7 @@
             <%
                 }
             %>
+
             </tbody>
         </table>
     </div>
