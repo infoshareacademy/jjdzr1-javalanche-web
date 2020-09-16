@@ -55,12 +55,12 @@ public class DayOffService {
         return dateList;
     }
 
-    public Map<String, List<LocalDate>> mapUsersWithDaysOff(){
-        Map<String, List<LocalDate>> map = new LinkedHashMap<>();
+    public Map<String, List<String>> mapUsersWithDaysOff(){
+        Map<String, List<String>> map = new LinkedHashMap<>();
         for (UserDto user: userService.getAll()) {
-            List<LocalDate> dates = new ArrayList<>();
+            List<String> dates = new ArrayList<>();
             for (DayOffDto day: getByUserEmail(user.getEmail())) {
-                day.getListOfDays().forEach(localDate -> dates.add(localDate));
+                day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
             }
             map.put(user.getEmail(), dates);
         }

@@ -37,9 +37,8 @@ public class TestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        req.setAttribute("calendarView", calendarService.getCalendarView());
+        req.setAttribute("calendarView", calendarService.calendarView(130));
         req.setAttribute("users", userService.getAll());
-        req.setAttribute("dayOff", dayOffService.getByUserEmail("jan@kowalski.pl"));
         req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {

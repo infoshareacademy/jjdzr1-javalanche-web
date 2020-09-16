@@ -30,14 +30,14 @@ public class AddHolidayRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        LocalDate firstDay = LocalDate.parse(req.getParameter("firstDay"));
-        LocalDate lastDay = LocalDate.parse(req.getParameter("lastDay"));
         RequestDispatcher view;
 
         HttpSession session = req.getSession();
 
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/test");
+            LocalDate firstDay = LocalDate.parse(req.getParameter("firstDay"));
+            LocalDate lastDay = LocalDate.parse(req.getParameter("lastDay"));
 
             DayOff dayOff = new DayOff();
             dayOff.setUser(userRepository.findByEmail((String) session.getAttribute("username")));
