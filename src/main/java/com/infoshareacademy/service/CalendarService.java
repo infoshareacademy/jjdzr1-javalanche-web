@@ -2,16 +2,18 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
-
 import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Local
 public class CalendarService {
+
+    private static final Logger logger = Logger.getLogger(CalendarService.class.getName());
 
     private Map<LocalDate, String> holidaysMap() {
         Map<LocalDate, String> holidaysMap = new LinkedHashMap<>();

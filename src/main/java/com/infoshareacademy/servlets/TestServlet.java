@@ -3,7 +3,6 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.service.CalendarService;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.UserService;
-
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {
@@ -23,6 +23,8 @@ public class TestServlet extends HttpServlet {
     private UserService userService;
     @Inject
     private DayOffService dayOffService;
+
+    private static final Logger logger = Logger.getLogger(TestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +44,7 @@ public class TestServlet extends HttpServlet {
         req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/test_jsp.jsp");
+            view = getServletContext().getRequestDispatcher("/main");
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");

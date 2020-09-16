@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 @WebServlet("/addholidayrequest")
 public class AddHolidayRequestServlet extends HttpServlet {
@@ -26,6 +27,8 @@ public class AddHolidayRequestServlet extends HttpServlet {
 
     @Inject
     private DayOffService dayOffService;
+
+    private static final Logger logger = Logger.getLogger(AddHolidayRequestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

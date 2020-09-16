@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -19,6 +20,8 @@ public class MainServlet extends HttpServlet {
     private UserService userService;
     @Inject
     private DayOffService dayOffService;
+
+    private static final Logger logger = Logger.getLogger(MainServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

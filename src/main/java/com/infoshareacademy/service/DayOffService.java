@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Local
@@ -20,6 +21,8 @@ public class DayOffService {
     private DayOffRepository dayOffRepository;
     @Inject
     private UserService userService;
+
+    private static final Logger logger = Logger.getLogger(DayOffService.class.getName());
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();

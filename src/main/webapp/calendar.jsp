@@ -6,14 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div class="container-fluid">
-    <h3>TEST</h3>
+    <h3 class="h3">Calendar</h3>
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
     <!-- ----------------------------------------------------------------------------------------------- -->
     <!-- ----------------------------------------------------------------------------------------------- -->
     <!-- ----------------------------------------------------------------------------------------------- -->
-
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>
@@ -106,7 +105,6 @@
             </tbody>
         </table>
     </div>
-
     <!-- ----------------------------------------------------------------------------------------------- -->
     <!-- ----------------------------------------------------------------------------------------------- -->
     <!-- ----------------------------------------------------------------------------------------------- -->
