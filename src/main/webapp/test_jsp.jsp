@@ -52,7 +52,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-        <%@include file="navbar.jsp"%>
+        <%@include file="navbar.jsp" %>
 
         <!-- testowa czesc strony -->
         <div class="container-fluid">
@@ -77,12 +77,12 @@
                     <tr>
                         <th scope="col" class="m-0 p-0"></th>
                         <%
-                            for (String date: calendarView) {
+                            for (String date : calendarView) {
                                 if (date.contains("MONDAY")
                                         || date.contains("TUESDAY")
                                         || date.contains("WEDNESDAY")
                                         || date.contains("THURSDAY")
-                                        || date.contains("FRIDAY")){
+                                        || date.contains("FRIDAY")) {
                         %>
                         <th scope="col" class="m-0 p-0">
                             <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
@@ -102,43 +102,50 @@
                     </tr>
                     </thead>
                     <tbody id="calendarTable">
-                        <% for (UserDto user: users) { %>
-                        <tr>
-                            <td scope="col" class="m-0 p-0"
-                                style="vertical-align: middle; text-align: end; font-size: x-small">
-                                <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap" data-toggle="modal"
-                                        data-target=#
-                                        style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
-                                    <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
-                                    </p>
-                                    <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
-                                    </p>
-                                </button>
-                            </td>
-                            <% for (String date : calendarView) { %>
-                            <%      if (date.contains("MONDAY")
-                                        || date.contains("TUESDAY")
-                                        || date.contains("WEDNESDAY")
-                                        || date.contains("THURSDAY")
-                                        || date.contains("FRIDAY")) { %>
+                    <% for (UserDto user : users) { %>
+                    <tr>
+                        <td scope="col" class="m-0 p-0"
+                            style="vertical-align: middle; text-align: end; font-size: x-small">
+                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap"
+                                    data-toggle="modal"
+                                    data-target=#
+                                    style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
+                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
+                                </p>
+                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
+                                </p>
+                            </button>
+                        </td>
+                        <% for (String date : calendarView) { %>
+                        <% if(){
 
-                            <td scope="col" class="m-0 p-0">
-                                <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap" data-toggle="modal"
-                                        data-target=".modalDay"
-                                        style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
-                                </button>
-                            </td>
+                        } else if (date.contains("MONDAY")
+                                || date.contains("TUESDAY")
+                                || date.contains("WEDNESDAY")
+                                || date.contains("THURSDAY")
+                                || date.contains("FRIDAY")) {
+                        %>
+                        <td scope="col" class="m-0 p-0">
+                            <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
+                                    data-toggle="modal"
+                                    data-target=".modalDay"
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
+                            </button>
+                        </td>
 
-                            <% } else { %>
-                            <td scope="col" class="m-0 p-0">
-                                <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
-                                        style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
-                                </button>
-                            </td>
-                            <% }
-                            } %>
-                        </tr>
-                        <% } %>
+                        <% } else { %>
+                        <td scope="col" class="m-0 p-0">
+                            <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
+                                    data-toggle="modal"
+                                    data-target=".modalDay"
+                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
+                            </button>
+                        </td>
+                        <%
+                        }
+                        } %>
+                    </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>
@@ -146,62 +153,66 @@
             <!-- ----------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------- -->
-        <div>
-        <div class="container-fluid">
-            <h3>User DTO</h3>
+            <div>
+                <div class="container-fluid">
+                    <h3>User DTO</h3>
 
-            <% for (UserDto user: users) { %>
-                <p><%=user.toString()%></p>
-            <% } %>
+                    <% for (UserDto user : users) { %>
+                    <p><%=user.toString()%>
+                    </p>
+                    <% } %>
 
-            <h3>DayOff DTO</h3>
+                    <h3>DayOff DTO</h3>
 
-            <% for (DayOffDto dayOffDto: daysOff) { %>
-            <p><%=dayOffDto.toString()%></p>
-            <P> <%=dayOffDto.getListOfDays()%></P>
-            <% } %>
+                    <% for (DayOffDto dayOffDto : daysOff) { %>
+                    <p><%=dayOffDto.toString()%>
+                    </p>
+                    <P><%=dayOffDto.getListOfDays()%>
+                    </P>
+                    <% } %>
 
-            <h3>DayOff MAP</h3>
+                    <h3>DayOff MAP</h3>
 
-            <%= mapUsersDaysOff %>
+                    <%= mapUsersDaysOff.get("jan@kowalski.pl").contains("2020-09-29") %>
+                </div>
+            </div>
+
+
+            <!-- /#page-content-wrapper -->
         </div>
-    </div>
-
-
-    <!-- /#page-content-wrapper -->
-</div>
-<!-- /#wrapper -->
-<!-- /#MODAL -->
-<div class="modal fade modalDay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <p>
-                POPAPEK
-            </p>
+        <!-- /#wrapper -->
+        <!-- /#MODAL -->
+        <div class="modal fade modalDay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <p>
+                        POPAPEK
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#calendarTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
             });
-        });
-    });
-</script>
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#myInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#calendarTable tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
 
 </body>
 

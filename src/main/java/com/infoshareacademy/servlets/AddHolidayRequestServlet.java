@@ -37,7 +37,7 @@ public class AddHolidayRequestServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/test_jsp.jsp");
+            view = getServletContext().getRequestDispatcher("/test");
 
             DayOff dayOff = new DayOff();
             dayOff.setUser(userRepository.findByEmail((String) session.getAttribute("username")));
