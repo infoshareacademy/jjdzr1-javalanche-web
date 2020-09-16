@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session;
 
         if (validationService.isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/test_jsp.jsp");
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/test");
 
             session = req.getSession();
             session.setAttribute("username", username);

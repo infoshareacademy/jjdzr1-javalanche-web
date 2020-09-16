@@ -25,33 +25,18 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-        RequestDispatcher view;
-        req.setAttribute("users", userService.getAll());
-
-        HttpSession session = req.getSession();
-
-        if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/main.jsp");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/404.html");
-        }
-
-        view.forward(req, resp);
+        setRequestDispatcher(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setRequestDispatcher(req, resp);
+    }
+
+    private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-//        List<UserDto> users = userDaoService.getAll();
-//
-//        req.setAttribute("userDaoService", userDaoService);
-//        req.setAttribute("dayOffDaoService", dayOffDaoService);
-
         HttpSession session = req.getSession();
-
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/main.jsp");
         }

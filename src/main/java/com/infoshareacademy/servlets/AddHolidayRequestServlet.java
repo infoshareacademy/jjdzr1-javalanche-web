@@ -50,7 +50,6 @@ public class AddHolidayRequestServlet extends HttpServlet {
         else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
-
         view.forward(req, resp);
     }
 

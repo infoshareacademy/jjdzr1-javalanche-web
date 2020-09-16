@@ -7,7 +7,8 @@
 <%@ page import="com.infoshareacademy.api.Holidays" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.infoshareacademy.service.DayOffService" %>
-<%@ page import="com.infoshareacademy.service.UserService" %><%--
+<%@ page import="com.infoshareacademy.service.UserService" %>
+<%@ page import="com.infoshareacademy.api.HolidayDate" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -63,9 +64,64 @@
         <!-- testowa czesc strony -->
         <div class="container-fluid">
             <h3>TEST</h3>
+            <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------- -->
 
+            <div class="container-fluid" style="overflow: auto">
+                <br>
+                <h3>
+                    Search for employee:
+                </h3>
+                <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
+
+                <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="m-0 p-0"></th>
+                        <%
+                            for (String date: calendarView) {
+                                if (date.contains("MONDAY")
+                                        || date.contains("TUESDAY")
+                                        || date.contains("WEDNESDAY")
+                                        || date.contains("THURSDAY")
+                                        || date.contains("FRIDAY")){
+                        %>
+                        <th scope="col" class="m-0 p-0">
+                            <button type="button" class="btn btn-warning text-wrap rounded-0 m-0 p-0"
+                                    style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                            </button>
+                        </th>
+                        <% } else { %>
+                        <th scope="col" class="m-0 p-0">
+                            <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
+                                    style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                            </button>
+                        </th>
+                        <%
+                                }
+                            }
+                        %>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------- -->
         <div>
         <!-- // testowa czesc strony -->
+<%--            <% for (Holidays holiday: HolidaysJsonData.returnOnlyHolidaysAsList()) {--%>
+<%--            %>--%>
+<%--                <%=holiday.getHolidayDateInLocalDateFormat()%><br>--%>
+<%--                <%=holiday.getName()%><br><br>--%>
+<%--            <%--%>
+<%--            }%>--%>
     </div>
 
 
