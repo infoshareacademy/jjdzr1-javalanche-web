@@ -57,13 +57,13 @@
 
             <form method="get" action="/addholidayrequest">
                 <div class="form-group row">
-                    <label for="startDay" class="col-sm-1 col-form-label">First day:</label>
+                    <label for="firstDay" class="col-sm-1 col-form-label">First day:</label>
                     <div class="col-sm-3">
                         <input type="date" class="form-control" id="firstDay" name="firstDay">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="endDay" class="col-sm-1 col-form-label">Last day:</label>
+                    <label for="lastDay" class="col-sm-1 col-form-label">Last day:</label>
                     <div class="col-sm-3">
                         <input type="date" class="form-control" id="lastDay"  name="lastDay">
                     </div>

@@ -1,13 +1,16 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.DTO.DayOffDto;
+import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.repository.DayOffRepository;
 import javax.ejb.Local;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Local
@@ -15,9 +18,17 @@ public class DayOffService {
 
     @Inject
     private DayOffRepository dayOffRepository;
+    @Inject
+    private UserService userService;
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
+        List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);
+        return dayOffDtos;
+    }
+
+    public List<DayOffDto> getByUserEmail(String email){
+        List<DayOff> dayOffs = dayOffRepository.findDaysOffByUserEmail(email);
         List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);
         return dayOffDtos;
     }
@@ -42,5 +53,17 @@ public class DayOffService {
             }
         } while (date.isBefore(lastDate));
         return dateList;
+    }
+
+    public Map<String, List<LocalDate>> mapUsersWithDaysOff(){
+        Map<String, List<LocalDate>> map = new LinkedHashMap<>();
+        for (UserDto user: userService.getAll()) {
+            List<LocalDate> dates = new ArrayList<>();
+            for (DayOffDto day: getByUserEmail(user.getEmail())) {
+                day.getListOfDays().forEach(localDate -> dates.add(localDate));
+            }
+            map.put(user.getEmail(), dates);
+        }
+        return map;
     }
 }

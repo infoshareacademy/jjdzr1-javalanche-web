@@ -4,8 +4,10 @@ import com.infoshareacademy.model.User;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Local
 public class UserDao implements DAO<User> {
 

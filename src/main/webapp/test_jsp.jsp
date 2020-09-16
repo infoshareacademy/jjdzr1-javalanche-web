@@ -1,14 +1,7 @@
-<%@ page import="com.infoshareacademy.model.User" %>
-<%@ page import="com.infoshareacademy.repository.UserRepository" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
-<%@ page import="com.infoshareacademy.model.DayOff" %>
-<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
-<%@ page import="com.infoshareacademy.api.Holidays" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.infoshareacademy.service.DayOffService" %>
-<%@ page import="com.infoshareacademy.service.UserService" %>
-<%@ page import="com.infoshareacademy.api.HolidayDate" %><%--
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
+<%@ page import="com.infoshareacademy.DTO.DayOffDto" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -65,6 +58,9 @@
         <div class="container-fluid">
             <h3>TEST</h3>
             <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
+            <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
+            <% List<DayOffDto> daysOff = (List<DayOffDto>) request.getAttribute("dayOff");%>
+            <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
             <!-- ----------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------- -->
@@ -89,13 +85,13 @@
                                         || date.contains("FRIDAY")){
                         %>
                         <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-warning text-wrap rounded-0 m-0 p-0"
+                            <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
                                     style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
                             </button>
                         </th>
                         <% } else { %>
                         <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
+                            <button type="button" class="btn btn-info text-wrap rounded-0 m-0 p-0"
                                     style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
                             </button>
                         </th>
@@ -105,8 +101,44 @@
                         %>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="calendarTable">
+                        <% for (UserDto user: users) { %>
+                        <tr>
+                            <td scope="col" class="m-0 p-0"
+                                style="vertical-align: middle; text-align: end; font-size: x-small">
+                                <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap" data-toggle="modal"
+                                        data-target=#
+                                        style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
+                                    <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
+                                    </p>
+                                    <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
+                                    </p>
+                                </button>
+                            </td>
+                            <% for (String date : calendarView) { %>
+                            <%      if (date.contains("MONDAY")
+                                        || date.contains("TUESDAY")
+                                        || date.contains("WEDNESDAY")
+                                        || date.contains("THURSDAY")
+                                        || date.contains("FRIDAY")) { %>
 
+                            <td scope="col" class="m-0 p-0">
+                                <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap" data-toggle="modal"
+                                        data-target=".modalDay"
+                                        style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
+                                </button>
+                            </td>
+
+                            <% } else { %>
+                            <td scope="col" class="m-0 p-0">
+                                <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
+                                        style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
+                                </button>
+                            </td>
+                            <% }
+                            } %>
+                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -115,13 +147,24 @@
             <!-- ----------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------- -->
         <div>
-        <!-- // testowa czesc strony -->
-<%--            <% for (Holidays holiday: HolidaysJsonData.returnOnlyHolidaysAsList()) {--%>
-<%--            %>--%>
-<%--                <%=holiday.getHolidayDateInLocalDateFormat()%><br>--%>
-<%--                <%=holiday.getName()%><br><br>--%>
-<%--            <%--%>
-<%--            }%>--%>
+        <div class="container-fluid">
+            <h3>User DTO</h3>
+
+            <% for (UserDto user: users) { %>
+                <p><%=user.toString()%></p>
+            <% } %>
+
+            <h3>DayOff DTO</h3>
+
+            <% for (DayOffDto dayOffDto: daysOff) { %>
+            <p><%=dayOffDto.toString()%></p>
+            <P> <%=dayOffDto.getListOfDays()%></P>
+            <% } %>
+
+            <h3>DayOff MAP</h3>
+
+            <%= mapUsersDaysOff %>
+        </div>
     </div>
 
 

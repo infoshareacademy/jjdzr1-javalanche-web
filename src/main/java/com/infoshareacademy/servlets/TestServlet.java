@@ -1,6 +1,8 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.service.CalendarService;
+import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,10 @@ public class TestServlet extends HttpServlet {
 
     @Inject
     private CalendarService calendarService;
+    @Inject
+    private UserService userService;
+    @Inject
+    private DayOffService dayOffService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,6 +38,9 @@ public class TestServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         req.setAttribute("calendarView", calendarService.getCalendarView());
+        req.setAttribute("users", userService.getAll());
+        req.setAttribute("dayOff", dayOffService.getByUserEmail("jan@kowalski.pl"));
+        req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/test_jsp.jsp");

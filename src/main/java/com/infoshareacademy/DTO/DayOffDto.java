@@ -49,4 +49,14 @@ public class DayOffDto {
     public void setListOfDays(List<LocalDate> listOfDays) {
         this.listOfDays = listOfDays;
     }
+
+    @Override
+    public String toString() {
+        return "DayOffDto{" +
+                "firstDay=" + firstDay +
+                ", lastDay=" + lastDay +
+                ", user=" + user +
+                ", listOfDays=" + listOfDays +
+                '}';
+    }
 }

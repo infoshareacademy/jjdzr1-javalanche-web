@@ -18,7 +18,7 @@ public class CalendarService {
     private Map<LocalDate, String> holidaysMap;
 
     public CalendarService() {
-        this.sizeOfCalendar = 30;
+        this.sizeOfCalendar = 130;
         setHolidaysMap();
         setCalendarView();
     }
@@ -60,4 +60,5 @@ public class CalendarService {
     public void setSizeOfCalendar(int sizeOfCalendar) {
         this.sizeOfCalendar = sizeOfCalendar;
     }
+
 }
