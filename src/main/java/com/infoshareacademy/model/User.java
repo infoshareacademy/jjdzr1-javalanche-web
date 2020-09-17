@@ -1,28 +1,42 @@
 package com.infoshareacademy.model;
 
-import java.util.Objects;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
 
-public class User {
+@Entity
+@Table(name = "users_table", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "user_id"),
+        @UniqueConstraint(columnNames = "user_email")
+})
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", unique = true, nullable = false)
     private int id;
+
+    @Column(name = "user_email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "user_password", nullable = false)
     private String password;
+
+    @Column(name = "user_firstName", nullable = false)
     private String firstName;
+
+    @Column(name = "user_lastName", nullable = false)
     private String lastName;
+
+    @Column(name = "user_levelOfAccess", nullable = false)
     private int levelOfAccess;
+
+    @Column(name = "user_daysOffLeft", nullable = false)
     private int daysOffLeft;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<DayOff> daysOff;
 
     public User() {
-    }
-
-    public User(int id, String email, String password, String firstName, String lastName, int levelOfAccess, int daysOffLeft) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.levelOfAccess = levelOfAccess;
-        this.daysOffLeft = daysOffLeft;
     }
 
     public void setId(int id) {
@@ -53,6 +67,10 @@ public class User {
         this.daysOffLeft = daysOffLeft;
     }
 
+    public void setDaysOff(Set<DayOff> daysOff) {
+        this.daysOff = daysOff;
+    }
+
     public int getId() {
         return id;
     }
@@ -79,6 +97,10 @@ public class User {
 
     public int getDaysOffLeft() {
         return daysOffLeft;
+    }
+
+    public Set<DayOff> getDaysOff() {
+        return daysOff;
     }
 
     @Override

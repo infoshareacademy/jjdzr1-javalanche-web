@@ -5,7 +5,9 @@
 <%@ page import="com.infoshareacademy.model.DayOff" %>
 <%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
 <%@ page import="com.infoshareacademy.api.Holidays" %>
-<%@ page import="java.util.*" %><%--
+<%@ page import="java.util.*" %>
+<%@ page import="com.infoshareacademy.service.DayOffService" %>
+<%@ page import="com.infoshareacademy.service.UserService" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -51,224 +53,22 @@
 <body>
 <div class="d-flex" id="wrapper">
 
-    <%@ include file="sidebar.jsp"%>
+    <%@ include file="sidebar.jsp" %>
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-            <button class="btn btn-outline-light" id="menu-toggle">Menu</button>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <%@include file="navbar.jsp"%>
+        <%@include file="calendar.jsp"%>
+        <!-- testowa czesc strony -->
+        <div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Main page<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Settings</a>
-                    </li>
-                    <script>
-                        $(document).ready(function () {
-                            $(".dropdown-toggle").dropdown();
-                        });
-                    </script>
-                    <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profile
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/login.jsp">Logout</a>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </nav>
-
-        <div class="container-fluid">
-            <div class="container-fluid" style="overflow: auto">
-                <br>
-                <h3>
-                    Search for employee:
-                </h3>
-                <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
-
-                <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="m-0 p-0"></th>
-                        <%
-                            List<LocalDate> dateList = new ArrayList<>();
-
-                            for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
-                                dateList.add(LocalDate.now().plusDays(i));
-
-                                boolean isNationalHoliday = false;
-                                String message = "";
-
-                                for (Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()) {
-                                    if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))) {
-                                        isNationalHoliday = true;
-                                        message = nationalHoliday.getName();
-                                    }
-                                }
-
-                                if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                                        || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")
-                                        || isNationalHoliday) {
-                        %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-warning rounded-0 m-0 p-0"
-                                    style="height: 50px; width: 70px; font-size: xx-small"
-                                    disabled>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= message.toUpperCase()%>
-                                </p>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
-                                </p>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i)%>
-                                </p>
-                            </button>
-                        </th>
-                        <%
-                        } else {
-                        %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-danger rounded-0 m-0 p-0"
-                                    style="height: 50px; width: 70px; font-size: xx-small"
-                                    disabled>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
-                                </p>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i)%>
-                                </p>
-                            </button>
-                        </th>
-                        <%
-                            }
-                        %>
-
-                        <%
-                            }
-                        %>
-                    </tr>
-                    </thead>
-                    <tbody id="calendarTable">
-                    <%
-                        DayOffRepository dayOffRepository = new DayOffRepository();
-                        dayOffRepository.fillDayOffList();
-                        UserRepository userRepository = new UserRepository();
-                        userRepository.fillUsersList();
-                        Map<User, List<LocalDate>> userListMap = new HashMap<>();
-                        String modalUserId = null;
-                        for (User user : userRepository.getUsersList()) {
-                            List<LocalDate> tempDayOffList = new ArrayList<>();
-                            for (DayOff dayOff : dayOffRepository.getDayOffList()) {
-                                if (user.getId() == dayOff.getIdOfUser()) {
-                                    for (LocalDate date : dayOff.getListOfDays()) {
-                                        tempDayOffList.add(date);
-                                    }
-                                }
-                            }
-                            userListMap.put(user, tempDayOffList);
-                        }
-
-                        for (User user : userRepository.getUsersList()) {
-                            modalUserId = "modalUser".concat(String.valueOf(user.getId()));
-                    %>
-                    <tr>
-                        <th scope="col" class="m-0 p-0"
-                            style="vertical-align: middle; text-align: end; font-size: x-small">
-                            <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0" data-toggle="modal" data-target=#<%=modalUserId %>
-                                    style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
-                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
-                                </p>
-                                <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
-                                </p>
-                            </button>
-                            <div id="<%=modalUserId%>" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <%--                                            <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-                                            <h4 class="modal-title">Employee overview</h4>
-                                        </div>
-                                        <div class="modal-body" style="vertical-align: middle; text-align: left; font-size: medium;">
-                                            <p>Employee Id: <%= userRepository.getUsersList().get(user.getId()-1).getId() %></p>
-                                            <p>Name: <%= userRepository.getUsersList().get(user.getId()-1).getFirstName() %></p>
-                                            <p>Last name: <%= userRepository.getUsersList().get(user.getId()-1).getLastName() %></p>
-                                            <p>Email address: <%= userRepository.getUsersList().get(user.getId()-1).getEmail() %></p>
-                                            <p>Number of remaining days off: <%= userRepository.getUsersList().get(user.getId()-1).getDaysOffLeft() %></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                                <%
-                                    for (LocalDate localDate: dateList) {
-
-                                        boolean isNationalHoliday = false;
-
-                                        for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
-                                            if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(localDate)){
-                                                isNationalHoliday = true;
-                                            }
-                                        }
-
-                                        if (userListMap.get(user).contains(localDate)) {
-                                %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-success rounded-0 m-0 p-0"
-                                    data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Day off
-                            </button>
-                        </th>
-                        <%
-                        } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                                || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")
-                                || isNationalHoliday) {
-                        %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
-                                    data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                                    disabled><%= localDate%>
-
-                            </button>
-                        </th>
-                        <% } else {
-                        %>
-                        <th scope="col" class="m-0 p-0">
-                            <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
-                                    data-toggle="modal" data-target=".modalDay"
-                                    style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%= localDate%>
-                            </button>
-                        </th>
-                        <%
-                                }
-                            }
-                        %>
-                        </th>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    </tbody>
-                </table>
-            </div>
         </div>
+        <!-- // testowa czesc strony -->
     </div>
+
+
     <!-- /#page-content-wrapper -->
 </div>
 <!-- /#wrapper -->

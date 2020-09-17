@@ -1,33 +1,34 @@
 package com.infoshareacademy.model;
 
-import com.infoshareacademy.api.HolidayDate;
-import com.infoshareacademy.api.Holidays;
-import com.infoshareacademy.api.HolidaysJsonData;
-
-import javax.ejb.Local;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
-public class DayOff {
+@Entity
+@Table(name = "daysOff_table", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "dayOff_id")
+})
+public class DayOff implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dayOff_id", nullable = false)
     private int id;
-    private LocalDate startDay;
-    private LocalDate endDay;
-    private int idOfUser;
-    private List<LocalDate> listOfDays = new ArrayList<>();
+
+    @Column(name = "dayOff_firstDay", nullable = false)
+    private LocalDate firstDay;
+
+    @Column(name = "dayOff_lastDay", nullable = false)
+    private LocalDate lastDay;
+
+    @ManyToOne
+    private User user;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "listDaysOff_table", joinColumns = @JoinColumn(name = "dayOff_id"))
+    private List<LocalDate> listOfDays;
 
     public DayOff() {
-    }
-
-    public DayOff(int id, LocalDate startDay, LocalDate endDay, int idOfUser) {
-        this.id = id;
-        this.startDay = startDay;
-        this.endDay = endDay;
-        this.idOfUser = idOfUser;
-        setListOfDays(startDay, endDay);
     }
 
     public int getId() {
@@ -38,49 +39,36 @@ public class DayOff {
         this.id = id;
     }
 
-    public LocalDate getStartDay() {
-        return startDay;
+    public LocalDate getFirstDay() {
+        return firstDay;
     }
 
-    public void setStartDay(LocalDate startDay) {
-        this.startDay = startDay;
+    public void setFirstDay(LocalDate firstDay) {
+        this.firstDay = firstDay;
     }
 
-    public LocalDate getEndDay() {
-        return endDay;
+    public LocalDate getLastDay() {
+        return lastDay;
     }
 
-    public void setEndDay(LocalDate endDay) {
-        this.endDay = endDay;
+    public void setLastDay(LocalDate lastDay) {
+        this.lastDay = lastDay;
     }
 
-    public int getIdOfUser() {
-        return idOfUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdOfUser(int idOfUser) {
-        this.idOfUser = idOfUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<LocalDate> getListOfDays() {
         return listOfDays;
     }
 
-    public void setListOfDays(LocalDate startDay, LocalDate endDay) {
-        List<LocalDate> listOfDays = new ArrayList<>();
-        LocalDate date = startDay;
-
-        do {
-            if (date.getDayOfWeek().toString().equalsIgnoreCase("saturday") || date.getDayOfWeek().toString().equalsIgnoreCase("sunday")){
-                date = date.plusDays(1);
-            }
-            else {
-                listOfDays.add(date);
-                date = date.plusDays(1);
-            }
-        } while (date.isBefore(endDay));
-
-        this.listOfDays = removeDayOffIfNationalHoliday(listOfDays);
+    public void setListOfDays(List<LocalDate> listOfDays) {
+        this.listOfDays = listOfDays;
     }
 
     @Override
@@ -100,34 +88,10 @@ public class DayOff {
     public String toString() {
         return "DayOff{" +
                 "id=" + id +
-                ", startDay=" + startDay +
-                ", endDay=" + endDay +
-                ", idOfUser=" + idOfUser +
+                ", firstDay=" + firstDay +
+                ", lastDay=" + lastDay +
+                ", user=" + user +
                 ", listOfDays=" + listOfDays +
                 '}';
-    }
-
-    private List<LocalDate> removeDayOffIfNationalHoliday(List<LocalDate> daysOffList){
-
-        for(int i = 0; i < daysOffList.size()-1; i++){
-            for(int j = 0; j < nationalHolidaysParserToLocalDays().size(); j++){
-
-                if (daysOffList.get(i).equals(nationalHolidaysParserToLocalDays().get(j))){
-                    daysOffList.remove(i);
-                }
-            }
-        }
-        return daysOffList;
-    }
-
-    private List<LocalDate> nationalHolidaysParserToLocalDays(){
-        List<LocalDate> datesAaLocalDate = new ArrayList<>();
-        List<Holidays> holidays = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
-        for(Holidays holiday : holidays){
-            datesAaLocalDate.add(LocalDate.of(holiday.getHolidayDate().getHolidayDateTime().getYear(),
-                                               holiday.getHolidayDate().getHolidayDateTime().getMonth(),
-                                               holiday.getHolidayDate().getHolidayDateTime().getDay()));
-        }
-        return datesAaLocalDate;
     }
 }

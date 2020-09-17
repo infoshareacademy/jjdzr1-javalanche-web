@@ -1,38 +1,22 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.DAO.DayOffDao;
 import com.infoshareacademy.model.DayOff;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.ejb.LocalBean;
+import java.util.List;
+import java.util.logging.Logger;
 
-public class DayOffRepository {
+@LocalBean
+public class DayOffRepository extends DayOffDao {
 
-    private ArrayList<DayOff> dayOffList = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(DayOffRepository.class.getName());
 
-    public ArrayList<DayOff> getDayOffList() {
-        return dayOffList;
+    public List<DayOff> findDaysOffByUserId(int id){
+        return entityManager.createQuery("FROM DayOff where user.id LIKE :id").setParameter("id", id).getResultList();
     }
 
-    public void setDayOffList(ArrayList<DayOff> dayOffList) {
-        this.dayOffList = dayOffList;
-    }
-
-    public void fillDayOffList(){
-        ArrayList<DayOff> dayOffList = new ArrayList<>();
-        dayOffList.add(new DayOff(1,LocalDate.of(2020,9,1),LocalDate.of(2020,9,3),1));
-        dayOffList.add(new DayOff(2,LocalDate.of(2020,9,5),LocalDate.of(2020,9,10),2));
-        dayOffList.add(new DayOff(3,LocalDate.of(2020,9,2),LocalDate.of(2020,9,4),3));
-        dayOffList.add(new DayOff(4,LocalDate.of(2020,9,14),LocalDate.of(2020,9,18),4));
-        dayOffList.add(new DayOff(5,LocalDate.of(2020,9,1),LocalDate.of(2020,9,23),5));
-        dayOffList.add(new DayOff(6,LocalDate.of(2020,10,20),LocalDate.of(2020,11,23),7));
-        dayOffList.add(new DayOff(7,LocalDate.of(2020,10,30),LocalDate.of(2020,12,31),8));
-        setDayOffList(dayOffList);
-    }
-
-    @Override
-    public String toString() {
-        return "DayOffRepository{" +
-                "dayOffList=" + dayOffList.get(1).toString() +
-                '}';
+    public List<DayOff> findDaysOffByUserEmail(String email) {
+        return entityManager.createQuery("FROM DayOff where user.email LIKE :email").setParameter("email", email).getResultList();
     }
 }
 
