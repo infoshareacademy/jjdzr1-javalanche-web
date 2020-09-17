@@ -25,7 +25,12 @@ public class UserService {
 
     private List<UserDto> mapUsersToDto(List<User> users) {
         return users.stream()
-                .map(user -> new UserDto(user.getFirstName(), user.getLastName(), user.getEmail()))
+                .map(user -> new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getLevelOfAccess(), user.getDaysOffLeft()))
                 .collect(Collectors.toList());
+    }
+
+    public UserDto getUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        return new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getLevelOfAccess(), user.getDaysOffLeft());
     }
 }

@@ -5,11 +5,15 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
+    private int levelOfAccess;
+    private int daysOffLeft;
 
-    public UserDto(String firstName, String lastName, String email) {
+    public UserDto(String firstName, String lastName, String email, int levelOfAccess, int daysOffLeft) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.levelOfAccess = levelOfAccess;
+        this.daysOffLeft = daysOffLeft;
     }
 
     public String getFirstName() {
@@ -36,12 +40,30 @@ public class UserDto {
         this.email = email;
     }
 
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public void setLevelOfAccess(int levelOfAccess) {
+        this.levelOfAccess = levelOfAccess;
+    }
+
+    public int getDaysOffLeft() {
+        return daysOffLeft;
+    }
+
+    public void setDaysOffLeft(int daysOffLeft) {
+        this.daysOffLeft = daysOffLeft;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", levelOfAccess=" + levelOfAccess +
+                ", daysOffLeft=" + daysOffLeft +
                 '}';
     }
 }
