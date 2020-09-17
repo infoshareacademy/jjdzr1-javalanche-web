@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.ValidationService;
 import javax.inject.Inject;
@@ -42,7 +41,7 @@ public class LoginServlet extends HttpServlet {
             session = req.getSession();
             // przekazywanie w sesji nazwy zalogowanego użytkownika
             session.setAttribute("username", username);
-            // przekazywanie w sesji pozimou dostępu
+            // przekazywanie w sesji poziomu dostępu
             session.setAttribute("levelOfAccess", userService.getUserByEmail(username).getLevelOfAccess());
 
             view.forward(req, resp);

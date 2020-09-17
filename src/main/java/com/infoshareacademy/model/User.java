@@ -9,7 +9,7 @@ import java.util.*;
         @UniqueConstraint(columnNames = "user_id"),
         @UniqueConstraint(columnNames = "user_email")
 })
-public class User implements Serializable {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
@@ -35,6 +35,14 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<DayOff> daysOff;
+
+    // nowe dane do bazy
+    @Column(name = "user_isTeamleader")
+    private boolean isTeamLeader;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "team_id", referencedColumnName = "team_id", nullable = true)
+    private Team team;
 
     public User() {
     }
