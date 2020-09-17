@@ -1,5 +1,7 @@
 <%@ page import="com.infoshareacademy.model.User" %>
-<%@ page import="com.infoshareacademy.repository.UserRepository" %><%--
+<%@ page import="com.infoshareacademy.repository.UserRepository" %>
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: kacper-kwiatkowski
   Date: 16.09.2020
@@ -7,12 +9,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<body>
 
 <%
-    UserRepository userRepository = new UserRepository();
-    userRepository.fillUsersList();
-%>
+/*    UserRepository userRepository = new UserRepository();
+    userRepository.fillUsersList();*/
+
+    List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
+
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
@@ -29,7 +32,7 @@
                     <th>Email address</th>
                     <th>Remaining days off</th>
                 </tr>
-                <% for (User user : userRepository.getUsersList()) { %>
+                <% for (UserDto user : users) { %>
                 <tr>
                     <td><%=user.getId() %></td>
                     <td><%=user.getFirstName() %></td>
@@ -43,4 +46,3 @@
 
     </div>
 </div>
-</body>

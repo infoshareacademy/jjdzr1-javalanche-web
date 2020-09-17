@@ -31,7 +31,7 @@ public class HolidayRequestServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayrequest.jsp");
+            view = getServletContext().getRequestDispatcher("/holidayRequest.jsp");
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");
