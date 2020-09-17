@@ -39,7 +39,7 @@ public class MainServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/main.jsp");
-            req.setAttribute("calendarView", calendarService.calendarView(130));
+            req.setAttribute("calendarView", calendarService.calendarView(30));
             req.setAttribute("users", userService.getAll());
             req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
         }
