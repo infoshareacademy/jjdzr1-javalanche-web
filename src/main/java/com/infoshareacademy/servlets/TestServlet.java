@@ -2,6 +2,7 @@ package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.service.CalendarService;
 import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -23,6 +24,8 @@ public class TestServlet extends HttpServlet {
     private UserService userService;
     @Inject
     private DayOffService dayOffService;
+    @Inject
+    private TeamService teamService;
 
     private static final Logger logger = Logger.getLogger(TestServlet.class.getName());
 
@@ -39,12 +42,13 @@ public class TestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        req.setAttribute("calendarView", calendarService.calendarView(130));
+        req.setAttribute("calendarView", calendarService.calendarView(30));
         req.setAttribute("users", userService.getAll());
         req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+        req.setAttribute("teams", teamService.getAll());
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/main");
+            view = getServletContext().getRequestDispatcher("/test.jsp");
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");

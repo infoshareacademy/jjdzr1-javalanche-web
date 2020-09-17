@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session;
 
         if (validationService.isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/test");
 
             session = req.getSession();
             // przekazywanie w sesji nazwy zalogowanego użytkownika

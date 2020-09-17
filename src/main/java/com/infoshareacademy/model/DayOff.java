@@ -21,6 +21,9 @@ public class DayOff implements Serializable {
     @Column(name = "dayOff_lastDay", nullable = false)
     private LocalDate lastDay;
 
+    @Column(name = "dayOff_isAccepted",nullable = false, columnDefinition = "tinyint(1) default 0")
+    private boolean isAccepted;
+
     @ManyToOne
     private User user;
 
@@ -53,6 +56,14 @@ public class DayOff implements Serializable {
 
     public void setLastDay(LocalDate lastDay) {
         this.lastDay = lastDay;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 
     public User getUser() {
@@ -90,6 +101,7 @@ public class DayOff implements Serializable {
                 "id=" + id +
                 ", firstDay=" + firstDay +
                 ", lastDay=" + lastDay +
+                ", isAccepted=" + isAccepted +
                 ", user=" + user +
                 ", listOfDays=" + listOfDays +
                 '}';

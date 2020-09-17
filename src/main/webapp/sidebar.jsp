@@ -7,6 +7,7 @@
         <a href="/viewUser.jsp" class="list-group-item list-group-item-action bg-light">Employees</a>
         <a href="/holidayrequest" class="list-group-item list-group-item-action bg-light">Holiday request</a>
         <a href="/main" class="list-group-item list-group-item-action bg-light">Calendar view</a>
+        <a href="/test" class="list-group-item list-group-item-action bg-light">Test</a>
 
     </div>
 </div>
