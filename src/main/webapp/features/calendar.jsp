@@ -1,23 +1,18 @@
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.infoshareacademy.api.Holidays" %>
-<%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
-<%@ page import="com.infoshareacademy.repository.UserRepository" %>
-<%@ page import="com.infoshareacademy.model.User" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="com.infoshareacademy.model.DayOff" %><%--
+<%@ page import="com.infoshareacademy.DTO.UserDto" %><%--
   Created by IntelliJ IDEA.
-  User: kacper-kwiatkowski
+  User: karol
   Date: 16.09.2020
-  Time: 09:06
+  Time: 21:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<body>
 <div class="container-fluid">
+    <h3 class="h3">Calendar</h3>
+    <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
+    <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
+    <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>
@@ -30,181 +25,91 @@
             <tr>
                 <th scope="col" class="m-0 p-0"></th>
                 <%
-                    List<LocalDate> dateList = new ArrayList<>();
-
-                    for (int i = 0; i < LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()); i++) {
-                        dateList.add(LocalDate.now().plusDays(i));
-
-                        boolean isNationalHoliday = false;
-                        String message = "";
-
-                        for (Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()) {
-                            if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(LocalDate.now().plusDays(i))) {
-                                isNationalHoliday = true;
-                                message = nationalHoliday.getName();
-                            }
+                    for (String date : calendarView) {
+                        if (date.contains("MONDAY")
+                                || date.contains("TUESDAY")
+                                || date.contains("WEDNESDAY")
+                                || date.contains("THURSDAY")
+                                || date.contains("FRIDAY")) {
+                %>
+                <th scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
+                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                    </button>
+                </th>
+                <% } else { %>
+                <th scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-info text-wrap rounded-0 m-0 p-0"
+                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                    </button>
+                </th>
+                <%
                         }
-
-                        if (LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                                || LocalDate.now().plusDays(i).getDayOfWeek().toString().equalsIgnoreCase("sunday")
-                                || isNationalHoliday) {
-                %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-warning rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"
-                            disabled>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= message.toUpperCase()%>
-                        </p>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
-                        </p>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i)%>
-                        </p>
-                    </button>
-                </th>
-                <%
-                } else {
-                %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-danger rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"
-                            disabled>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i).getDayOfWeek()%>
-                        </p>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= LocalDate.now().plusDays(i)%>
-                        </p>
-                    </button>
-                </th>
-                <%
-                    }
-                %>
-
-                <%
                     }
                 %>
             </tr>
             </thead>
             <tbody id="calendarTable">
-            <%
-                DayOffRepository dayOffRepository = new DayOffRepository();
-                dayOffRepository.fillDayOffList();
-                UserRepository userRepository = new UserRepository();
-                userRepository.fillUsersList();
-                Map<User, List<LocalDate>> userListMap = new HashMap<>();
-                String modalUserId = null;
-                for (User user : userRepository.getUsersList()) {
-                    List<LocalDate> tempDayOffList = new ArrayList<>();
-                    for (DayOff dayOff : dayOffRepository.getDayOffList()) {
-                        if (user.getId() == dayOff.getIdOfUser()) {
-                            for (LocalDate date : dayOff.getListOfDays()) {
-                                tempDayOffList.add(date);
-                            }
-                        }
-                    }
-                    userListMap.put(user, tempDayOffList);
-                }
-
-                for (User user : userRepository.getUsersList()) {
-                    modalUserId = "modalUser".concat(String.valueOf(user.getId()));
-            %>
+            <% for (UserDto user : users) { %>
             <tr>
-                <th scope="col" class="m-0 p-0"
+                <td scope="col" class="m-0 p-0"
                     style="vertical-align: middle; text-align: end; font-size: x-small">
-                    <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0" data-toggle="modal"
-                            data-target=#<%=modalUserId %>
+                    <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap"
+                            data-toggle="modal"
+                            data-target=#
                             style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
                         <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
                         </p>
                         <p style="margin-top: auto; margin-bottom: auto"><%= user.getLastName()%>
                         </p>
                     </button>
-                    <div id="<%=modalUserId%>" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <%--                                            <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-                                    <h4 class="modal-title">Employee overview</h4>
-                                </div>
-                                <div class="modal-body"
-                                     style="vertical-align: middle; text-align: left; font-size: medium;">
-                                    <p>Employee
-                                        Id: <%= userRepository.getUsersList().get(user.getId() - 1).getId() %>
-                                    </p>
-                                    <p>
-                                        Name: <%= userRepository.getUsersList().get(user.getId() - 1).getFirstName() %>
-                                    </p>
-                                    <p>Last
-                                        name: <%= userRepository.getUsersList().get(user.getId() - 1).getLastName() %>
-                                    </p>
-                                    <p>Email
-                                        address: <%= userRepository.getUsersList().get(user.getId() - 1).getEmail() %>
-                                    </p>
-                                    <p>Number of remaining days
-                                        off: <%= userRepository.getUsersList().get(user.getId() - 1).getDaysOffLeft() %>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                        <%
-                                    for (LocalDate localDate: dateList) {
-
-                                        boolean isNationalHoliday = false;
-
-                                        for(Holidays nationalHoliday : HolidaysJsonData.returnOnlyHolidaysAsList()){
-                                            if (nationalHoliday.getHolidayDateInLocalDateFormat().equals(localDate)){
-                                                isNationalHoliday = true;
-                                            }
-                                        }
-
-                                        if (userListMap.get(user).contains(localDate)) {
-                                %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-success rounded-0 m-0 p-0"
-                            data-toggle="modal" data-target=".modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset">Day off
+                </td>
+                <% for (String date : calendarView) { %>
+                <% if(mapUsersDaysOff.get(user.getEmail()).contains(date)) {
+                %>
+                <td scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"
+                            data-toggle="modal"
+                            data-target=".modalDay"
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Day off
                     </button>
-                </th>
+                </td>
                 <%
-                } else if (localDate.getDayOfWeek().toString().equalsIgnoreCase("saturday")
-                        || localDate.getDayOfWeek().toString().equalsIgnoreCase("sunday")
-                        || isNationalHoliday) {
+                } else if (date.contains("MONDAY")
+                        || date.contains("TUESDAY")
+                        || date.contains("WEDNESDAY")
+                        || date.contains("THURSDAY")
+                        || date.contains("FRIDAY")) {
                 %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
-                            data-toggle="modal" data-target=".modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                            disabled><%= localDate%>
+                <td scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
+                            data-toggle="modal"
+                            data-target=".modalDay"
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
+                    </button>
+                </td>
 
+                <% } else { %>
+                <td scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
+                            data-toggle="modal"
+                            data-target=".modalDay"
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
                     </button>
-                </th>
-                <% } else {
-                %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0"
-                            data-toggle="modal" data-target=".modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%= localDate%>
-                    </button>
-                </th>
+                </td>
                 <%
                         }
-                    }
-                %>
-                </th>
+                    } %>
             </tr>
-            <%
-                }
-            %>
-
+            <% } %>
             </tbody>
         </table>
     </div>
-</div>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <div>
 
-</body>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
