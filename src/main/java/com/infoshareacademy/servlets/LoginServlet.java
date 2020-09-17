@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.ValidationService;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,10 @@ public class LoginServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     @Inject
-    ValidationService validationService;
+    private ValidationService validationService;
+
+    @Inject
+    private UserRepository userRepository;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +39,10 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
 
             session = req.getSession();
+            // przekazywanie w sesji nazwy zalogowanego użytkownika
             session.setAttribute("username", username);
+            // przekazywanie w sesji pozimou dostępu
+            session.setAttribute("levelOfAccess", userRepository.findByEmail(username).getLevelOfAccess() );
 
             view.forward(req, resp);
 
