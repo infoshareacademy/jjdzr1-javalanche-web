@@ -18,7 +18,10 @@
     <div id="page-content-wrapper" >
         <%@ include file="template/headerbar.jsp" %>
 
-        <%@ include file="features/addHolidayRequestForm.jsp" %>
+
+        <%@ include file="features/forms/employee/employeeCollapse.jsp" %>
+        <%@ include file="features/forms/teamLeader/teamLeaderCollapse.jsp" %>
+        <%@ include file="features/forms/admin/adminCollapse.jsp" %>
 
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
