@@ -29,7 +29,7 @@
 .right {
     grid-area: right;
     width: auto;
-    width: auto;
+    ;width: auto;
 
 }
 .item {

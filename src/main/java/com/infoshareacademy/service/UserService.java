@@ -25,7 +25,7 @@ public class UserService {
 
     private List<UserDto> mapUsersToDto(List<User> users) {
         return users.stream()
-                .map(user -> new UserDto(user.getFirstName(), user.getLastName(), user.getEmail()))
+                .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getDaysOffLeft()))
                 .collect(Collectors.toList());
     }
 }
