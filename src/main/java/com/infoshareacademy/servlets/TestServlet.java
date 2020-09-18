@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -42,16 +41,14 @@ public class TestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        req.setAttribute("calendarView", calendarService.calendarView(30));
-        req.setAttribute("users", userService.getAll());
-        req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
-        req.setAttribute("teams", teamService.getAll());
-        HttpSession session = req.getSession();
-        if (session.getAttribute("username") != null) {
+        if (req.getSession().getAttribute("username") != null){
+            req.setAttribute("calendarView", calendarService.calendarView(30));
+            req.setAttribute("users", userService.getAll());
+            req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+            req.setAttribute("teams", teamService.getAll());
             view = getServletContext().getRequestDispatcher("/test.jsp");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+        } else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
     }

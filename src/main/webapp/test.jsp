@@ -48,7 +48,7 @@
 
     <!-- Custom styles for table   -->
     <link href="css/table_date.css" rel="stylesheet">
-
+    <meta http-equiv="refresh">
 
 </head>
 
@@ -65,15 +65,15 @@
         <!-- testowa czesc strony -->
         <div>
 
-            <div class="container-fluid">
-                <% int levelOfAccess = (int) session.getAttribute("levelOfAccess");%>
-                <% if (levelOfAccess == 1){ %>
-                <button type="button" class="btn-info visible">Button test</button>
-                <% } else { %>
-                <button type="button" class="btn-info invisible">Button test</button>
-                <% } %>
+<%--            <div class="container-fluid">--%>
+<%--                <% int levelOfAccess = (int) session.getAttribute("levelOfAccess");%>--%>
+<%--                <% if (levelOfAccess == 1){ %>--%>
+<%--                <button type="button" class="btn-info visible">Button test</button>--%>
+<%--                <% } else { %>--%>
+<%--                <button type="button" class="btn-info invisible">Button test</button>--%>
+<%--                <% } %>--%>
 
-            </div>
+<%--            </div>--%>
 
         </div>
         <br><br>
@@ -91,6 +91,7 @@
             <% } %>
         </div>
         <!-- // testowa czesc strony -->
+
     </div>
 
 

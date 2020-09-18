@@ -3,13 +3,13 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.UserRepository;
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-@LocalBean
+@Local
 public class UserService {
 
     @Inject
@@ -25,12 +25,12 @@ public class UserService {
 
     private List<UserDto> mapUsersToDto(List<User> users) {
         return users.stream()
-                .map(user -> new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getLevelOfAccess(), user.getDaysOffLeft()))
+                .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess()))
                 .collect(Collectors.toList());
     }
 
-    public UserDto getUserByEmail(String email){
+    public UserDto getByEmail(String email){
         User user = userRepository.findByEmail(email);
-        return new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getLevelOfAccess(), user.getDaysOffLeft());
+        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess());
     }
 }

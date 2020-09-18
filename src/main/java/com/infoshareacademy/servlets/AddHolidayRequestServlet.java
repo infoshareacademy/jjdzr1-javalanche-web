@@ -35,23 +35,19 @@ public class AddHolidayRequestServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
 
-        HttpSession session = req.getSession();
-
-        if (session.getAttribute("username") != null) {
+        if (req.getSession().getAttribute("username") != null){
             view = getServletContext().getRequestDispatcher("/test");
             LocalDate firstDay = LocalDate.parse(req.getParameter("firstDay"));
             LocalDate lastDay = LocalDate.parse(req.getParameter("lastDay"));
 
             DayOff dayOff = new DayOff();
-            dayOff.setUser(userRepository.findByEmail((String) session.getAttribute("username")));
+            dayOff.setUser(userRepository.findByEmail((String) req.getSession().getAttribute("username")));
             dayOff.setFirstDay(firstDay);
             dayOff.setLastDay(lastDay);
             dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
             dayOffRepository.create(dayOff);
-
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+        } else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
     }

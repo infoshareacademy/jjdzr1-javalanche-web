@@ -2,18 +2,30 @@ package com.infoshareacademy.DTO;
 
 public class UserDto {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
-    private int levelOfAccess;
+    private String password;
     private int daysOffLeft;
+    private int levelOfAccess;
 
-    public UserDto(String firstName, String lastName, String email, int levelOfAccess, int daysOffLeft) {
+    public UserDto(int id, String firstName, String lastName, String email, String password, int daysOffLeft, int levelOfAccess) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.levelOfAccess = levelOfAccess;
+        this.password = password;
         this.daysOffLeft = daysOffLeft;
+        this.levelOfAccess = levelOfAccess;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -40,12 +52,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public int getLevelOfAccess() {
-        return levelOfAccess;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLevelOfAccess(int levelOfAccess) {
-        this.levelOfAccess = levelOfAccess;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getDaysOffLeft() {
@@ -56,14 +68,25 @@ public class UserDto {
         this.daysOffLeft = daysOffLeft;
     }
 
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public void setLevelOfAccess(int levelOfAccess) {
+        this.levelOfAccess = levelOfAccess;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", levelOfAccess=" + levelOfAccess +
+                ", password='" + password + '\'' +
                 ", daysOffLeft=" + daysOffLeft +
+                ", levelOfAccess=" + levelOfAccess +
                 '}';
     }
+
 }
