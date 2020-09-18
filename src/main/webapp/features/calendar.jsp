@@ -1,4 +1,8 @@
-<%@ page import="com.infoshareacademy.DTO.UserDto" %><%--
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Map" %>
+<%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 16.09.2020
@@ -10,9 +14,6 @@
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    <!-- ----------------------------------------------------------------------------------------------- -->
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>
@@ -105,11 +106,4 @@
             </tbody>
         </table>
     </div>
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    <div>
-
-    </div>
-    <!-- /#page-content-wrapper -->
 </div>

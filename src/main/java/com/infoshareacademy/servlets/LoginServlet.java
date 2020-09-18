@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
             view.forward(req, resp);
 
         } else {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/login");
             view.forward(req, resp);
         }
     }

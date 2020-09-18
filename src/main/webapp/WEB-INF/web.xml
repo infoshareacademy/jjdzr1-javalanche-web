@@ -6,7 +6,7 @@
   <data-source>
     <name>java:/newDefinition</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-    <url>jdbc:mysql://localhost:3307/javalanche?serverTimezone=UTC</url>
+    <url>jdbc:mysql://localhost:32768/javalanche?serverTimezone=UTC</url>
     <user>root</user>
     <password>root</password>
   </data-source>
