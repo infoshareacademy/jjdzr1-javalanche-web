@@ -4,7 +4,7 @@ import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.repository.DayOffRepository;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-@Local
+@LocalBean
 public class DayOffService {
 
     @Inject

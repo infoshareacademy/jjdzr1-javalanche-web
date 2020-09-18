@@ -2,6 +2,10 @@ package com.infoshareacademy.service;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
+import javax.ejb.LocalBean;
+
+
+@LocalBean
 public class SecurePasswordService {
 
     protected static final String PASS_ENCRYPT = "JAKIES_HASLO_DO_KODOWANIA";

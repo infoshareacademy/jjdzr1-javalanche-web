@@ -1,9 +1,12 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.repository.UserRepository;
+
+import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.util.logging.Logger;
 
+@LocalBean
 public class ValidationService {
 
     @Inject

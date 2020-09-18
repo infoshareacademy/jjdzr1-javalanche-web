@@ -1,7 +1,6 @@
 package com.infoshareacademy.DAO;
 
 import com.infoshareacademy.model.DayOff;
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
