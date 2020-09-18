@@ -1,57 +1,47 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.repository.UserRepository;
+import com.infoshareacademy.service.ValidationService;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    Logger logger = Logger.getLogger(getClass().getName());
+    private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+
+    @Inject
+    ValidationService validationService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        PrintWriter writer = resp.getWriter();
         RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
+        view.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        PrintWriter writer = resp.getWriter();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-//TODO authentication
-        if (isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/main.jsp");
+        HttpSession session;
+
+        if (validationService.isAuthenticated(username, password)) {
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
+
+            session = req.getSession();
+            session.setAttribute("username", username);
+
             view.forward(req, resp);
 
         } else {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
             view.forward(req, resp);
         }
-    }
-
-    private boolean isAuthenticated(String username, String password){
-        UserRepository userRepository = new UserRepository();
-        userRepository.fillUsersList();
-        boolean isAuthenticated = false;
-        for (User user: userRepository.getUsersList()
-        ) {
-            if (user.getEmail().equalsIgnoreCase(username) && user.getPassword().equals(password)){
-                isAuthenticated = true;
-                break;
-            }
-        }
-        return isAuthenticated;
     }
 }
