@@ -1,9 +1,9 @@
 package com.infoshareacademy.DAO;
 
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import java.util.List;
 
-@Local
+@LocalBean
 public interface DAO<T> {
 
     List<T> getAll();

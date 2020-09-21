@@ -7,5 +7,6 @@
 
     <!-- Custom styles for table   -->
     <link href="../css/table_date.css" rel="stylesheet">
+    <meta http-equiv="Refresh">
 
 </head>

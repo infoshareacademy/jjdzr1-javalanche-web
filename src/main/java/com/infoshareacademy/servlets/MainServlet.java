@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -21,7 +23,7 @@ public class MainServlet extends HttpServlet {
     @Inject
     private DayOffService dayOffService;
 
-    private static final Logger logger = Logger.getLogger(MainServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MainServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,16 +38,17 @@ public class MainServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        HttpSession session = req.getSession();
-        if (session.getAttribute("username") != null) {
+        if (req.getSession().getAttribute("username") != null){
             view = getServletContext().getRequestDispatcher("/main.jsp");
-            req.setAttribute("calendarView", calendarService.calendarView(130));
-            req.setAttribute("users", userService.getAll());
-            req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
         }
         else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
+
+        req.setAttribute("calendarView", calendarService.calendarView(30));
+        req.setAttribute("users", userService.getAll());
+        req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+
         view.forward(req, resp);
     }
 }

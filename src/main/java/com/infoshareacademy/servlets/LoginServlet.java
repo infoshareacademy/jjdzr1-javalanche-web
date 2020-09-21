@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.ValidationService;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -12,14 +13,18 @@ import java.util.logging.Logger;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
 
     @Inject
-    ValidationService validationService;
+    private ValidationService validationService;
+
+    @Inject
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
+        //TODO jeżeli użytkownik jest zalogowany to informacja, że taki użytkonik zalogowany w sesji
         RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
         view.forward(req, resp);
     }
@@ -29,13 +34,15 @@ public class LoginServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        HttpSession session;
+        req.getSession(true);
 
         if (validationService.isAuthenticated(username, password)) {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
 
-            session = req.getSession();
-            session.setAttribute("username", username);
+            req.getSession().setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
+            req.getSession().setAttribute("username", username);
+            req.getSession().setAttribute("firstName", userService.getByEmail(username).getFirstName());
+            req.getSession().setAttribute("lastName", userService.getByEmail(username).getLastName());
 
             view.forward(req, resp);
 

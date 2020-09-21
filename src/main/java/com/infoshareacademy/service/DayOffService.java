@@ -4,7 +4,7 @@ import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.repository.DayOffRepository;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-@Local
+@LocalBean
 public class DayOffService {
 
     @Inject
@@ -22,7 +22,7 @@ public class DayOffService {
     @Inject
     private UserService userService;
 
-    private static final Logger logger = Logger.getLogger(DayOffService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DayOffService.class.getName());
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
@@ -38,7 +38,7 @@ public class DayOffService {
 
     private List<DayOffDto> mapDaysOffToDto(List<DayOff> dayOffs) {
         return dayOffs.stream()
-                .map(dayOff -> new DayOffDto(dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.getListOfDays()))
+                .map(dayOff -> new DayOffDto(dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.isAccepted(), dayOff.getListOfDays()))
                 .collect(Collectors.toList());
     }
 
@@ -63,7 +63,9 @@ public class DayOffService {
         for (UserDto user: userService.getAll()) {
             List<String> dates = new ArrayList<>();
             for (DayOffDto day: getByUserEmail(user.getEmail())) {
-                day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
+                if (day.isAccepted()){
+                    day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
+                }
             }
             map.put(user.getEmail(), dates);
         }

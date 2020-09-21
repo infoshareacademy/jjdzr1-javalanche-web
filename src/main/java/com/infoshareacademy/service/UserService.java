@@ -15,7 +15,7 @@ public class UserService {
     @Inject
     private UserRepository userRepository;
 
-    private static final Logger logger = Logger.getLogger(UserService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     public List<UserDto> getAll() {
         List<User> users = userRepository.getAll();
@@ -25,7 +25,12 @@ public class UserService {
 
     private List<UserDto> mapUsersToDto(List<User> users) {
         return users.stream()
-                .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getDaysOffLeft()))
+                .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess()))
                 .collect(Collectors.toList());
+    }
+
+    public UserDto getByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess());
     }
 }

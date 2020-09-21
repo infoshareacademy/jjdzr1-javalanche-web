@@ -9,16 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/badrequest_404")
+public class BadRequestServlet extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(LogoutServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BadRequestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-        req.getSession().invalidate();
-        RequestDispatcher view = getServletContext().getRequestDispatcher("/logout.jsp");
-        view.forward(req,resp);
+        RequestDispatcher view = getServletContext().getRequestDispatcher("/404.jsp");
+        view.forward(req, resp);
     }
 }

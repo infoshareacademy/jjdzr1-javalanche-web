@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @WebServlet("/holidayrequest")
 public class HolidayRequestServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(HolidayRequestServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HolidayRequestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,13 +28,11 @@ public class HolidayRequestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        HttpSession session = req.getSession();
 
-        if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayRequest.jsp");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+        if (req.getSession().getAttribute("username") != null){
+            view = getServletContext().getRequestDispatcher("/holidayrequest.jsp");
+        } else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req,resp);
     }

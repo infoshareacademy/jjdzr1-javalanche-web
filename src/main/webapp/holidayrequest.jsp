@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: karol
-  Date: 29.08.2020
-  Time: 14:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
 <title>Holiday calendar</title>
@@ -20,6 +13,8 @@
 
         <%@ include file="features/addHolidayRequestForm.jsp" %>
 
+        <%@ include file="features/popup.jsp" %>
+
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
@@ -29,5 +24,4 @@
 </div>
 
 </body>
-
 </html>
