@@ -29,7 +29,5 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public int loggedUsersLevelOfAccessRetriever(String email){
-        return userRepository.findByEmail(email).getLevelOfAccess();
-    }
+
 }

@@ -1,20 +1,55 @@
 <form action="/forms" method="post">
-    <div class="form-group col-md-3">
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-    </div>
-    <div class="form-group col-md-3">
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-    </div>
-    <div class="form-group col-md-3">
-        <input type="inputFirstName" class="form-control" id="inputFirstName" placeholder="FirstName">
-    </div>
-    <div class="form-group col-md-3">
-        <input type="inputSurname" class="form-control" id="inputSurname" placeholder="Surname">
-    </div>
-    <div class="button-container">
-        <button class="button-position btn btn-dark" type="submit" class="btn btn-dark button-position">Submit
-        </button>
-        <button class="button-position btn btn-dark" type="reset" class="btn btn-dark button-position">Reset
-        </button>
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="inputEmail">Email address:</label>
+            <input type="email" name="addUserEmail" class="form-control" id="inputEmail" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Password:</label>
+            <input type="password" name="addUserPassword" class="form-control" id="inputPassword" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">First name:</label>
+            <input type="text" name="addUserFirstName" class="form-control" id="inputFirstName" placeholder="Enter first name" required>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Surname:</label>
+            <input type="text" name="addUserSurname" class="form-control" id="inputSurname" placeholder="Enter surname" required>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Days off:</label>
+            <input type="number" name="addUserDaysOff" class="form-control" id="inputDaysOff" placeholder="Enter number of remaining days off"
+                   required>
+        </div>
+
+        <fieldset class="form-group">
+            <div class="form-group">
+                <label>Account status:</label>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="levelOfAccess" value="1" class="form-check-input" name="optradio" checked>Employee
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="levelOfAccess" value="2" class="form-check-input" name="optradio">Team Leader
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" name="levelOfAccess" value="3" class="form-check-input" name="optradio">Admin
+                    </label>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <div class="button-container">
+            <button class="button-position btn btn-dark" type="submit">Submit
+            </button>
+            <button class="button-position btn btn-dark" type="reset">Reset
+            </button>
+        </div>
     </div>
 </form>

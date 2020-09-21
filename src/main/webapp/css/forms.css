@@ -29,7 +29,7 @@ label {
 .button-position {
     display: inline-block;
     cursor: pointer;
-    float: left;
+    float: right;
     margin: 5px;
 }
 .button-container {

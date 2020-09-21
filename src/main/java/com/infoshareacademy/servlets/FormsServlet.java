@@ -1,6 +1,9 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.DAO.UserDao;
 import com.infoshareacademy.model.DayOff;
+import com.infoshareacademy.model.User;
+import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
@@ -26,6 +29,9 @@ public class FormsServlet extends HttpServlet {
     @Inject
     private UserService userService;
 
+    @Inject
+    private FormsService formsService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -34,6 +40,20 @@ public class FormsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
+
+
+        String username = req.getParameter("addUserEmail");
+        String password = req.getParameter("addUserPassword");
+        String firstName = req.getParameter("addUserFirstName");
+        String surname = req.getParameter("addUserSurname");
+        int daysOff = Integer.parseInt(req.getParameter("addUserDaysOff"));
+        int levelOfAccess = Integer.parseInt(req.getParameter("levelOfAccess"));
+
+/*        formsService.createEntityImage(username, password, firstName, surname, daysOff, levelOfAccess);*/
+/*
+        String result = username + " " + password + " " + firstName + " " + surname + " " + daysOff + levelOfAccess;
+
+        logger.info(result);*/
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +62,7 @@ public class FormsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
-            req.setAttribute("levelOfAccess", userService.loggedUsersLevelOfAccessRetriever(
+            req.setAttribute("levelOfAccess", formsService.loggedUsersLevelOfAccessRetriever(
                     (String) session.getAttribute("username")
             ));
         }
@@ -52,34 +72,3 @@ public class FormsServlet extends HttpServlet {
         view.forward(req, resp);
     }
 }
-
-/*
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.setCharacterEncoding("UTF-8");
-        RequestDispatcher view;
-
-        HttpSession session = req.getSession();
-
-        if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/forms.jsp");
-
-            String username = (String) session.getAttribute("username");
-            int levelOfAccess = userService.loggedUsersLevelOfAccessRetriever(username);
-            session.setAttribute("levelOfAccess", levelOfAccess);
-
-*//*            DayOff dayOff = new DayOff();
-            dayOff.setUser(userRepository.findByEmail((String) session.getAttribute("username")));
-            dayOff.setFirstDay(firstDay);
-            dayOff.setLastDay(lastDay);
-            dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
-            dayOffRepository.create(dayOff);*//*
-
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/404.html");
-        }
-        view.forward(req, resp);
-    }*/
-

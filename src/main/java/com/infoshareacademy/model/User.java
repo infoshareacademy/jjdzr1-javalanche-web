@@ -36,9 +36,6 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<DayOff> daysOff;
 
-    public User() {
-    }
-
     public void setId(int id) {
         this.id = id;
     }
