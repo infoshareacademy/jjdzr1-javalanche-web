@@ -1,6 +1,6 @@
 <div style="margin: 10px">
     <h3>
-
+        Admin forms
     </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
