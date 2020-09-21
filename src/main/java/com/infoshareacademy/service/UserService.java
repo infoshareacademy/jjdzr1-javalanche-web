@@ -28,4 +28,8 @@ public class UserService {
                 .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getDaysOffLeft()))
                 .collect(Collectors.toList());
     }
+
+    public int loggedUsersLevelOfAccessRetriever(String email){
+        return userRepository.findByEmail(email).getLevelOfAccess();
+    }
 }

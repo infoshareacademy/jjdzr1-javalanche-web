@@ -1,11 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: karol
-  Date: 29.08.2020
-  Time: 14:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% int levelOfAccess = (int) request.getAttribute("levelOfAccess"); %>
+
 <html lang="pl">
 <title>Holiday calendar</title>
 <head>
@@ -18,10 +14,26 @@
     <div id="page-content-wrapper" >
         <%@ include file="template/headerbar.jsp" %>
 
-
+        <%switch (levelOfAccess){
+            case 1:
+        %>
         <%@ include file="features/forms/employee/employeeCollapse.jsp" %>
+        <%
+                break;
+            case 2:
+        %>
         <%@ include file="features/forms/teamLeader/teamLeaderCollapse.jsp" %>
+        <%
+                break;
+            case 3:
+        %>
         <%@ include file="features/forms/admin/adminCollapse.jsp" %>
+        <%
+            break;
+        }%>
+
+
+
 
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
