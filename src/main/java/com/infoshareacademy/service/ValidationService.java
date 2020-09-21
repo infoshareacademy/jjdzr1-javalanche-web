@@ -1,7 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.DTO.UserDto;
-
+import com.infoshareacademy.repository.UserRepository;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.util.logging.Logger;
@@ -10,16 +9,18 @@ import java.util.logging.Logger;
 public class ValidationService {
 
     @Inject
-    private UserService userService;
+    private UserRepository userRepository;
 
-    private static final Logger logger = Logger.getLogger(ValidationService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ValidationService.class.getName());
 
     public boolean isAuthenticated(String email, String password){
         boolean isAuthenticated = false;
-        for (UserDto user: userService.getAll()) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)){
+        try {
+            if (userRepository.findByEmail(email).getPassword().equals(password)){
                 isAuthenticated = true;
             }
+        } catch (Exception e){
+            LOGGER.warning(e.getMessage());
         }
         return isAuthenticated;
     }

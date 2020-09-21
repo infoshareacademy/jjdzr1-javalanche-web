@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
+        //TODO jeżeli użytkownik jest zalogowany to informacja, że taki użytkonik zalogowany w sesji
         RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
         view.forward(req, resp);
     }
@@ -40,6 +41,8 @@ public class LoginServlet extends HttpServlet {
 
             req.getSession().setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
             req.getSession().setAttribute("username", username);
+            req.getSession().setAttribute("firstName", userService.getByEmail(username).getFirstName());
+            req.getSession().setAttribute("lastName", userService.getByEmail(username).getLastName());
 
             view.forward(req, resp);
 
