@@ -11,11 +11,12 @@
 <div class="d-flex" id="wrapper">
     <%@ include file="template/sidebar.jsp" %>
 
-    <div id="page-content-wrapper" >
+    <div id="page-content-wrapper">
         <%@ include file="template/headerbar.jsp" %>
 
-        <%switch (levelOfAccess){
-            case 1:
+        <%
+            switch (levelOfAccess) {
+                case 1:
         %>
         <%@ include file="features/forms/employee/employeeCollapse.jsp" %>
         <%
@@ -29,15 +30,8 @@
         %>
         <%@ include file="features/forms/admin/adminCollapse.jsp" %>
         <%
-            break;
-        }%>
-
-
-
-
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
+                    break;
+            }%>
 
     </div>
 

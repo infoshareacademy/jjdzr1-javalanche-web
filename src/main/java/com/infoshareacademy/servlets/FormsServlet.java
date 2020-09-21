@@ -1,7 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.DTO.UserDto;
-import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.UserService;
 
@@ -48,7 +46,6 @@ public class FormsServlet extends HttpServlet {
             int idToDelete = Integer.parseInt(req.getParameter("selectedIdToDelete"));
             formsService.deleteUserFormInputHandler(idToDelete);
         }
-
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
