@@ -33,18 +33,18 @@ public class LoginServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        HttpSession session = req.getSession(true);
-        req.changeSessionId();
+        req.getSession(true);
+
         if (validationService.isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/test");
-            //przekazywanie w sesji nazwy zalogowanego użytkownika
-            //przekazywanie w sesji poziomu dostępu
-            session.setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
-            session.setAttribute("username", username);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
+
+            req.getSession().setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
+            req.getSession().setAttribute("username", username);
+
             view.forward(req, resp);
 
         } else {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
             view.forward(req, resp);
         }
     }

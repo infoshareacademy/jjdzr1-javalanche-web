@@ -36,7 +36,7 @@ public class AddHolidayRequestServlet extends HttpServlet {
         RequestDispatcher view;
 
         if (req.getSession().getAttribute("username") != null){
-            view = getServletContext().getRequestDispatcher("/test");
+            view = getServletContext().getRequestDispatcher("/main");
             LocalDate firstDay = LocalDate.parse(req.getParameter("firstDay"));
             LocalDate lastDay = LocalDate.parse(req.getParameter("lastDay"));
 
@@ -46,6 +46,7 @@ public class AddHolidayRequestServlet extends HttpServlet {
             dayOff.setLastDay(lastDay);
             dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
             dayOffRepository.create(dayOff);
+
         } else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }

@@ -36,8 +36,7 @@ public class EmployeesViewServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        HttpSession session = req.getSession();
-        if (session.getAttribute("username") != null) {
+        if (req.getSession().getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/employeesView.jsp");
             req.setAttribute("users", userService.getAll());
         }

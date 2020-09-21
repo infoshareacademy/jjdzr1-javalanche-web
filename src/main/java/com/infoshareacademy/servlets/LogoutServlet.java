@@ -17,9 +17,8 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        RequestDispatcher view;
         req.getSession().invalidate();
-        view = getServletContext().getRequestDispatcher("/logout.jsp");
+        RequestDispatcher view = getServletContext().getRequestDispatcher("/logout.jsp");
         view.forward(req,resp);
     }
 }

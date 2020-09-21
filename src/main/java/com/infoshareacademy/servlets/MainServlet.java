@@ -27,12 +27,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("username") != null){
-            setRequestDispatcher(req, resp);
-        }
-        else {
-            getServletContext().getRequestDispatcher("/badrequest_404").forward(req, resp);
-        }
+        setRequestDispatcher(req, resp);
     }
 
     @Override
@@ -42,10 +37,18 @@ public class MainServlet extends HttpServlet {
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        RequestDispatcher view = getServletContext().getRequestDispatcher("/main.jsp");
+        RequestDispatcher view;
+        if (req.getSession().getAttribute("username") != null){
+            view = getServletContext().getRequestDispatcher("/main.jsp");
+        }
+        else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+
         req.setAttribute("calendarView", calendarService.calendarView(30));
         req.setAttribute("users", userService.getAll());
         req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+
         view.forward(req, resp);
     }
 }
