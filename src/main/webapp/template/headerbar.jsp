@@ -57,6 +57,9 @@
                 $("#calendarTable tr").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
+                $("#usersTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
     </script>
