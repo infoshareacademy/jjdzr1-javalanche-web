@@ -19,6 +19,7 @@ public class UserDao implements DAO<User> {
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
+
     @Override
     public void create(User user) {
         entityManager.persist(user);
@@ -33,4 +34,5 @@ public class UserDao implements DAO<User> {
     public void delete(User user) {
         entityManager.remove(user);
     }
+
 }

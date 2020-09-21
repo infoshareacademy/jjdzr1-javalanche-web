@@ -1,8 +1,7 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.DAO.UserDao;
-import com.infoshareacademy.model.DayOff;
-import com.infoshareacademy.model.User;
+import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.UserService;
 
@@ -15,10 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @WebServlet("/forms")
@@ -27,10 +22,10 @@ public class FormsServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(FormsServlet.class.getName());
 
     @Inject
-    private UserService userService;
+    private FormsService formsService;
 
     @Inject
-    private FormsService formsService;
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,19 +36,19 @@ public class FormsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
 
+        if(req.getQueryString().equals("addUser")){
+            String username = req.getParameter("addUserEmail");
+            String password = req.getParameter("addUserPassword");
+            String firstName = req.getParameter("addUserFirstName");
+            String surname = req.getParameter("addUserSurname");
+            int daysOff = Integer.parseInt(req.getParameter("addUserDaysOff"));
+            int levelOfAccess = Integer.parseInt(req.getParameter("levelOfAccess"));
+            formsService.addUserFormInputDatabaseHandler(username, password, firstName, surname, daysOff, levelOfAccess);
+        } else if (req.getQueryString().equals("deleteUser")){
+            int idToDelete = Integer.parseInt(req.getParameter("selectedIdToDelete"));
+            formsService.deleteUserFormInputHandler(idToDelete);
+        }
 
-        String username = req.getParameter("addUserEmail");
-        String password = req.getParameter("addUserPassword");
-        String firstName = req.getParameter("addUserFirstName");
-        String surname = req.getParameter("addUserSurname");
-        int daysOff = Integer.parseInt(req.getParameter("addUserDaysOff"));
-        int levelOfAccess = Integer.parseInt(req.getParameter("levelOfAccess"));
-
-/*        formsService.createEntityImage(username, password, firstName, surname, daysOff, levelOfAccess);*/
-/*
-        String result = username + " " + password + " " + firstName + " " + surname + " " + daysOff + levelOfAccess;
-
-        logger.info(result);*/
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,9 +57,8 @@ public class FormsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
-            req.setAttribute("levelOfAccess", formsService.loggedUsersLevelOfAccessRetriever(
-                    (String) session.getAttribute("username")
-            ));
+            req.setAttribute("levelOfAccess", formsService.loggedUsersLevelOfAccessRetriever((String) session.getAttribute("username")));
+            req.setAttribute("users", userService.getAll());
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");

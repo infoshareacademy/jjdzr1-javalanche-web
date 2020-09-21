@@ -14,20 +14,28 @@ import javax.transaction.Transactional;
 @Transactional
 public class FormsService {
 
-    @Inject
-    private UserDao userDao;
-
-    @Inject
-    private UserDto userDto;
 
     @Inject
     private UserRepository userRepository;
 
-    public void addNewUser(final UserDto userDto) {
-    }
 
     public int loggedUsersLevelOfAccessRetriever(String email){
         return userRepository.findByEmail(email).getLevelOfAccess();
+    }
+
+    public void addUserFormInputDatabaseHandler(String username, String password, String firstName, String lastname, int daysOff, int levelOfAccess){
+        User user = new User();
+        user.setEmail(username);
+        user.setPassword(password);
+        user.setFirstName(firstName);
+        user.setLastName(lastname);
+        user.setDaysOffLeft(daysOff);
+        user.setLevelOfAccess(levelOfAccess);
+        userRepository.create(user);
+    }
+
+    public void deleteUserFormInputHandler(int recordToDeleteId){
+        userRepository.getAll().forEach(o -> {if(o.getId() == recordToDeleteId){userRepository.delete(o);}});
     }
 
 }
