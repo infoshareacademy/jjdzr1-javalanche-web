@@ -27,7 +27,7 @@ public class AddHolidayRequestServlet extends HttpServlet {
     @Inject
     private DayOffService dayOffService;
 
-    private static final Logger logger = Logger.getLogger(AddHolidayRequestServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AddHolidayRequestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

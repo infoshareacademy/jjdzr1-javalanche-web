@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @LocalBean
 public class CalendarService {
 
-    private static final Logger logger = Logger.getLogger(CalendarService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
 
     private Map<LocalDate, String> holidaysMap() {
         Map<LocalDate, String> holidaysMap = new LinkedHashMap<>();

@@ -15,7 +15,7 @@ public class TeamService {
     @Inject
     private TeamRepository teamRepository;
 
-    private static final Logger logger = Logger.getLogger(UserService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     public List<TeamDto> getAll(){
         List<Team> teams = teamRepository.getAll();

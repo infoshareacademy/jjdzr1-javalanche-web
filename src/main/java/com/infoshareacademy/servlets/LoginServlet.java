@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
 
     @Inject
     private ValidationService validationService;

@@ -22,7 +22,7 @@ public class DayOffService {
     @Inject
     private UserService userService;
 
-    private static final Logger logger = Logger.getLogger(DayOffService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DayOffService.class.getName());
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();

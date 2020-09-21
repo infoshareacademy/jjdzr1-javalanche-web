@@ -10,14 +10,14 @@ import java.util.logging.Logger;
 @LocalBean
 public class UserRepository extends UserDao {
 
-    private static final Logger logger = Logger.getLogger(UserRepository.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserRepository.class.getName());
 
     public User findByEmail(String email) {
         User user = null;
         try {
             user = (User) entityManager.createQuery("from User where email like :email").setParameter("email", email).getSingleResult();
         } catch (NoResultException exception) {
-            logger.warning(exception.getMessage());
+            LOGGER.warning(exception.getMessage());
         }
         return user;
     }

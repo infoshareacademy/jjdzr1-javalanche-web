@@ -17,7 +17,7 @@ public class EmployeesViewServlet extends HttpServlet {
     @Inject
     private UserService userService;
 
-    private static final Logger logger = Logger.getLogger(EmployeesViewServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EmployeesViewServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

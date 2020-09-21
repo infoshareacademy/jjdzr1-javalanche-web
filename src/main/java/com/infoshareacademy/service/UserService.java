@@ -15,7 +15,7 @@ public class UserService {
     @Inject
     private UserRepository userRepository;
 
-    private static final Logger logger = Logger.getLogger(UserService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     public List<UserDto> getAll() {
         List<User> users = userRepository.getAll();

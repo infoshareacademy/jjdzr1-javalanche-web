@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 @LocalBean
 public class TeamRepository extends TeamDao {
 
-    private static final Logger logger = Logger.getLogger(DayOffRepository.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DayOffRepository.class.getName());
 
     public List<Team> findByName(String name){
         return entityManager.createQuery("FROM Team where name like :name").setParameter("name", name).getResultList();

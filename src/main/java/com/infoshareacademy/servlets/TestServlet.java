@@ -26,7 +26,7 @@ public class TestServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
-    private static final Logger logger = Logger.getLogger(TestServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TestServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
