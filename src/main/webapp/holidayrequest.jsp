@@ -11,7 +11,7 @@
     <div id="page-content-wrapper" >
         <%@ include file="template/headerbar.jsp" %>
 
-        <%@ include file="features/usersDisplay.jsp" %>
+        <%@ include file="features/addHolidayRequestForm.jsp" %>
 
         <%@ include file="features/popup.jsp" %>
 
@@ -22,3 +22,6 @@
     </div>
 
 </div>
+
+</body>
+</html>

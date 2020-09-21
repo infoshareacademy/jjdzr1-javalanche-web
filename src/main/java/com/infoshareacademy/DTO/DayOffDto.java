@@ -9,12 +9,14 @@ public class DayOffDto {
     private LocalDate firstDay;
     private LocalDate lastDay;
     private User user;
+    private boolean isAccepted;
     private List<LocalDate> listOfDays;
 
-    public DayOffDto(LocalDate firstDay, LocalDate lastDay, User user, List<LocalDate> listOfDays) {
+    public DayOffDto(LocalDate firstDay, LocalDate lastDay, User user, boolean isAccepted, List<LocalDate> listOfDays) {
         this.firstDay = firstDay;
         this.lastDay = lastDay;
         this.user = user;
+        this.isAccepted = isAccepted;
         this.listOfDays = listOfDays;
     }
 
@@ -42,6 +44,14 @@ public class DayOffDto {
         this.user = user;
     }
 
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
+    }
+
     public List<LocalDate> getListOfDays() {
         return listOfDays;
     }
@@ -56,6 +66,7 @@ public class DayOffDto {
                 "firstDay=" + firstDay +
                 ", lastDay=" + lastDay +
                 ", user=" + user +
+                ", isAccepted=" + isAccepted +
                 ", listOfDays=" + listOfDays +
                 '}';
     }

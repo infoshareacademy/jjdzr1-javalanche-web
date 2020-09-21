@@ -1,14 +1,14 @@
 package com.infoshareacademy.DAO;
 
 import com.infoshareacademy.model.User;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-@Local
+@LocalBean
 public class UserDao implements DAO<User> {
 
     @PersistenceContext

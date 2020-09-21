@@ -27,7 +27,7 @@
 
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Profile
+                        <%=request.getSession().getAttribute("firstName")%> <%=request.getSession().getAttribute("lastName")%>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
@@ -55,6 +55,9 @@
             $("#myInput").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $("#calendarTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $("#usersTable tr").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

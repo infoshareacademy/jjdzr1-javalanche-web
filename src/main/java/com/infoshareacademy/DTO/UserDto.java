@@ -6,14 +6,18 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private int daysOffLeft;
+    private int levelOfAccess;
 
-    public UserDto(int id, String firstName, String lastName, String email, int daysOffLeft) {
+    public UserDto(int id, String firstName, String lastName, String email, String password, int daysOffLeft, int levelOfAccess) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.daysOffLeft = daysOffLeft;
+        this.levelOfAccess = levelOfAccess;
     }
 
     public int getId() {
@@ -48,12 +52,28 @@ public class UserDto {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public int getDaysOffLeft() {
         return daysOffLeft;
     }
 
     public void setDaysOffLeft(int daysOffLeft) {
         this.daysOffLeft = daysOffLeft;
+    }
+
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public void setLevelOfAccess(int levelOfAccess) {
+        this.levelOfAccess = levelOfAccess;
     }
 
     @Override
@@ -63,7 +83,10 @@ public class UserDto {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", daysOffLeft=" + daysOffLeft +
+                ", levelOfAccess=" + levelOfAccess +
                 '}';
     }
+
 }
