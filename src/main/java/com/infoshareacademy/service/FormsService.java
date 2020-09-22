@@ -1,13 +1,11 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.DAO.UserDao;
-import com.infoshareacademy.DTO.UserDto;
+
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.UserRepository;
 
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -45,6 +43,10 @@ public class FormsService {
 
     public void deleteUserFormInputHandler(int recordToDeleteId){
         userRepository.getAll().forEach(o -> {if(o.getId() == recordToDeleteId){userRepository.delete(o);}});
+    }
+
+    public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
+        dayOffRepository.getAll().forEach(o -> {if(o.getId() == requestToDeleteId){dayOffRepository.delete(o);}});
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){

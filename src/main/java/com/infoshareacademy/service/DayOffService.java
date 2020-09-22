@@ -38,7 +38,7 @@ public class DayOffService {
 
     private List<DayOffDto> mapDaysOffToDto(List<DayOff> dayOffs) {
         return dayOffs.stream()
-                .map(dayOff -> new DayOffDto(dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.isAccepted(), dayOff.getListOfDays()))
+                .map(dayOff -> new DayOffDto(dayOff.getId(), dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.isAccepted(), dayOff.getListOfDays()))
                 .collect(Collectors.toList());
     }
 
