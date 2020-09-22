@@ -2,13 +2,16 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.DAO.UserDao;
 import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.UserRepository;
 
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @LocalBean
 @Transactional
@@ -17,6 +20,12 @@ public class FormsService {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private DayOffRepository dayOffRepository;
+
+    @Inject
+    private DayOffService dayOffService;
 
 
     public int loggedUsersLevelOfAccessRetriever(String email){
@@ -36,6 +45,16 @@ public class FormsService {
 
     public void deleteUserFormInputHandler(int recordToDeleteId){
         userRepository.getAll().forEach(o -> {if(o.getId() == recordToDeleteId){userRepository.delete(o);}});
+    }
+
+    public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
+        DayOff dayOff = new DayOff();
+        dayOff.setFirstDay(firstDay);
+        dayOff.setLastDay(lastDay);
+        dayOff.setAccepted(false);
+        dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
+        dayOff.setUser(userRepository.findByEmail(email));
+        dayOffRepository.create(dayOff);
     }
 
 }

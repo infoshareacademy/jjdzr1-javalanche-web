@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.UserService;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 @WebServlet("/forms")
@@ -25,6 +27,8 @@ public class FormsServlet extends HttpServlet {
     @Inject
     private UserService userService;
 
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -33,6 +37,7 @@ public class FormsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
+        HttpSession session = req.getSession();
 
         if(req.getQueryString().equals("addUser")){
             String username = req.getParameter("addUserEmail");
@@ -45,6 +50,11 @@ public class FormsServlet extends HttpServlet {
         } else if (req.getQueryString().equals("deleteUser")){
             int idToDelete = Integer.parseInt(req.getParameter("selectedIdToDelete"));
             formsService.deleteUserFormInputHandler(idToDelete);
+        } else if (req.getQueryString().equals("placeHolidayRequest")){
+            LocalDate holidayFirstDay = LocalDate.parse(req.getParameter("holidayFirstDay"));
+            LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
+            formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+
         }
     }
 
@@ -54,7 +64,7 @@ public class FormsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
-            req.setAttribute("levelOfAccess", formsService.loggedUsersLevelOfAccessRetriever((String) session.getAttribute("username")));
+            req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
             req.setAttribute("users", userService.getAll());
         }
         else {
