@@ -1,5 +1,6 @@
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
 
+
 <% List<DayOffDto> daysOffRequests = (List<DayOffDto>) request.getAttribute("daysOffRequests");%>
 
 <form action="/forms?withdrawHolidayRequest" method="post">

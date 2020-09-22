@@ -3,10 +3,13 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.TeamDto;
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.repository.TeamRepository;
+import com.infoshareacademy.repository.UserRepository;
+
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @LocalBean
@@ -15,6 +18,9 @@ public class TeamService {
     @Inject
     private TeamRepository teamRepository;
 
+    @Inject
+    private UserRepository userRepository;
+
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     public List<TeamDto> getAll(){
@@ -22,6 +28,7 @@ public class TeamService {
         List<TeamDto> teamDtos = mapTeamsToDto(teams);
         return teamDtos;
     }
+
 
     private List<TeamDto> mapTeamsToDto(List<Team> teams) {
         return teams.stream()

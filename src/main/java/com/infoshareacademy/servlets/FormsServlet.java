@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.UserService;
@@ -59,6 +59,7 @@ public class FormsServlet extends HttpServlet {
         } else if (req.getQueryString().equals("withdrawHolidayRequest")){
             int holidayRequestIdToDelete = Integer.parseInt(req.getParameter("selectedHolidayRequestToDelete"));
             formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
+        } else if (req.getQueryString().equals("addUsersToTeam")){
         }
     }
 
@@ -71,6 +72,8 @@ public class FormsServlet extends HttpServlet {
             req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
             req.setAttribute("users", userService.getAll());
             req.setAttribute("daysOffRequests", dayOffService.getByUserEmail(session.getAttribute("username").toString()));
+            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+            req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");
