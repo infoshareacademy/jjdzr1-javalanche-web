@@ -3,6 +3,7 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
+import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
@@ -30,6 +31,9 @@ public class FormsServlet extends HttpServlet {
 
     @Inject
     private DayOffService dayOffService;
+
+    @Inject
+    private TeamService teamService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,6 +64,13 @@ public class FormsServlet extends HttpServlet {
             int holidayRequestIdToDelete = Integer.parseInt(req.getParameter("selectedHolidayRequestToDelete"));
             formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
         } else if (req.getQueryString().equals("addUsersToTeam")){
+        } else if (req.getQueryString().equals("addTeam")){
+            String teamName = req.getParameter("addTeamName");
+            String assignedTeamLeaderUsername = req.getParameter("assignTeamLeaderToGroup");
+            formsService.addTeamFormInputHandler(teamName, assignedTeamLeaderUsername);
+        } else if (req.getQueryString().equals("deleteTeam")){
+            int userIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
+            formsService.deleteTeamFormInputHandler(userIdToDelete);
         }
     }
 
@@ -74,6 +85,8 @@ public class FormsServlet extends HttpServlet {
             req.setAttribute("daysOffRequests", dayOffService.getByUserEmail(session.getAttribute("username").toString()));
             req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
             req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
+            req.setAttribute("teamsList", teamService.getAll());
+            teamService.getAll().stream().forEach(s -> logger.info(s.toString()));
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");

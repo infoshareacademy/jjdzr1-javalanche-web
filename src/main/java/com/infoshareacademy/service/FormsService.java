@@ -2,8 +2,10 @@ package com.infoshareacademy.service;
 
 
 import com.infoshareacademy.model.DayOff;
+import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
 
 import javax.ejb.LocalBean;
@@ -21,6 +23,9 @@ public class FormsService {
 
     @Inject
     private DayOffRepository dayOffRepository;
+
+    @Inject
+    private TeamRepository teamRepository;
 
     @Inject
     private DayOffService dayOffService;
@@ -45,8 +50,16 @@ public class FormsService {
         userRepository.getAll().forEach(o -> {if(o.getId() == recordToDeleteId){userRepository.delete(o);}});
     }
 
-    public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
-        dayOffRepository.getAll().forEach(o -> {if(o.getId() == requestToDeleteId){dayOffRepository.delete(o);}});
+    public void addTeamFormInputHandler(String teamName, String teamLeaderUsername){
+        Team team = new Team();
+        team.setName(teamName);
+        team.setTeamLeader(userRepository.findByEmail(teamLeaderUsername));
+        team.setUserEmail(null);
+        teamRepository.create(team);
+    }
+
+    public void deleteTeamFormInputHandler(int teamId){
+        teamRepository.getAll().forEach(o -> {if(o.getId() == teamId){teamRepository.delete(o);}});
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
@@ -57,6 +70,10 @@ public class FormsService {
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
         dayOff.setUser(userRepository.findByEmail(email));
         dayOffRepository.create(dayOff);
+    }
+
+    public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
+        dayOffRepository.getAll().forEach(o -> {if(o.getId() == requestToDeleteId){dayOffRepository.delete(o);}});
     }
 
 }

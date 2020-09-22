@@ -13,7 +13,7 @@
             <label for="exampleFormControlSelect1">Select team leader for the team</label>
             <select class="form-control" id="exampleFormControlSelect1" name="assignTeamLeaderToGroup">
                 <%for(UserDto user : teamLeaders){%>
-                <option value=<%=user.getId()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
+                <option value=<%=user.getEmail()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
                 <%}%>
             </select>
         </div>
