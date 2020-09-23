@@ -1,0 +1,22 @@
+<%@ page import="java.util.Optional" %>
+<%@ page import="com.infoshareacademy.model.User" %>
+
+<% List<UserDto> usersWithoutTeam = (List<UserDto>) request.getAttribute("usersWithoutTeam");
+UserDto loggedUser = (UserDto) request.getAttribute("loggedUser");%>
+
+
+<form action="/forms?addUsersToTeam" method="post">
+    <fieldset>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Add employees to a team</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2" name="selectedUsersForTeam">
+            <%for(UserDto user : usersWithoutTeam){%>
+            <option value=<%=user.getId()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
+            <%}%>
+        </select>
+    </div>
+    <div class="button-container">
+        <button class="button-position btn btn-dark" type="submit">Submit</button>
+    </div>
+    </fieldset>
+</form>

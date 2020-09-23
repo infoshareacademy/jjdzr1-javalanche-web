@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseOne"
+                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseOne"
                             aria-expanded="false" aria-controls="collapseOne">
                         Add request
                     </button>
@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-header" id="headingTwo">
                 <h2 class="mb-0">
-                    <button class="btn btn-dark collapsed" type="button" data-toggle="collapse"
+                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         Delete request
                     </button>

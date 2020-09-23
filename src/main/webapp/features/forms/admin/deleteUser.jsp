@@ -3,6 +3,7 @@
 
 
 <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
+<% String ids = "";%>
 
 <form action="/forms?deleteUser" method="post">
     <div class="col-md-6">
