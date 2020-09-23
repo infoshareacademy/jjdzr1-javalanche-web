@@ -44,17 +44,10 @@ public class FormsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
-
-        logger.info(teamRepository.findById(5).toString());
-        Team team = teamRepository.findById(5);
-        team.setTeamLeader(null);
-        teamRepository.update(team);
-        logger.info(team.toString());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setRequestDispatcher(req, resp);
 
         if(req.getQueryString().equals("addUser")){
             addUserFormHandler(req, resp);
@@ -71,6 +64,8 @@ public class FormsServlet extends HttpServlet {
         } else if (req.getQueryString().equals("deleteTeam")){
             deleteTeamFormHandler(req, resp);
         }
+
+        setRequestDispatcher(req, resp);
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -48,7 +48,7 @@ public class UserService {
     public List<UserDto> createListOfTeamLeadersWithoutTeam(){
         List<UserDto> teamLeaders = new ArrayList<>();
         getAll().stream()
-                .forEach(user -> {if (user.getTeam()==null & user.getLevelOfAccess()==2) {
+                .forEach(user -> {if (!user.isTeamLeader() & user.getLevelOfAccess()==2) {
                     teamLeaders.add(user);
                 }});
         return teamLeaders;

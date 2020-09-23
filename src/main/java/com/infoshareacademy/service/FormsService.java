@@ -46,14 +46,20 @@ public class FormsService {
         team.setName(teamName);
         team.setTeamLeader(userRepository.findByEmail(teamLeaderUsername));
         team.setUserEmail(null);
-        teamRepository.create(team);
+        User user = userRepository.findByEmail(teamLeaderUsername);
+        user.setTeamLeader(true);
+        user.setTeam(team);
+        userRepository.update(user);
     }
 
     public void deleteTeamFormInputHandler(int teamId){
-        Team teamToUpdate = teamRepository.findById(teamId);
-        teamToUpdate.setTeamLeader(null);
-        teamRepository.update(teamToUpdate);
-        teamRepository.delete(teamToUpdate);
+        User loggedTeamLeader = userRepository.findById(teamRepository.findById(teamId).getTeamLeader().getId());
+        loggedTeamLeader.setTeam(null);
+        loggedTeamLeader.setTeamLeader(false);
+        userRepository.update(loggedTeamLeader);
+        Team team = teamRepository.findById(teamId);
+        team.setTeamLeader(null);
+        teamRepository.delete(teamRepository.findById(teamId));
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
