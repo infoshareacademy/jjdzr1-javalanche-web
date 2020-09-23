@@ -12,6 +12,7 @@ import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.function.ToDoubleBiFunction;
 
 @LocalBean
 @Transactional
@@ -59,14 +60,17 @@ public class FormsService {
     }
 
     public void deleteTeamFormInputHandler(int teamId){
-        teamRepository.delete(teamRepository.findById(teamId));
+        Team teamToUpdate = teamRepository.findById(teamId);
+        teamToUpdate.setTeamLeader(null);
+        teamRepository.update(teamToUpdate);
+        teamRepository.delete(teamToUpdate);
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
         DayOff dayOff = new DayOff();
         dayOff.setFirstDay(firstDay);
         dayOff.setLastDay(lastDay);
-        dayOff.setAccepted(false);
+        dayOff.setAccepted(true);
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
         dayOff.setUser(userRepository.findByEmail(email));
         dayOffRepository.create(dayOff);

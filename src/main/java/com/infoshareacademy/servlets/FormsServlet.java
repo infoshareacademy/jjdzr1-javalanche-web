@@ -1,4 +1,5 @@
 package com.infoshareacademy.servlets;
+import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.TeamRepository;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 @WebServlet("/forms")
@@ -38,9 +38,18 @@ public class FormsServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
+    @Inject
+    private TeamRepository teamRepository;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
+
+        logger.info(teamRepository.findById(5).toString());
+        Team team = teamRepository.findById(5);
+        team.setTeamLeader(null);
+        teamRepository.update(team);
+        logger.info(team.toString());
     }
 
     @Override
@@ -125,8 +134,9 @@ public class FormsServlet extends HttpServlet {
     }
 
     private void deleteTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
-        formsService.deleteTeamFormInputHandler(userIdToDelete);
+        HttpSession session = req.getSession();
+        int teamIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
+        formsService.deleteTeamFormInputHandler(teamIdToDelete);
     }
 
 }
