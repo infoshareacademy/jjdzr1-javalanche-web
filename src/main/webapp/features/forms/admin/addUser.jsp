@@ -23,7 +23,7 @@
                    required>
         </div>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group ">
             <div class="form-group">
                 <label>Account status:</label>
                 <div class="form-check-inline">

@@ -1,9 +1,5 @@
 package com.infoshareacademy.servlets;
-import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
-import com.infoshareacademy.repository.DayOffRepository;
-import com.infoshareacademy.repository.TeamRepository;
-import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.TeamService;
@@ -19,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 @WebServlet("/forms")
@@ -56,9 +51,8 @@ public class FormsServlet extends HttpServlet {
         } else if (req.getQueryString().equals("withdrawHolidayRequest")){
             withdrawHolidayRequestFormHandler(req, resp);
         } else if (req.getQueryString().equals("holidayRequestDecision")){
-            holidayRequestDecision(req, resp);
-        }
-        else if (req.getQueryString().equals("addUsersToTeam")){
+            holidayRequestDecisionFormHandler(req, resp);
+        } else if (req.getQueryString().equals("addUsersToTeam")){
             addUsersToTeamFormHandler(req, resp);
         } else if (req.getQueryString().equals("removeUsersFromTeam")){
             removeUsersFromTeamFormHandler(req, resp);
@@ -81,12 +75,11 @@ public class FormsServlet extends HttpServlet {
             req.setAttribute("users", userService.getAll());
             req.setAttribute("daysOffRequests", dayOffService.getByUserEmail(session.getAttribute("username").toString()));
             req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-            if(req.getSession().getAttribute("levelOfAccess").equals(2)){
-                req.setAttribute("selectedUsersToRemoveFromTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
-            }
+            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
             req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
             req.setAttribute("teamsList", teamService.getAll());
             req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
+            req.setAttribute("holidayRequests", dayOffService.getAll());
 
         }
         else {
@@ -123,10 +116,10 @@ public class FormsServlet extends HttpServlet {
         formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
     }
 
-    private void holidayRequestDecision(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException{
-        String userWithHolidayRequest = req.getParameter("selectedUserInTeam");
-        int requestDecision = Integer.parseInt(req.getParameter("selectedHolidayRequest"));
-        boolean isRequestAccepted = Boolean.getBoolean(req.getParameter("holidayRequestDecision"));
+    private void holidayRequestDecisionFormHandler(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException{
+        int chosenHolidayRequestId = Integer.parseInt(req.getParameter("selectedHolidayRequest"));
+        Boolean isRequestAccepted = Boolean.parseBoolean(req.getParameter("holidayRequestVerdict"));
+        formsService.holidayRequestDecisionFormInputHandler(chosenHolidayRequestId, isRequestAccepted);
     }
     
     private void addUsersToTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

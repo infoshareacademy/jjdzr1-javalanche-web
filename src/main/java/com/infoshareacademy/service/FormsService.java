@@ -1,6 +1,5 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
@@ -102,18 +101,31 @@ public class FormsService {
 
     }
 
+    public void holidayRequestDecisionFormInputHandler(int holidayRequestId, Boolean decision){
+
+        logger.info(decision.toString());
+        DayOff dayOff = dayOffRepository.findDaysOffByDayyOffId(holidayRequestId);
+        if (decision){
+            dayOff.setAccepted(decision);
+            dayOffRepository.update(dayOff);
+        }
+        else {
+            dayOffRepository.delete(dayOff);
+        }
+    }
+
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
         DayOff dayOff = new DayOff();
         dayOff.setFirstDay(firstDay);
         dayOff.setLastDay(lastDay);
-        dayOff.setAccepted(true);
+        dayOff.setAccepted(false);
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
         dayOff.setUser(userRepository.findByEmail(email));
         dayOffRepository.create(dayOff);
     }
 
     public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
-        dayOffRepository.delete(dayOffRepository.findDaysOffByUserId(requestToDeleteId));
+        dayOffRepository.delete(dayOffRepository.findDaysOffByDayyOffId(requestToDeleteId));
     }
 
 }

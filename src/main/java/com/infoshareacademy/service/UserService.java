@@ -57,16 +57,23 @@ public class UserService {
     }
 
     public List<UserDto> createListOfEmployeesInThisTeam(String loggedTeamLeader){
-        int loggedTeamLeaderId = userRepository.findByEmail(loggedTeamLeader).getTeam().getId();
-        List<String> usernamesInTeam = userRepository.findByEmail(loggedTeamLeader).getTeam().getUserEmail();
-        List<UserDto> usersInThisTeam = new ArrayList<>();
-        for(UserDto user : getAll()){
-            for(String teamUsernames : usernamesInTeam){
-                if(user.getEmail().equals(teamUsernames)){
-                    usersInThisTeam.add(user);
+        try{
+            int loggedTeamLeaderId = userRepository.findByEmail(loggedTeamLeader).getTeam().getId();
+            List<String> usernamesInTeam = userRepository.findByEmail(loggedTeamLeader).getTeam().getUserEmail();
+            List<UserDto> usersInThisTeam = new ArrayList<>();
+            for(UserDto user : getAll()){
+                for(String teamUsernames : usernamesInTeam){
+                    if(user.getEmail().equals(teamUsernames)){
+                        usersInThisTeam.add(user);
+                    }
                 }
             }
+            return usersInThisTeam;
         }
-        return usersInThisTeam;
+        catch (Exception e){
+            List<UserDto>empty = new ArrayList<>();
+            return empty;
+        }
+
     }
 }
