@@ -95,13 +95,14 @@ public class FormsServlet extends HttpServlet {
     }
 
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("addUserEmail");
-        String password = req.getParameter("addUserPassword");
-        String firstName = req.getParameter("addUserFirstName");
-        String surname = req.getParameter("addUserSurname");
-        int daysOff = Integer.parseInt(req.getParameter("addUserDaysOff"));
-        int levelOfAccess = Integer.parseInt(req.getParameter("levelOfAccess"));
-        formsService.addUserFormInputDatabaseHandler(username, password, firstName, surname, daysOff, levelOfAccess);
+        User userToAdd = new User();
+        userToAdd.setEmail(req.getParameter("addUserEmail"));
+        userToAdd.setPassword(req.getParameter("addUserPassword"));
+        userToAdd.setFirstName(req.getParameter("addUserFirstName"));
+        userToAdd.setLastName(req.getParameter("addUserSurname"));
+        userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
+        userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
+        formsService.addUserFormInputDatabaseHandler(userToAdd);
     }
 
     private void deleteUserFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
