@@ -11,8 +11,8 @@ public class DayOffRepository extends DayOffDao {
 
     private static final Logger LOGGER = Logger.getLogger(DayOffRepository.class.getName());
 
-    public List<DayOff> findDaysOffByUserId(int id){
-        return entityManager.createQuery("FROM DayOff where user.id LIKE :id").setParameter("id", id).getResultList();
+    public DayOff findDaysOffByUserId(int id){
+        return (DayOff) entityManager.createQuery("FROM DayOff where id LIKE :id").setParameter("id", id).getSingleResult();
     }
 
     public List<DayOff> findDaysOffByUserEmail(String email) {

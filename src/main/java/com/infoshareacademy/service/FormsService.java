@@ -47,7 +47,7 @@ public class FormsService {
     }
 
     public void deleteUserFormInputHandler(int recordToDeleteId){
-        userRepository.getAll().forEach(o -> {if(o.getId() == recordToDeleteId){userRepository.delete(o);}});
+        userRepository.delete(userRepository.findById(recordToDeleteId));
     }
 
     public void addTeamFormInputHandler(String teamName, String teamLeaderUsername){
@@ -59,7 +59,7 @@ public class FormsService {
     }
 
     public void deleteTeamFormInputHandler(int teamId){
-        teamRepository.getAll().forEach(o -> {if(o.getId() == teamId){teamRepository.delete(o);}});
+        teamRepository.delete(teamRepository.findById(teamId));
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
@@ -73,7 +73,7 @@ public class FormsService {
     }
 
     public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
-        dayOffRepository.getAll().forEach(o -> {if(o.getId() == requestToDeleteId){dayOffRepository.delete(o);}});
+        dayOffRepository.delete(dayOffRepository.findDaysOffByUserId(requestToDeleteId));
     }
 
 }
