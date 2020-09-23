@@ -11,7 +11,10 @@ import com.infoshareacademy.repository.UserRepository;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @LocalBean
 @Transactional
@@ -60,6 +63,18 @@ public class FormsService {
         Team team = teamRepository.findById(teamId);
         team.setTeamLeader(null);
         teamRepository.delete(teamRepository.findById(teamId));
+    }
+
+    public void addUsersToTeamFormInputHandler(String loggedTeamLeaderUsername, String[] chosenEmployeesUsernames){
+        User loggedTeamLeader = userRepository.findByEmail(loggedTeamLeaderUsername);
+        List<String> chosenEmployeesUsernamesList = new ArrayList<>();
+        for(int i = 0; i<chosenEmployeesUsernames.length; i++){
+            chosenEmployeesUsernamesList.add(chosenEmployeesUsernames[i]);
+        }
+        loggedTeamLeader.getTeam().setUserEmail(chosenEmployeesUsernamesList);
+        userRepository.update(loggedTeamLeader);
+
+        teamRepository.update(loggedTeamLeader.getTeam());
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){

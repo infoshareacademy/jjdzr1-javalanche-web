@@ -2,16 +2,17 @@
 <%@ page import="com.infoshareacademy.model.User" %>
 
 <% List<UserDto> usersWithoutTeam = (List<UserDto>) request.getAttribute("usersWithoutTeam");
-UserDto loggedUser = (UserDto) request.getAttribute("loggedUser");%>
+UserDto loggedUser = (UserDto) request.getAttribute("loggedUser");
+%>
 
 
 <form action="/forms?addUsersToTeam" method="post">
-    <fieldset>
+    <fieldset <%if (!loggedUser.isTeamLeader()){%>disabled<%}%>>
     <div class="form-group">
         <label for="exampleFormControlSelect2">Add employees to a team</label>
         <select multiple class="form-control" id="exampleFormControlSelect2" name="selectedUsersForTeam">
             <%for(UserDto user : usersWithoutTeam){%>
-            <option value=<%=user.getId()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
+            <option value=<%=user.getEmail()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
             <%}%>
         </select>
     </div>

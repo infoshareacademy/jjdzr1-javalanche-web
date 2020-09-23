@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 @WebServlet("/forms")
@@ -118,8 +119,9 @@ public class FormsServlet extends HttpServlet {
     }
 
     private void addUsersToTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String employeesChosenForATeam = req.getParameter("selectedUsersForTeam");
-        logger.info(employeesChosenForATeam);
+        String loggedTeamLeader = req.getSession().getAttribute("username").toString();
+        String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
+        formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
     }
 
     private void addTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
