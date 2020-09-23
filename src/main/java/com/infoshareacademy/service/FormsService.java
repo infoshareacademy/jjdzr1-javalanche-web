@@ -75,6 +75,7 @@ public class FormsService {
         userRepository.update(loggedTeamLeader);
 
         teamRepository.update(loggedTeamLeader.getTeam());
+        chosenEmployeesUsernamesList.stream().forEach(employee -> userRepository.findByEmail(employee).setTeam(loggedTeamLeader.getTeam()));
     }
 
     public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
