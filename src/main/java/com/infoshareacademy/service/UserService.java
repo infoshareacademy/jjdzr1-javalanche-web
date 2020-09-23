@@ -3,6 +3,8 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.UserRepository;
+import com.infoshareacademy.servlets.FormsServlet;
+
 import javax.ejb.Local;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Local
 public class UserService {
+
+    private static final Logger logger = Logger.getLogger(FormsServlet.class.getName());
 
     @Inject
     private UserRepository userRepository;
@@ -38,8 +42,7 @@ public class UserService {
 
     public List<UserDto> createListOfEmployeesWithoutTeam(){
         List<UserDto> usersWithoutTeam = new ArrayList<>();
-        getAll().stream()
-                .forEach(user -> {if (user.getTeam()==null & user.getLevelOfAccess()==1) {
+        getAll().forEach(user -> {if (user.getTeam()==null & user.getLevelOfAccess()==1) {
                     usersWithoutTeam.add(user);
                 }});
         return usersWithoutTeam;
@@ -47,10 +50,23 @@ public class UserService {
 
     public List<UserDto> createListOfTeamLeadersWithoutTeam(){
         List<UserDto> teamLeaders = new ArrayList<>();
-        getAll().stream()
-                .forEach(user -> {if (!user.isTeamLeader() & user.getLevelOfAccess()==2) {
+        getAll().forEach(user -> {if (!user.isTeamLeader() & user.getLevelOfAccess()==2) {
                     teamLeaders.add(user);
                 }});
         return teamLeaders;
+    }
+
+    public List<UserDto> createListOfEmployeesInThisTeam(String loggedTeamLeader){
+        int loggedTeamLeaderId = userRepository.findByEmail(loggedTeamLeader).getTeam().getId();
+        List<String> usernamesInTeam = userRepository.findByEmail(loggedTeamLeader).getTeam().getUserEmail();
+        List<UserDto> usersInThisTeam = new ArrayList<>();
+        for(UserDto user : getAll()){
+            for(String teamUsernames : usernamesInTeam){
+                if(user.getEmail().equals(teamUsernames)){
+                    usersInThisTeam.add(user);
+                }
+            }
+        }
+        return usersInThisTeam;
     }
 }

@@ -39,9 +39,6 @@ public class FormsServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
-    @Inject
-    private TeamRepository teamRepository;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -58,8 +55,13 @@ public class FormsServlet extends HttpServlet {
             placeHolidayRequestFormHandler(req, resp);
         } else if (req.getQueryString().equals("withdrawHolidayRequest")){
             withdrawHolidayRequestFormHandler(req, resp);
-        } else if (req.getQueryString().equals("addUsersToTeam")){
+        } else if (req.getQueryString().equals("holidayRequestDecision")){
+            holidayRequestDecision(req, resp);
+        }
+        else if (req.getQueryString().equals("addUsersToTeam")){
             addUsersToTeamFormHandler(req, resp);
+        } else if (req.getQueryString().equals("removeUsersFromTeam")){
+            removeUsersFromTeamFormHandler(req, resp);
         } else if (req.getQueryString().equals("addTeam")){
             addTeamFormHandler(req, resp);
         } else if (req.getQueryString().equals("deleteTeam")){
@@ -79,6 +81,9 @@ public class FormsServlet extends HttpServlet {
             req.setAttribute("users", userService.getAll());
             req.setAttribute("daysOffRequests", dayOffService.getByUserEmail(session.getAttribute("username").toString()));
             req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+            if(req.getSession().getAttribute("levelOfAccess").equals(2)){
+                req.setAttribute("selectedUsersToRemoveFromTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
+            }
             req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
             req.setAttribute("teamsList", teamService.getAll());
             req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
@@ -118,21 +123,32 @@ public class FormsServlet extends HttpServlet {
         formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
     }
 
+    private void holidayRequestDecision(HttpServletRequest req, HttpServletResponse resp) throws  ServletException, IOException{
+        String userWithHolidayRequest = req.getParameter("selectedUserInTeam");
+        int requestDecision = Integer.parseInt(req.getParameter("selectedHolidayRequest"));
+        boolean isRequestAccepted = Boolean.getBoolean(req.getParameter("holidayRequestDecision"));
+    }
+    
     private void addUsersToTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String loggedTeamLeader = req.getSession().getAttribute("username").toString();
         String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
         formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
     }
 
-    private void addTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void removeUsersFromTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String loggedTeamLeader = req.getSession().getAttribute("username").toString();
+        String[] employeesChosenForRemovalFromTeam = req.getParameterValues("selectedUsersToRemoveFromTeam");
+        logger.info(String.valueOf(employeesChosenForRemovalFromTeam.length));
+        formsService.removeUsersFromTeamInputHandler(loggedTeamLeader, employeesChosenForRemovalFromTeam);
+    }
 
+    private void addTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String teamName = req.getParameter("addTeamName");
         String assignedTeamLeaderUsername = req.getParameter("assignTeamLeaderToGroup");
         formsService.addTeamFormInputHandler(teamName, assignedTeamLeaderUsername);
     }
 
     private void deleteTeamFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
         int teamIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
         formsService.deleteTeamFormInputHandler(teamIdToDelete);
     }

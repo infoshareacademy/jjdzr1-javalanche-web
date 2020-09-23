@@ -33,6 +33,21 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Remove employees from a team
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <%@ include file="removeEmployeesFromTeam.jsp" %>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
