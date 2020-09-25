@@ -58,7 +58,6 @@ public class UserService {
 
     public List<UserDto> createListOfEmployeesInThisTeam(String loggedTeamLeader){
         try{
-            int loggedTeamLeaderId = userRepository.findByEmail(loggedTeamLeader).getTeam().getId();
             List<String> usernamesInTeam = userRepository.findByEmail(loggedTeamLeader).getTeam().getUserEmail();
             List<UserDto> usersInThisTeam = new ArrayList<>();
             for(UserDto user : getAll()){

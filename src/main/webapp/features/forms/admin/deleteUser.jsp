@@ -8,7 +8,7 @@
 <form action="/forms?deleteUser" method="post">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Select user to remove</label>
+            <label for="exampleFormControlSelect1">Select user to remove:</label>
             <select class="form-control" id="exampleFormControlSelect1" name="selectedIdToDelete">
                 <%for(UserDto user : users){%>
                 <option value=<%=user.getId()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>

@@ -10,7 +10,7 @@
     <div class="col-md-6">
         <fieldset <%if (!isLoggedTeamLeader.isTeamLeader()){%>disabled<%}%>>
         <div class="form-group">
-            <label for="exampleFormControlSelect2">Select holiday request</label>
+            <label for="exampleFormControlSelect2">Select holiday request:</label>
             <select class="form-control" id="exampleFormControlSelect2" name="selectedHolidayRequest">
                 <%
                     List<DayOffDto> chosenUserHolidayRequests = (List<DayOffDto>) request.getAttribute("holidayRequests");
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect3">Make decision</label>
+            <label for="exampleFormControlSelect3">Make decision:</label>
             <select class="form-control" id="exampleFormControlSelect3" name="holidayRequestVerdict">
                 <option value=true>ACCEPT</option>
                 <option value="false">REJECT</option>

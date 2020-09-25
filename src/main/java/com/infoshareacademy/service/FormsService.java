@@ -77,7 +77,7 @@ public class FormsService {
         userRepository.update(loggedTeamLeader);
 
         teamRepository.update(loggedTeamLeader.getTeam());
-        chosenEmployeesUsernamesList.stream().forEach(employee -> userRepository.findByEmail(employee).setTeam(loggedTeamLeader.getTeam()));
+        chosenEmployeesUsernamesList.forEach(employee -> userRepository.findByEmail(employee).setTeam(loggedTeamLeader.getTeam()));
     }
 
     public void removeUsersFromTeamInputHandler(String loggedTeamLeaderUsername, String[]employeesToRemoveFromTeam){
@@ -97,7 +97,7 @@ public class FormsService {
         }
         loggedTeamLeader.getTeam().setUserEmail(remainingUsers);
         teamRepository.update(loggedTeamLeader.getTeam());
-        chosenEmployeesUsernamesList.stream().forEach(user -> userRepository.findByEmail(user).setTeam(null));
+        chosenEmployeesUsernamesList.forEach(user -> userRepository.findByEmail(user).setTeam(null));
 
     }
 

@@ -42,24 +42,19 @@ public class FormsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if(req.getQueryString().equals("addUser")){
-            addUserFormHandler(req, resp);
-        } else if (req.getQueryString().equals("deleteUser")){
-            deleteUserFormHandler(req, resp);
-        } else if (req.getQueryString().equals("placeHolidayRequest")){
-            placeHolidayRequestFormHandler(req, resp);
-        } else if (req.getQueryString().equals("withdrawHolidayRequest")){
-            withdrawHolidayRequestFormHandler(req, resp);
-        } else if (req.getQueryString().equals("holidayRequestDecision")){
-            holidayRequestDecisionFormHandler(req, resp);
-        } else if (req.getQueryString().equals("addUsersToTeam")){
-            addUsersToTeamFormHandler(req, resp);
-        } else if (req.getQueryString().equals("removeUsersFromTeam")){
-            removeUsersFromTeamFormHandler(req, resp);
-        } else if (req.getQueryString().equals("addTeam")){
-            addTeamFormHandler(req, resp);
-        } else if (req.getQueryString().equals("deleteTeam")){
-            deleteTeamFormHandler(req, resp);
+        logger.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        dayOffService.getAll().forEach(dayOffDto -> logger.info("PRINT: " + dayOffDto.isAccepted()));
+
+        switch (req.getQueryString()) {
+            case "addUser" -> addUserFormHandler(req, resp);
+            case "deleteUser" -> deleteUserFormHandler(req, resp);
+            case "placeHolidayRequest" -> placeHolidayRequestFormHandler(req, resp);
+            case "withdrawHolidayRequest" -> withdrawHolidayRequestFormHandler(req, resp);
+            case "holidayRequestDecision" -> holidayRequestDecisionFormHandler(req, resp);
+            case "addUsersToTeam" -> addUsersToTeamFormHandler(req, resp);
+            case "removeUsersFromTeam" -> removeUsersFromTeamFormHandler(req, resp);
+            case "addTeam" -> addTeamFormHandler(req, resp);
+            case "deleteTeam" -> deleteTeamFormHandler(req, resp);
         }
 
         setRequestDispatcher(req, resp);
@@ -71,21 +66,24 @@ public class FormsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
-            req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-            req.setAttribute("users", userService.getAll());
-            req.setAttribute("daysOffRequests", dayOffService.getByUserEmail(session.getAttribute("username").toString()));
-            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
-            req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
-            req.setAttribute("teamsList", teamService.getAll());
-            req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
-            req.setAttribute("holidayRequests", dayOffService.getAll());
-
+            setAttributes(req, session);
         }
         else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
+    }
+
+    private void setAttributes(HttpServletRequest req,HttpSession session){
+        req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
+        req.setAttribute("users", userService.getAll());
+        req.setAttribute("daysOffRequests", dayOffService.pendingHolidayRequests(session.getAttribute("username").toString()));
+        req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+        req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
+        req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
+        req.setAttribute("teamsList", teamService.getAll());
+        req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
+        req.setAttribute("holidayRequests", dayOffService.getAll());
     }
 
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
