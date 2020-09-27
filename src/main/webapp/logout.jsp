@@ -23,23 +23,27 @@
 <body>
 <link rel="stylesheet" href="/css/index.css">
 <div class="main">
-    <div class="container">
-        <div style="text-align: center;">
-            <div class="middle">
-                <div class="logo">
-                    <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
-                    <div class="clearfix"></div>
-                </div>
-                <div>
-                    <h3>You have been successfully logged out.</h3><br>
-                    <h3>See you soon!</h3><br>
-                </div>
+
+    <div style="text-align: center;">
+<%--        <div class="middle">--%>
+            <div class="logo">
+                <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
+                <div class="clearfix"></div>
+            </div>
+            <div class="middle" style="text-align: left;">
+                <h3>You have been successfully logged out.<br>
+                    See you soon!</h3><br>
+
+            </div>
+            <div class="back-to-login" style="nav-down: auto">
                 <p>
                     <a href="/login">Back to login page</a>
                 </p>
             </div>
-        </div>
+
+<%--        </div>--%>
     </div>
+
 </div>
 </body>
 </html>
