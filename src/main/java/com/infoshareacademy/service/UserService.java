@@ -3,24 +3,20 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.UserRepository;
-import com.infoshareacademy.servlets.FormsServlet;
 
 import javax.ejb.Local;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Local
 public class UserService {
 
-    private static final Logger logger = Logger.getLogger(FormsServlet.class.getName());
-
     @Inject
     private UserRepository userRepository;
 
-    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
+    //TODO add logic to daysOffLeft
 
     public List<UserDto> getAll() {
         List<User> users = userRepository.getAll();

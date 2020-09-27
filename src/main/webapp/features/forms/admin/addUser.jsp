@@ -28,17 +28,17 @@
                 <label>Account status:</label>
                 <div class="form-check-inline">
                     <label class="form-check-label">
-                        <input type="radio" name="levelOfAccess" value="1" class="form-check-input" name="optradio" checked>Employee
+                        <input type="radio" name="levelOfAccess" value="1" class="form-check-input" checked>Employee
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
-                        <input type="radio" name="levelOfAccess" value="2" class="form-check-input" name="optradio">Team Leader
+                        <input type="radio" name="levelOfAccess" value="2" class="form-check-input" >Team Leader
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label">
-                        <input type="radio" name="levelOfAccess" value="3" class="form-check-input" name="optradio">Admin
+                        <input type="radio" name="levelOfAccess" value="3" class="form-check-input">Admin
                     </label>
                 </div>
 

@@ -18,17 +18,11 @@ public class TeamService {
     @Inject
     private TeamRepository teamRepository;
 
-    @Inject
-    private UserRepository userRepository;
-
-    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
-
     public List<TeamDto> getAll(){
         List<Team> teams = teamRepository.getAll();
         List<TeamDto> teamDtos = mapTeamsToDto(teams);
         return teamDtos;
     }
-
 
     private List<TeamDto> mapTeamsToDto(List<Team> teams) {
         return teams.stream()
@@ -36,8 +30,4 @@ public class TeamService {
                 .collect(Collectors.toList());
     }
 
-    private TeamDto getTeamByTeamLeader(String email){
-        Team team = teamRepository.findByTeamLeader(email);
-        return new TeamDto(team.getId(), team.getName(), team.getUserEmail(), team.getTeamLeader());
-    }
 }

@@ -3,6 +3,7 @@
 <%@ page import="com.infoshareacademy.model.Team" %>
 <%@ page import="com.infoshareacademy.DAO.UserDao" %>
 <% List<UserDto> employeesInTeam = (List<UserDto>) request.getAttribute("employeesInTeam");
+    List<DayOffDto> chosenUserHolidayRequests = (List<DayOffDto>) request.getAttribute("holidayRequests");
     UserDto isLoggedTeamLeader = (UserDto) request.getAttribute("loggedUser");
 %>
 
@@ -13,7 +14,6 @@
             <label for="exampleFormControlSelect2">Select holiday request:</label>
             <select class="form-control" id="exampleFormControlSelect2" name="selectedHolidayRequest">
                 <%
-                    List<DayOffDto> chosenUserHolidayRequests = (List<DayOffDto>) request.getAttribute("holidayRequests");
                     for (DayOffDto chosenRequest : chosenUserHolidayRequests) {
                         if (employeesInTeam.stream().anyMatch(user -> user.getId() == chosenRequest.getUser().getId()) &
                         !chosenRequest.isAccepted()) {
