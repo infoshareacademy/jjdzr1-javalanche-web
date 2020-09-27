@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class CalendarService {
 
     private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
+    private static final String BR = "<br>";
 
     private Map<LocalDate, String> holidaysMap() {
         Map<LocalDate, String> holidaysMap = new LinkedHashMap<>();
@@ -27,10 +28,10 @@ public class CalendarService {
         List<String> calendarView = new ArrayList<>();
         for (int i = 0; i < sizeOfCalendar; i++) {
             if (holidaysMap().containsKey(LocalDate.now().plusDays(i))) {
-                calendarView.add(holidaysMap().get(LocalDate.now().plusDays(i))+"<br>"+LocalDate.now().plusDays(i));
+                calendarView.add(holidaysMap().get(LocalDate.now().plusDays(i))+ BR +LocalDate.now().plusDays(i));
             }
             else {
-                calendarView.add(LocalDate.now().plusDays(i).getDayOfWeek()+"<br>"+LocalDate.now().plusDays(i));
+                calendarView.add(LocalDate.now().plusDays(i).getDayOfWeek()+ BR +LocalDate.now().plusDays(i));
             }
         }
         return calendarView;
