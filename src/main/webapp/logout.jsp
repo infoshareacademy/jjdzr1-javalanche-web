@@ -8,10 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Logout</title>
 </head>
 <body>
-<h3>You are logged out.</h3><br>
+<div>
+    <h3>You have been successfully logged out.</h3><br>
+    <h3>See you soon!</h3><br>
+</div>
 <p>
     <a href="/login">Back to login page</a>
 </p>
