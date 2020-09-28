@@ -55,6 +55,7 @@ public class FormsService {
         loggedTeamLeader.setTeam(null);
         loggedTeamLeader.setTeamLeader(false);
         userRepository.update(loggedTeamLeader);
+
         Team team = teamRepository.findById(teamId);
         team.setTeamLeader(null);
         teamRepository.delete(teamRepository.findById(teamId));
@@ -81,17 +82,16 @@ public class FormsService {
         List<String>remainingUsers = loggedTeamLeader.getTeam().getUserEmail();
         remainingUsers.removeAll(chosenEmployeesUsernamesList);
 
-        loggedTeamLeader.getTeam().setUserEmail(new ArrayList<>(remainingUsers));
+        loggedTeamLeader.getTeam().setUserEmail(remainingUsers);
         teamRepository.update(loggedTeamLeader.getTeam());
         chosenEmployeesUsernamesList.forEach(user -> userRepository.findByEmail(user).setTeam(null));
 
     }
 
     public void holidayRequestDecisionFormInputHandler(int holidayRequestId, Boolean decision){
-
         DayOff dayOff = dayOffRepository.findDaysOffByDayyOffId(holidayRequestId);
         if (decision){
-            dayOff.setAccepted(decision);
+            dayOff.setAccepted(true);
             dayOffRepository.update(dayOff);
         }
         else {

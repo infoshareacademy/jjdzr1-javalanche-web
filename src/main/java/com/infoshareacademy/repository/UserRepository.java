@@ -5,10 +5,7 @@ import com.infoshareacademy.model.User;
 
 import javax.ejb.LocalBean;
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @LocalBean
 public class UserRepository extends UserDao {
