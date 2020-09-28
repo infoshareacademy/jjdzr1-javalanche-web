@@ -24,24 +24,25 @@
 <link rel="stylesheet" href="/css/index.css">
 <div class="main">
 
-    <div style="text-align: center;">
-<%--        <div class="middle">--%>
-            <div class="logo">
-                <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
-                <div class="clearfix"></div>
-            </div>
-            <div class="middle" style="text-align: left;">
-                <h3>You have been successfully logged out.<br>
-                    See you soon!</h3><br>
+    <div style="text-align: center; padding: 70px 0;">
 
-            </div>
-            <div class="back-to-login" style="nav-down: auto">
-                <p>
-                    <a href="/login">Back to login page</a>
-                </p>
-            </div>
+        <div class="logo">
+            <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
+            <div class="clearfix"></div>
+        </div>
+        <div class="middle" style="text-align: center; color: whitesmoke">
+            <h3>You have been successfully logged out.<br>
+                See you soon!</h3><br>
 
-<%--        </div>--%>
+        </div>
+        <p><br></p>
+        <div class="back-to-login" style="nav-down: auto; ">
+            <p>
+                <a href="/login">Back to login page</a>
+            </p>
+        </div>
+
+
     </div>
 
 </div>
