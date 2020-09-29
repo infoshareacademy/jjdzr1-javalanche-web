@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
 
             req.getSession().setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
+            //FIXME
             req.getSession().setAttribute("username", username);
             req.getSession().setAttribute("firstName", userService.getByEmail(username).getFirstName());
             req.getSession().setAttribute("lastName", userService.getByEmail(username).getLastName());

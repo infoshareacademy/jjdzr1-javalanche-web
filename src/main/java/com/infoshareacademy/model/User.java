@@ -107,6 +107,22 @@ public class User implements Serializable{
         return daysOffLeft;
     }
 
+    public boolean isTeamLeader() {
+        return isTeamLeader;
+    }
+
+    public void setTeamLeader(boolean teamLeader) {
+        isTeamLeader = teamLeader;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     public Set<DayOff> getDaysOff() {
         return daysOff;
     }
