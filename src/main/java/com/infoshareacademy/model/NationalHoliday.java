@@ -11,13 +11,13 @@ import java.util.Objects;
 public class NationalHoliday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "holiday_id", nullable = false)
+    @Column(name = "nationalHolidays_id", nullable = false)
     private int id;
-    @Column(name = "holiday_name", nullable = false)
+    @Column(name = "nationalHolidays_name", nullable = false)
     private String name;
-    @Column(name = "holiday_description", nullable = false)
+    @Column(name = "nationalHolidays_description", nullable = false)
     private String description;
-    @Column(name = "holiday_date", nullable = false)
+    @Column(name = "nationalHolidays_date", nullable = false)
     private LocalDate holidayDate;
 
     public NationalHoliday() {
