@@ -1,13 +1,7 @@
 package com.infoshareacademy.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.infoshareacademy.api.Country;
-import com.infoshareacademy.api.HolidayDate;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
