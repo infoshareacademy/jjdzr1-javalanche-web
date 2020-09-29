@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "nationalHolidays_table")
-public class NationalHolidays {
+public class NationalHoliday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,7 +17,7 @@ public class NationalHolidays {
     @Column(name = "holiday_date", nullable = false)
     private LocalDate holidayDate;
 
-    public NationalHolidays() {
+    public NationalHoliday() {
     }
 
     public int getId() {
@@ -56,7 +56,7 @@ public class NationalHolidays {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NationalHolidays that = (NationalHolidays) o;
+        NationalHoliday that = (NationalHoliday) o;
         return id == that.id &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
@@ -70,7 +70,7 @@ public class NationalHolidays {
 
     @Override
     public String toString() {
-        return "NationalHolidays{" +
+        return "NationalHoliday{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
