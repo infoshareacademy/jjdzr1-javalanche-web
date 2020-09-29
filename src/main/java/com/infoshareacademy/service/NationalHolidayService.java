@@ -19,11 +19,13 @@ public class NationalHolidayService {
         List<Holidays>jsonHolidays = HolidaysJsonData.returnOnlyHolidaysAsList();
         NationalHoliday nationalHoliday;
         for(Holidays holiday : jsonHolidays){
-            nationalHoliday = new NationalHoliday();
-            nationalHoliday.setName(holiday.getName());
-            nationalHoliday.setDescription(holiday.getDescription());
-            nationalHoliday.setHolidayDate(holiday.getHolidayDateInLocalDateFormat());
-            nationalHolidayRepository.create(nationalHoliday);
+            if(nationalHolidayRepository.findByDate(holiday.getHolidayDateInLocalDateFormat())==null){
+                nationalHoliday = new NationalHoliday();
+                nationalHoliday.setName(holiday.getName());
+                nationalHoliday.setDescription(holiday.getDescription());
+                nationalHoliday.setHolidayDate(holiday.getHolidayDateInLocalDateFormat());
+                nationalHolidayRepository.create(nationalHoliday);
+            }
         }
     }
 }
