@@ -21,4 +21,15 @@ public class UserRepository extends UserDao {
         }
         return user;
     }
+
+    public User findById(int id) {
+        User user = null;
+        try {
+            user = (User) entityManager.createQuery("from User where id like :id").setParameter("id", id).getSingleResult();
+        } catch (NoResultException exception) {
+            LOGGER.warning(exception.getMessage());
+        }
+        return user;
+    }
+
 }

@@ -22,8 +22,6 @@ public class DayOffService {
     @Inject
     private UserService userService;
 
-    private static final Logger LOGGER = Logger.getLogger(DayOffService.class.getName());
-
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
         List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);
@@ -36,9 +34,13 @@ public class DayOffService {
         return dayOffDtos;
     }
 
+    public List<DayOffDto> pendingHolidayRequests(String email){
+        return getByUserEmail(email).stream().filter(dayOff -> !dayOff.isAccepted()).collect(Collectors.toList());
+    }
+
     private List<DayOffDto> mapDaysOffToDto(List<DayOff> dayOffs) {
         return dayOffs.stream()
-                .map(dayOff -> new DayOffDto(dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.isAccepted(), dayOff.getListOfDays()))
+                .map(dayOff -> new DayOffDto(dayOff.getId(), dayOff.getFirstDay(), dayOff.getLastDay(), dayOff.getUser(), dayOff.isAccepted(), dayOff.getListOfDays()))
                 .collect(Collectors.toList());
     }
 
