@@ -9,6 +9,7 @@ import java.util.Objects;
 public class NationalHoliday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "holiday_id", nullable = false)
     private int id;
     @Column(name = "holiday_name", nullable = false)
     private String name;
