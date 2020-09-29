@@ -30,7 +30,7 @@ class UserTest {
     void setPassword() {
         User user = new User();
         user.setPassword("password");
-        assertEquals(user.getEmail(), "password");
+        assertEquals(user.getPassword(), "password");
     }
 
     @Test
@@ -72,7 +72,7 @@ class UserTest {
     void getPassword() {
         User user = new User();
         user.setPassword("password");
-        assertEquals(user.getEmail(), "password");
+        assertEquals(user.getPassword(), "password");
     }
 
     @Test
