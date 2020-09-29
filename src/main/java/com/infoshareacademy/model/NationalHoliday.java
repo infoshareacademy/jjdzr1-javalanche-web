@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "nationalHolidays_table")
+@Table(name = "nationalHolidays_table", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "nationalHolidays_id")
+})
 public class NationalHoliday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

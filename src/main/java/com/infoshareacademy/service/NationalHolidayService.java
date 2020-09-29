@@ -15,7 +15,7 @@ public class NationalHolidayService {
     @Inject
     private NationalHolidayRepository nationalHolidayRepository;
 
-    private void transferNationalHolidaysFromJsonToDatabase(){
+    public void transferNationalHolidaysFromJsonToDatabase(){
         List<Holidays>jsonHolidays = HolidaysJsonData.returnOnlyHolidaysAsList();
         NationalHoliday nationalHoliday;
         for(Holidays holiday : jsonHolidays){
