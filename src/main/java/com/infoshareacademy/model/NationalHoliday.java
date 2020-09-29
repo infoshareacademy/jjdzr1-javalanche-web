@@ -1,6 +1,7 @@
 package com.infoshareacademy.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -8,15 +9,18 @@ import java.util.Objects;
 @Table(name = "nationalHolidays_table", uniqueConstraints = {
         @UniqueConstraint(columnNames = "nationalHolidays_id")
 })
-public class NationalHoliday {
+public class NationalHoliday implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "nationalHolidays_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "nationalHolidays_id", unique = true, nullable = false)
     private int id;
+
     @Column(name = "nationalHolidays_name", nullable = false)
     private String name;
+
     @Column(name = "nationalHolidays_description", nullable = false)
     private String description;
+
     @Column(name = "nationalHolidays_date", nullable = false)
     private LocalDate holidayDate;
 

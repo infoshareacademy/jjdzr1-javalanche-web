@@ -1,6 +1,5 @@
 package com.infoshareacademy.DTO;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 
 public class NationalHolidayDto {
@@ -9,6 +8,13 @@ public class NationalHolidayDto {
     private String name;
     private String description;
     private LocalDate holidayDate;
+
+    public NationalHolidayDto(int id, String name, String description, LocalDate holidayDate) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.holidayDate = holidayDate;
+    }
 
     public int getId() {
         return id;

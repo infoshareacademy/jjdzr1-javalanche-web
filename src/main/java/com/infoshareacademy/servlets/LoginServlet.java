@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     private UserService userService;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
