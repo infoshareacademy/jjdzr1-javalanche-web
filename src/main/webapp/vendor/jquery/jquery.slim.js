@@ -57,9 +57,6 @@ var flat = arr.flat ? function( array ) {
 	return arr.concat.apply( [], array );
 };
 
-	$(document).ready(function() {
-		$(".dropdown-toggle").dropdown();
-	});
 
 var push = arr.push;
 

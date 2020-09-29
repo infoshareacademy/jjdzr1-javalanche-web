@@ -15,6 +15,10 @@ public class TeamRepository extends TeamDao {
         return entityManager.createQuery("FROM Team where name like :name").setParameter("name", name).getResultList();
     }
 
+    public Team findById(int id) {
+        return (Team) entityManager.createQuery("FROM Team where id like :id").setParameter("id", id).getSingleResult();
+    }
+
     public Team findByTeamLeader(String email){
         return (Team) entityManager.createQuery("from Team where teamLeader.email like :email").setParameter("email", email).getSingleResult();
     }

@@ -6,18 +6,28 @@ import java.util.List;
 
 public class DayOffDto {
 
+    private int id;
     private LocalDate firstDay;
     private LocalDate lastDay;
     private User user;
     private boolean isAccepted;
     private List<LocalDate> listOfDays;
 
-    public DayOffDto(LocalDate firstDay, LocalDate lastDay, User user, boolean isAccepted, List<LocalDate> listOfDays) {
+    public DayOffDto(int id, LocalDate firstDay, LocalDate lastDay, User user, boolean isAccepted, List<LocalDate> listOfDays) {
+        this.id = id;
         this.firstDay = firstDay;
         this.lastDay = lastDay;
         this.user = user;
         this.isAccepted = isAccepted;
         this.listOfDays = listOfDays;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getFirstDay() {
@@ -70,4 +80,6 @@ public class DayOffDto {
                 ", listOfDays=" + listOfDays +
                 '}';
     }
+
+
 }

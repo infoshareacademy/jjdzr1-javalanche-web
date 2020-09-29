@@ -1,5 +1,7 @@
 package com.infoshareacademy.DTO;
 
+import com.infoshareacademy.model.Team;
+
 public class UserDto {
 
     private int id;
@@ -9,8 +11,10 @@ public class UserDto {
     private String password;
     private int daysOffLeft;
     private int levelOfAccess;
+    private boolean isTeamLeader;
+    private Team team;
 
-    public UserDto(int id, String firstName, String lastName, String email, String password, int daysOffLeft, int levelOfAccess) {
+    public UserDto(int id, String firstName, String lastName, String email, String password, int daysOffLeft, int levelOfAccess, boolean isTeamLeader, Team team) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,6 +22,8 @@ public class UserDto {
         this.password = password;
         this.daysOffLeft = daysOffLeft;
         this.levelOfAccess = levelOfAccess;
+        this.isTeamLeader = isTeamLeader;
+        this.team = team;
     }
 
     public int getId() {
@@ -76,6 +82,22 @@ public class UserDto {
         this.levelOfAccess = levelOfAccess;
     }
 
+    public boolean isTeamLeader() {
+        return isTeamLeader;
+    }
+
+    public void setTeamLeader(boolean teamLeader) {
+        isTeamLeader = teamLeader;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
@@ -86,7 +108,8 @@ public class UserDto {
                 ", password='" + password + '\'' +
                 ", daysOffLeft=" + daysOffLeft +
                 ", levelOfAccess=" + levelOfAccess +
+                ", isTeamLeader=" + isTeamLeader +
+                ", team=" + team +
                 '}';
     }
-
 }
