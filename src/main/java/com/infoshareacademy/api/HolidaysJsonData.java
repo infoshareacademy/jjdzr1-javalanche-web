@@ -1,15 +1,13 @@
 package com.infoshareacademy.api;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
+import java.net.URLConnection;
 import java.util.List;
 
 public class HolidaysJsonData {
@@ -49,39 +47,26 @@ public class HolidaysJsonData {
         return "Server info: " + serverInfo.toString() + "\n";
     }
 
-    public static HolidaysJsonData readDataFromJsonFile(String fileName) {
-        //if(fileName == null) {fileName = "API.json";}
-        fileName = "APIs/" + fileName;
+    public static List<Holidays> readNationalHolidaysFromApiUrl(String apiUrl) {
+
         Gson gson = new Gson();
-        HolidaysJsonData holidaysJSONData = new HolidaysJsonData();
         JsonReader jsonReader = null;
+        StringBuilder content = new StringBuilder();
         try {
-            File file = new File(HolidaysJsonData.class.getClassLoader().getResource(fileName).getFile());
-            jsonReader = new JsonReader(new FileReader(file));
+            URL url = new URL(apiUrl);
+            URLConnection urlConnection = url.openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return gson.fromJson(jsonReader, HolidaysJsonData.class);
+        return gson.fromJson(content.toString(), HolidaysJsonData.class).getServerResponse().getHolidays();
     }
-
-    //FIXME replace code responsible for holidays in calendar
-    public static List<Holidays> returnOnlyHolidaysAsList(){
-        return new ArrayList<>(HolidaysJsonData.readDataFromJsonFile("API.json").getServerResponse().getHolidays());
-    }
-
-    public static List<Holidays> findHolidaysByYear(String year){
-        String [] foundAPIs;
-        File apisFolder = new File("/home/kacper-kwiatkowski/Programing/Java/ISA/Project/jjdzr1-javalanche-web/src/main/resources/APIs");
-        foundAPIs = apisFolder.list();
-        for(String file : foundAPIs){
-            if(file.contains(year)){
-                return readDataFromJsonFile(file).getServerResponse().getHolidays();
-            }
-        }
-        return null;
-    }
-
 }
 
