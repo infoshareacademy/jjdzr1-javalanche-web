@@ -2,7 +2,6 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.DAO.NationalHolidayDao;
 import com.infoshareacademy.model.NationalHoliday;
-import com.infoshareacademy.model.User;
 
 import javax.ejb.LocalBean;
 import javax.persistence.NoResultException;

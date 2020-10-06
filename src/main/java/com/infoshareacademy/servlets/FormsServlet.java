@@ -138,8 +138,9 @@ public class FormsServlet extends HttpServlet {
     }
 
     private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
+        String apiKeyInput = req.getParameter("apiKey");
         String selectedYear = req.getParameter("selectedYear");
-        nationalHolidayService.executeApiTransferRequest(selectedYear);
+        nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
 
     }
 

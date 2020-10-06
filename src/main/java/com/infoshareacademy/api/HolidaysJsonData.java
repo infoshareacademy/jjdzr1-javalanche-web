@@ -3,7 +3,6 @@ package com.infoshareacademy.api;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.URL;
@@ -50,7 +49,6 @@ public class HolidaysJsonData {
     public static List<Holidays> readNationalHolidaysFromApiUrl(String apiUrl) {
 
         Gson gson = new Gson();
-        JsonReader jsonReader = null;
         StringBuilder content = new StringBuilder();
         try {
             URL url = new URL(apiUrl);

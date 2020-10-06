@@ -15,8 +15,8 @@ public class NationalHolidayService {
     @Inject
     private NationalHolidayRepository nationalHolidayRepository;
 
-    public void executeApiTransferRequest(String requestedYear) {
-        String apiURL = generateApiFromUrl(requestedYear);
+    public void executeApiTransferRequest(String requestedYear, String apiKey) {
+        String apiURL = generateApiFromUrl(requestedYear, apiKey);
         transferNationalHolidaysFromJsonToDatabase(apiURL);
     }
 
@@ -35,8 +35,8 @@ public class NationalHolidayService {
         }
     }
 
-    private String generateApiFromUrl(String requestedYear) {
-        return "https://calendarific.com/api/v2/holidays?api_key=bad0ddcffc6542810f3cfb5749d38c63b5b7929a&country=PL&year=" + requestedYear + "&type=national";
+    private String generateApiFromUrl(String requestedYear, String apiKey) {
+        return "https://calendarific.com/api/v2/holidays?api_key=" + apiKey + "&country=PL&year=" + requestedYear + "&type=national";
     }
 
 }
