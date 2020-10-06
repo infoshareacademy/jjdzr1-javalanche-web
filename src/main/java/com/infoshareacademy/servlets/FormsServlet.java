@@ -49,7 +49,7 @@ public class FormsServlet extends HttpServlet {
             case "removeUsersFromTeam" -> removeUsersFromTeamFormHandler(req);
             case "addTeam" -> addTeamFormHandler(req);
             case "deleteTeam" -> deleteTeamFormHandler(req);
-            case "uploadNationalHolidays" -> uploadNationalHolidaysFormHandler();
+            case "uploadNationalHolidays" -> uploadNationalHolidaysFormHandler(req);
         }
         setRequestDispatcher(req, resp);
     }
@@ -137,8 +137,10 @@ public class FormsServlet extends HttpServlet {
         formsService.deleteTeamFormInputHandler(teamIdToDelete);
     }
 
-    private void uploadNationalHolidaysFormHandler(){
-        nationalHolidayService.transferNationalHolidaysFromJsonToDatabase();
+    private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
+        String selectedYear = req.getParameter("selectedYear");
+        nationalHolidayService.executeApiTransferRequest(selectedYear);
+
     }
 
 }

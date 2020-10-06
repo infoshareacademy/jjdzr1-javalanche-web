@@ -1,8 +1,13 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.DAO.NationalHolidayDao;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
+import com.infoshareacademy.model.NationalHoliday;
+import com.infoshareacademy.repository.NationalHolidayRepository;
+
 import javax.ejb.LocalBean;
+import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,10 +20,13 @@ public class CalendarService {
 
     private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
 
+    @Inject
+    private NationalHolidayRepository nationalHolidayRepository;
+
     private Map<LocalDate, String> holidaysMap() {
         Map<LocalDate, String> holidaysMap = new LinkedHashMap<>();
-        for (Holidays holiday : HolidaysJsonData.returnOnlyHolidaysAsList()) {
-            holidaysMap.put(holiday.getHolidayDateInLocalDateFormat(), holiday.getName());
+        for (NationalHoliday holiday : nationalHolidayRepository.getAll()) {
+            holidaysMap.put(holiday.getHolidayDate(), holiday.getName());
         }
         return holidaysMap;
     }

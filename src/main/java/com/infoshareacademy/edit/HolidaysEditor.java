@@ -12,7 +12,7 @@ public class HolidaysEditor {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
-    private static List<Holidays> holidayEdition = HolidaysJsonData.readDataFromJsonFile().getServerResponse().getHolidays();
+    private static List<Holidays> holidayEdition = HolidaysJsonData.readDataFromJsonFile("API.json").getServerResponse().getHolidays();
     private static Scanner scanner = new Scanner(System.in);
 
     private static boolean isInputInvalid;
