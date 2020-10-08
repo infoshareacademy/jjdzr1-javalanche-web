@@ -1,6 +1,5 @@
 package com.infoshareacademy;
 
-import com.infoshareacademy.service.NationalHolidayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
  * jAvalanche
  */
 public class App {
+
     public static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     public static void main(String[] args) {

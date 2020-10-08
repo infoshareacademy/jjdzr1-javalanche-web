@@ -30,6 +30,9 @@ public class FormsService {
     @Inject
     private DayOffService dayOffService;
 
+    @Inject
+    private NationalHolidayService nationalHolidayService;
+
     public void addUserFormInputDatabaseHandler(User createdUser){
         //FIXME
         userRepository.create(createdUser);
