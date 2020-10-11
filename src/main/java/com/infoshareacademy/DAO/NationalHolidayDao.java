@@ -13,7 +13,7 @@ import java.util.List;
 public class NationalHolidayDao implements DAO<NationalHoliday>{
 
     @PersistenceContext
-    EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @Override
     public List<NationalHoliday> getAll() {

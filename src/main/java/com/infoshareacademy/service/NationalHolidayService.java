@@ -15,15 +15,29 @@ public class NationalHolidayService {
     @Inject
     private NationalHolidayRepository nationalHolidayRepository;
 
-    public void transferNationalHolidaysFromJsonToDatabase(){
-        List<Holidays>jsonHolidays = HolidaysJsonData.returnOnlyHolidaysAsList();
+    public void executeApiTransferRequest(String requestedYear, String apiKey) {
+        String apiURL = generateApiFromUrl(requestedYear, apiKey);
+        transferNationalHolidaysFromJsonToDatabase(apiURL);
+    }
+
+    public void transferNationalHolidaysFromJsonToDatabase(String apiUrl) {
+        List<Holidays> jsonHolidays;
+        jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiUrl);
         NationalHoliday nationalHoliday;
-        for(Holidays holiday : jsonHolidays){
-            nationalHoliday = new NationalHoliday();
-            nationalHoliday.setName(holiday.getName());
-            nationalHoliday.setDescription(holiday.getDescription());
-            nationalHoliday.setHolidayDate(holiday.getHolidayDateInLocalDateFormat());
-            nationalHolidayRepository.create(nationalHoliday);
+        for (Holidays holiday : jsonHolidays) {
+            if (nationalHolidayRepository.findByDate(holiday.getHolidayDateInLocalDateFormat()) == null) {
+                nationalHoliday = new NationalHoliday();
+                nationalHoliday.setName(holiday.getName());
+                nationalHoliday.setDescription(holiday.getDescription());
+                nationalHoliday.setHolidayDate(holiday.getHolidayDateInLocalDateFormat());
+                nationalHolidayRepository.create(nationalHoliday);
+            }
         }
     }
+
+    private String generateApiFromUrl(String requestedYear, String apiKey) {
+        return "https://calendarific.com/api/v2/holidays?api_key=" + apiKey + "&country=PL&year=" + requestedYear + "&type=national";
+    }
+
 }
+
