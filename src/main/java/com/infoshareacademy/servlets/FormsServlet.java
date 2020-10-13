@@ -1,9 +1,6 @@
 package com.infoshareacademy.servlets;
 import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.FormsService;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.*;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -31,6 +28,9 @@ public class FormsServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
+    @Inject
+    private NationalHolidayService nationalHolidayService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -49,6 +49,7 @@ public class FormsServlet extends HttpServlet {
             case "removeUsersFromTeam" -> removeUsersFromTeamFormHandler(req);
             case "addTeam" -> addTeamFormHandler(req);
             case "deleteTeam" -> deleteTeamFormHandler(req);
+            case "uploadNationalHolidays" -> uploadNationalHolidaysFormHandler(req);
         }
         setRequestDispatcher(req, resp);
     }
@@ -134,6 +135,13 @@ public class FormsServlet extends HttpServlet {
     private void deleteTeamFormHandler(HttpServletRequest req) {
         int teamIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
         formsService.deleteTeamFormInputHandler(teamIdToDelete);
+    }
+
+    private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
+        String apiKeyInput = req.getParameter("apiKey");
+        String selectedYear = req.getParameter("selectedYear");
+        nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
+
     }
 
 }
