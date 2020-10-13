@@ -4,9 +4,9 @@
         <img src="/images/javalanche2.jpg" alt="logo" width="144" height="60"/>
     </div>
     <div class="list-group list-group-flush">
-        <a href="/employees" class="list-group-item list-group-item-action bg-light">Employees</a>
-        <a href="/forms" class="list-group-item list-group-item-action bg-light">Forms</a>
-        <a href="/main" class="list-group-item list-group-item-action bg-light">Calendar view</a>
+        <a href="/employees" id="employees" class="list-group-item list-group-item-action bg-light">Employees</a>
+        <a href="/forms" id="forms" class="list-group-item list-group-item-action bg-light">Forms</a>
+        <a href="/main" id="main" class="list-group-item list-group-item-action bg-light">Calendar view</a>
 
     </div>
 </div>
