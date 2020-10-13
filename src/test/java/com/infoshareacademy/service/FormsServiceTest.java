@@ -1,27 +1,50 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.List;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class FormsServiceTest {
 
-    @Mock
+    FormsService formsService;
     UserRepository userRepository;
 
+    @Before
+    public void init(){
+        formsService = new FormsService();
+        this.userRepository = mock(UserRepository.class);
+        this.formsService.userRepository = mock(UserRepository.class);
+        this.formsService.dayOffRepository = mock(DayOffRepository.class);
+        this.formsService.teamRepository = mock(TeamRepository.class);
+        this.formsService.dayOffService = mock(DayOffService.class);
+    }
+
     @Test
-    void defaultTest(){
+    public void addUserFormHandlerMethodTest(){
         //given
-        UserRepository userReposito = new UserRepository();
+        User user = mock(User.class);
+        //when
+        formsService.addUserFormInputDatabaseHandler(user);
+        //then
+        verify(formsService.userRepository).create(anyObject());
+    }
+
+    @Test
+    public void deleteUserFormHandlerMethodTest(){
+        //given
 
         //when
-        List<User> usersFromDatabase = userRepository.getAll();
-
+        formsService.deleteUserFormInputHandler(anyInt());
         //then
-
-
+        verify(formsService.userRepository).delete(anyObject());
     }
+
+
 }

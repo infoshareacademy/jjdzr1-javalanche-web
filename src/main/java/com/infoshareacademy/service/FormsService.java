@@ -19,19 +19,17 @@ import java.util.stream.Collectors;
 public class FormsService {
 
     @Inject
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Inject
-    private DayOffRepository dayOffRepository;
+    DayOffRepository dayOffRepository;
 
     @Inject
-    private TeamRepository teamRepository;
+    TeamRepository teamRepository;
 
     @Inject
-    private DayOffService dayOffService;
+    DayOffService dayOffService;
 
-    @Inject
-    private NationalHolidayService nationalHolidayService;
 
     public void addUserFormInputDatabaseHandler(User createdUser){
         //FIXME
