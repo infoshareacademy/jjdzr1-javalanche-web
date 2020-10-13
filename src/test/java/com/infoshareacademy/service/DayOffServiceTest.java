@@ -10,7 +10,6 @@ import java.util.List;
 class DayOffServiceTest {
     private final Integer DAYS = 30;
 
-
     @Test
     void setListDaysWithoutWeekend() {
         List<LocalDate> dateList = new ArrayList<>();
@@ -32,6 +31,4 @@ class DayOffServiceTest {
                 .hasSizeLessThan(DAYS)
                 .doesNotHaveDuplicates();
     }
-
-
 }

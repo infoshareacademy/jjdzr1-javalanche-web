@@ -45,6 +45,4 @@ public class FormsServiceTest {
         //then
         verify(formsService.userRepository).delete(anyObject());
     }
-
-
 }
