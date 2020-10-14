@@ -1,3 +1,6 @@
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%--
   Created by IntelliJ IDEA.
   User: kacper-kwiatkowski
@@ -5,13 +8,42 @@
   Time: 09:23
   To change this template use File | Settings | File Templates.
 --%>
-<div class="modal fade" id="modalUser" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+
+<% List<UserDto> users2 = (List<UserDto>) request.getAttribute("users");%>
+<% for (int i = 0; i < users2.size(); i++) { %>
+<div class="modal fade" id="modalUser<%=i%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <style>
+        th {
+            text-align:center;
+        }
+    </style>
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <p>
-                POPAPEK for users
-            </p>
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th colspan="2">Employee details</th>
+                </tr>
+                <tr>
+                    <td>First name</td>
+                    <td><%= users2.get(i).getFirstName() %></td>
+                </tr>
+                <tr>
+                    <td>Last name</td>
+                    <td><%= users2.get(i).getLastName() %></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><%= users2.get(i).getEmail() %></td>
+                </tr>
+                <tr>
+                    <td>Number of days off left</td>
+                    <td><%= users2.get(i).getDaysOffLeft() %></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
+<% } %>
