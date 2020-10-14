@@ -6,9 +6,9 @@
   <data-source>
     <name>java:/newDefinition</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-    <url>jdbc:mysql://localhost:3306/javalanche?serverTimezone=UTC</url>
-    <user>root</user>
-    <password>root</password>
+    <url>jdbc:mysql://localhost:3307/javalanche?serverTimezone=UTC</url>
+    <user>lgl</user>
+    <password>1234</password>
   </data-source>
   <session-config>
     <session-timeout>10</session-timeout>
