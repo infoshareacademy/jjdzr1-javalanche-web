@@ -57,7 +57,7 @@
                     style="vertical-align: middle; text-align: end; font-size: x-small">
                     <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target=#
+                            data-target="#modalUser"
                             style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
                         <p style="margin-top: auto; margin-bottom: auto"><%= user.getFirstName()%>
                         </p>
@@ -71,7 +71,7 @@
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target=".modalDay"
+                            data-target="#modalDay"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Day off
                     </button>
                 </td>
@@ -85,7 +85,7 @@
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target=".modalDay"
+                            data-target="#modalDay"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
                     </button>
                 </td>
@@ -94,7 +94,7 @@
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target=".modalDay"
+                            data-target="#modalDay"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
                     </button>
                 </td>

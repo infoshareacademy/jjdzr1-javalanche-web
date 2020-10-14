@@ -13,7 +13,9 @@
 
         <%@ include file="features/calendar.jsp" %>
 
-        <%@ include file="features/popup.jsp" %>
+        <%@ include file="features/popupDay.jsp" %>
+
+        <%@ include file="features/popupUser.jsp" %>
 
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
