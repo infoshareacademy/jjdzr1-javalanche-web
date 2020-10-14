@@ -38,6 +38,18 @@
                     <td><%= users2.get(i).getEmail() %></td>
                 </tr>
                 <tr>
+                    <td>Team</td>
+                    <td><%String userTeam;
+                        try{ userTeam = users2.get(i).getTeam().getName();}
+                        catch(NullPointerException e){
+                            userTeam = "Team not specified";
+                    }
+
+                    %>
+                    <%= userTeam %>
+                    </td>
+                </tr>
+                <tr>
                     <td>Number of days off left</td>
                     <td><%= users2.get(i).getDaysOffLeft() %></td>
                 </tr>
