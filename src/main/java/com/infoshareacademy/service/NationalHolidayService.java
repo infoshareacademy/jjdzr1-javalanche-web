@@ -16,11 +16,15 @@ public class NationalHolidayService {
     private NationalHolidayRepository nationalHolidayRepository;
 
     public void executeApiTransferRequest(String requestedYear, String apiKey) {
-        String apiURL = generateApiFromUrl(requestedYear, apiKey);
-        transferNationalHolidaysFromJsonToDatabase(apiURL);
+        try{
+            String apiURL = generateApiFromUrl(requestedYear, apiKey);
+            transferNationalHolidaysFromJsonToDatabase(apiURL);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void transferNationalHolidaysFromJsonToDatabase(String apiUrl) {
+    private void transferNationalHolidaysFromJsonToDatabase(String apiUrl) {
         List<Holidays> jsonHolidays;
         jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiUrl);
         NationalHoliday nationalHoliday;

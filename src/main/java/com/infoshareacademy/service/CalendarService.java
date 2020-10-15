@@ -1,6 +1,7 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.DAO.NationalHolidayDao;
+import com.infoshareacademy.DTO.NationalHolidayDto;
 import com.infoshareacademy.api.Holidays;
 import com.infoshareacademy.api.HolidaysJsonData;
 import com.infoshareacademy.model.NationalHoliday;
@@ -14,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @LocalBean
 public class CalendarService {
@@ -25,7 +27,7 @@ public class CalendarService {
 
     private Map<LocalDate, String> holidaysMap() {
         Map<LocalDate, String> holidaysMap = new LinkedHashMap<>();
-        for (NationalHoliday holiday : nationalHolidayRepository.getAll()) {
+        for (NationalHolidayDto holiday : nationalHolidayRepository.parseNationalHolidaysToDto()) {
             holidaysMap.put(holiday.getHolidayDate(), holiday.getName());
         }
         return holidaysMap;
