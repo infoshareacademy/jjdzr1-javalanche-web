@@ -13,7 +13,7 @@
 
         <%@ include file="features/usersDisplay.jsp" %>
 
-        <%@ include file="features/popup.jsp" %>
+        <%@ include file="features/popupDay.jsp" %>
 
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
