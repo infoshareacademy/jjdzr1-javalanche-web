@@ -7,7 +7,7 @@
     UserDto isLoggedTeamLeader = (UserDto) request.getAttribute("loggedUser");
 %>
 
-<form action="/forms?holidayRequestDecision" method="post">
+<form action="/holidayRequestDecisionForm" method="post">
     <div class="col-md-6">
         <fieldset <%if (!isLoggedTeamLeader.isTeamLeader()){%>disabled<%}%>>
         <div class="form-group">

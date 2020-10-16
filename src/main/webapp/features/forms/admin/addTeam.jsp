@@ -3,7 +3,7 @@
 
 <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeadersWithoutTeam");%>
 
-<form action="/forms?addTeam" method="post">
+<form action="/addTeamForm" method="post">
     <div class="col-md-6">
         <div class="form-group">
             <label for="inputTeamName">Team's name:</label>

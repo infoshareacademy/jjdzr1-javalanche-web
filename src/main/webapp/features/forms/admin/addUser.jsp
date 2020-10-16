@@ -1,4 +1,4 @@
-<form action="/forms?addUser" method="post">
+<form action="/addUserForm" method="post">
     <div class="col-md-6">
 
         <div class="form-group">

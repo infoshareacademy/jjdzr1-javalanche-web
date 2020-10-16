@@ -6,7 +6,7 @@
 %>
 
 
-<form action="/forms?addUsersToTeam" method="post">
+<form action="/addUsersToTeamForm" method="post">
     <fieldset <%if (!loggedUser.isTeamLeader()){%>disabled<%}%>>
         <div class="col-md-6">
             <div class="form-group">

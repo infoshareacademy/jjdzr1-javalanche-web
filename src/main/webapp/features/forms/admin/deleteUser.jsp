@@ -5,7 +5,7 @@
 <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 <% String ids = "";%>
 
-<form action="/forms?deleteUser" method="post">
+<form action="/deleteUserForm" method="post">
     <div class="col-md-6">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Select user to remove:</label>

@@ -3,7 +3,7 @@
 
 <% List<DayOffDto> daysOffRequests = (List<DayOffDto>) request.getAttribute("daysOffRequests");%>
 
-<form action="/forms?withdrawHolidayRequest" method="post">
+<form action="/withdrawHolidayRequestForm" method="post">
     <div class="col-md-6">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Select holiday request to remove:</label>
