@@ -53,6 +53,9 @@ public class AddTeamFormServlet extends HttpServlet {
     private void setAttributes(HttpServletRequest req, HttpSession session) {
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
+
+
+        req.setAttribute("users", userService.getAll());
     }
 
     private void addTeamFormHandler(HttpServletRequest req) {

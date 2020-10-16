@@ -3,6 +3,7 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.NationalHolidayService;
+import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +20,8 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
 
     @Inject
     private NationalHolidayService nationalHolidayService;
+    @Inject
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,6 +50,9 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest req, HttpSession session) {
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
+
+
+        req.setAttribute("users", userService.getAll());
     }
 
     private void uploadNationalHolidaysFormHandler(HttpServletRequest req){

@@ -25,6 +25,9 @@ public class DeleteTeamFormServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
+    @Inject
+    private UserService userService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -53,6 +56,9 @@ public class DeleteTeamFormServlet extends HttpServlet {
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("teamsList", teamService.getAll());
+
+
+        req.setAttribute("users", userService.getAll());
     }
 
     private void deleteTeamFormHandler(HttpServletRequest req) {

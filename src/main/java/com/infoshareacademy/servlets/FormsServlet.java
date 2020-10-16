@@ -48,8 +48,7 @@ public class FormsServlet extends HttpServlet {
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
             setAttributes(req, session);
-        }
-        else {
+        } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);

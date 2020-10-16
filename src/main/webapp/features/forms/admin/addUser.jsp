@@ -1,3 +1,5 @@
+<% Optional<User> returnedUser = (Optional<User>) request.getAttribute("returnedUser");%>
+
 <form action="/addUserForm" method="post">
     <div class="col-md-6">
 
@@ -51,5 +53,13 @@
             <button class="button-position btn btn-dark" type="reset">Reset
             </button>
         </div>
+    </div>
+    <div class="col-md-6">
+        <%if(returnedUser.isPresent()){
+        User user = returnedUser.get();%>
+            <h6>
+                <%=user.getFirstName()+ " " + user.getLastName() + " " + user.getEmail()%>
+            </h6>
+        <%}%>
     </div>
 </form>

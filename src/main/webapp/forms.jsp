@@ -30,7 +30,11 @@
         %>
         <%@ include file="features/forms/admin/adminCollapse.jsp" %>
         <%
-                    break;
+                break;
+            default:
+        %>
+        <%@include file="main.jsp" %>
+        <%
             }%>
 
     </div>

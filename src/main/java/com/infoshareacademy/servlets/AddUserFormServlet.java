@@ -17,12 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet("/addUserForm")
 public class AddUserFormServlet extends HttpServlet {
 
     @Inject
     private FormsService formsService;
+
+    @Inject
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,6 +56,8 @@ public class AddUserFormServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
+
+        req.setAttribute("users", userService.getAll());
     }
 
 
@@ -63,6 +69,9 @@ public class AddUserFormServlet extends HttpServlet {
         userToAdd.setLastName(req.getParameter("addUserSurname"));
         userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
         userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
-        formsService.addUserFormInputDatabaseHandler(userToAdd);
+        Optional<User> returnedUser = formsService.addUserFormInputDatabaseHandler(userToAdd);
+        if (returnedUser.isPresent()){
+            req.getSession().setAttribute("returnedUser", returnedUser);
+        }
     }
 }
