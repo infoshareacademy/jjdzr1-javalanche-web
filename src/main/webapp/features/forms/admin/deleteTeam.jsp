@@ -2,7 +2,7 @@
 
 <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teamsList");%>
 
-<form action="/forms?deleteTeam" method="post">
+<form action="/deleteTeamForm" method="post">
     <div class="col-md-6">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Select user to remove:</label>

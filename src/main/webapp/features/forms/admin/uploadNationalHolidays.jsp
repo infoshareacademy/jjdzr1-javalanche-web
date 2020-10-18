@@ -1,4 +1,4 @@
-<form action="/forms?uploadNationalHolidays" method="post">
+<form action="/uploadNationalHolidaysForm" method="post">
     <div class="col-md-6">
         <div class="form-group">
             <div class="form-group">

@@ -1,5 +1,5 @@
 <%@ page import="java.time.LocalDate" %>
-<form action="/forms?placeHolidayRequest" method="post">
+<form action="/placeHolidayRequestForm" method="post">
     <div class="col-md-6">
         <div class="form-group col">
             <label for="startDay">Choice the first day of your leave:</label>

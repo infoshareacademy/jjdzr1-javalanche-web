@@ -12,11 +12,14 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @LocalBean
 @Transactional
 public class FormsService {
+
+    private static final Logger LOGGER = Logger.getLogger(UserRepository.class.getName());
 
     @Inject
     private UserRepository userRepository;
@@ -30,12 +33,8 @@ public class FormsService {
     @Inject
     private DayOffService dayOffService;
 
-    @Inject
-    private NationalHolidayService nationalHolidayService;
-
     public void addUserFormInputDatabaseHandler(User createdUser){
-        //FIXME
-        userRepository.create(createdUser);
+            userRepository.create(createdUser);
     }
 
     public void deleteUserFormInputHandler(int recordToDeleteId){

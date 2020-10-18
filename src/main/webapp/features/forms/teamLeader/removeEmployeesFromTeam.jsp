@@ -3,7 +3,7 @@
     UserDto loggedTeamLeader = (UserDto) request.getAttribute("loggedUser");
 %>
 
-<form action="/forms?removeUsersFromTeam" method="post">
+<form action="/removeUsersFromTeam" method="post">
     <fieldset <%if (!loggedTeamLeader.isTeamLeader()){%>disabled<%}%>>
         <div class="col-md-6">
             <div class="form-group">
