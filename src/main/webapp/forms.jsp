@@ -31,10 +31,6 @@
         <%@ include file="features/forms/admin/adminCollapse.jsp" %>
         <%
                 break;
-            default:
-        %>
-        <%@include file="main.jsp" %>
-        <%
             }%>
 
     </div>

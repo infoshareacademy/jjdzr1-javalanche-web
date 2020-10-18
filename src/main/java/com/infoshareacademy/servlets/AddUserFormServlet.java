@@ -69,9 +69,6 @@ public class AddUserFormServlet extends HttpServlet {
         userToAdd.setLastName(req.getParameter("addUserSurname"));
         userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
         userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
-        Optional<User> returnedUser = formsService.addUserFormInputDatabaseHandler(userToAdd);
-        if (returnedUser.isPresent()){
-            req.getSession().setAttribute("returnedUser", returnedUser);
-        }
+        formsService.addUserFormInputDatabaseHandler(userToAdd);
     }
 }

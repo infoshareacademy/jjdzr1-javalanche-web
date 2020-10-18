@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @WebServlet("/forms")
 public class FormsServlet extends HttpServlet {
@@ -64,6 +65,8 @@ public class FormsServlet extends HttpServlet {
         req.setAttribute("teamsList", teamService.getAll());
         req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
         req.setAttribute("holidayRequests", dayOffService.getAll());
+/*        Optional<User> test = Optional.empty();
+        req.getSession().setAttribute("returnedUser", test);*/
     }
 
 

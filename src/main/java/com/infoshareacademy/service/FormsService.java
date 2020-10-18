@@ -33,14 +33,8 @@ public class FormsService {
     @Inject
     private DayOffService dayOffService;
 
-    public Optional<User> addUserFormInputDatabaseHandler(User createdUser){
-        try {
+    public void addUserFormInputDatabaseHandler(User createdUser){
             userRepository.create(createdUser);
-            return Optional.of(createdUser);
-        } catch (Exception e){
-            LOGGER.warning("ERROR, user not created.");
-            return Optional.empty();
-        }
     }
 
     public void deleteUserFormInputHandler(int recordToDeleteId){
