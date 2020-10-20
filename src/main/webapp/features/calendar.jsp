@@ -2,24 +2,18 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: karol
-  Date: 16.09.2020
-  Time: 21:39
-  To change this template use File | Settings | File Templates.
---%>
+
 <div class="container-fluid">
-    <h3 class="h3">Calendar</h3>
+    <h3 class="h3"; style="margin-top: 20px"; >Calendar</h3>
 
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
     <div class="container-fluid" style="overflow: auto">
         <br>
-        <h3>
+        <h4>
             Search for employee:
-        </h3>
+        </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
         <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
@@ -52,7 +46,6 @@
             </tr>
             </thead>
             <tbody id="calendarTable">
-            <%--            <% for (UserDto user : users) { %>--%>
             <% for (int i = 0; i < users.size(); i++) { %>
             <tr>
                 <td scope="col" class="m-0 p-0"
@@ -60,7 +53,7 @@
                     <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
                             data-target="#modalUser<%=i%>"
-                            style="vertical-align: middle; text-align: end; font-size: small; width: 100px; height: 50px">
+                            style="vertical-align: middle; text-align: center; font-size: small; width: 100px; height: 50px; font-weight: bold;">
                         <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getFirstName()%>
                         </p>
                         <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getLastName()%>
@@ -109,3 +102,4 @@
         </table>
     </div>
 </div>
+
