@@ -47,7 +47,8 @@ public class MainServlet extends HttpServlet {
 
         req.setAttribute("calendarView", calendarService.calendarView(120));
         req.setAttribute("users", userService.getAll());
-        req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+        req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
+        req.setAttribute("notAcceptedHolidays", dayOffService.mapUsersWithNotAcceptedDaysOff());
 
         view.forward(req, resp);
     }

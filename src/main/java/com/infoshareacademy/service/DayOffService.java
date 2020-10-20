@@ -47,7 +47,6 @@ public class DayOffService {
     public List<LocalDate> setListDaysWithoutWeekend(LocalDate firstDate, LocalDate lastDate){
         List<LocalDate> dateList = new ArrayList<>();
         LocalDate date = firstDate;
-        //dateList.add(date);
         do {
             if (date.getDayOfWeek().toString().equals("SATURDAY") || date.getDayOfWeek().toString().equals("SUNDAY")){
 
@@ -60,12 +59,28 @@ public class DayOffService {
         return dateList;
     }
 
-    public Map<String, List<String>> mapUsersWithDaysOff(){
+    public Map<String, List<String>> mapUsersWithAcceptedDaysOff(){
         Map<String, List<String>> map = new LinkedHashMap<>();
         for (UserDto user: userService.getAll()) {
             List<String> dates = new ArrayList<>();
             for (DayOffDto day: getByUserEmail(user.getEmail())) {
+                //TODO change if not completed
                 if (day.isAccepted()){
+                    day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
+                }
+            }
+            map.put(user.getEmail(), dates);
+        }
+        return map;
+    }
+
+    public Map<String, List<String>> mapUsersWithNotAcceptedDaysOff(){
+        Map<String, List<String>> map = new LinkedHashMap<>();
+        for (UserDto user: userService.getAll()) {
+            List<String> dates = new ArrayList<>();
+            for (DayOffDto day: getByUserEmail(user.getEmail())) {
+                //TODO change if not completed
+                if (!day.isAccepted()){
                     day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
                 }
             }

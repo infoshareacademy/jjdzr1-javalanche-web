@@ -14,7 +14,8 @@
 
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
-    <% Map<String, List<LocalDate>> mapUsersDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("map");%>
+    <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
+    <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>
@@ -52,7 +53,6 @@
             </tr>
             </thead>
             <tbody id="calendarTable">
-            <%--            <% for (UserDto user : users) { %>--%>
             <% for (int i = 0; i < users.size(); i++) { %>
             <tr>
                 <td scope="col" class="m-0 p-0"
@@ -68,13 +68,22 @@
                     </button>
                 </td>
                 <% for (String date : calendarView) { %>
-                <% if (mapUsersDaysOff.get(users.get(i).getEmail()).contains(date)) {
+                <% if (mapUsersAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
                 %>
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
                             data-target="#modalDay"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Day off
+                    </button>
+                </td>
+                <% } else if (mapUsersNotAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
+                %>
+                <td scope="col" class="m-0 p-0">
+                    <button type="button" class="btn btn-warning rounded-0 m-0 p-0 text-wrap"
+                            data-toggle="modal"
+                            data-target="#modalDay"
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Pending
                     </button>
                 </td>
                 <%
