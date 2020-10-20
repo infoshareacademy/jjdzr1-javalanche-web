@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/addUserForm")
 public class AddUserFormServlet extends HttpServlet {
@@ -30,12 +29,11 @@ public class AddUserFormServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addUserFormHandler(req);
+        addUserFormHandler(req, resp);
         resp.sendRedirect(req.getContextPath() + "/forms");
         setRequestDispatcher(req, resp);
     }
@@ -61,14 +59,20 @@ public class AddUserFormServlet extends HttpServlet {
     }
 
 
-    private void addUserFormHandler(HttpServletRequest req) {
-        User userToAdd = new User();
-        userToAdd.setEmail(req.getParameter("addUserEmail"));
-        userToAdd.setPassword(req.getParameter("addUserPassword"));
-        userToAdd.setFirstName(req.getParameter("addUserFirstName"));
-        userToAdd.setLastName(req.getParameter("addUserSurname"));
-        userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
-        userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
-        formsService.addUserFormInputDatabaseHandler(userToAdd);
+    private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) {
+        if(req.getParameter("addUserPassword").equals(req.getParameter("addUserRepeatPassword"))){
+            User userToAdd = new User();
+            userToAdd.setEmail(req.getParameter("addUserEmail"));
+            userToAdd.setPassword(req.getParameter("addUserPassword"));
+            userToAdd.setPassword(req.getParameter("addUserRepeatPassword"));
+            userToAdd.setFirstName(req.getParameter("addUserFirstName"));
+            userToAdd.setLastName(req.getParameter("addUserSurname"));
+            userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
+            userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
+            formsService.addUserFormInputDatabaseHandler(userToAdd);
+            req.setAttribute("addUserStatusIsSuccessful", true);
+        } else {
+            req.setAttribute("addUserStatusIsSuccessful", false);
+        }
     }
 }

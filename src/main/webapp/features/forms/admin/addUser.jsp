@@ -12,6 +12,11 @@
                    placeholder="Enter password" required>
         </div>
         <div class="form-group">
+            <label for="inputEmail">Repeat Password:</label>
+            <input type="password" name="addUserRepeatPassword" class="form-control" id="inputRepeatPassword"
+                   placeholder="Enter password again" required>
+        </div>
+        <div class="form-group">
             <label for="inputEmail">First name:</label>
             <input type="text" name="addUserFirstName" class="form-control" id="inputFirstName"
                    placeholder="Enter first name" required>
