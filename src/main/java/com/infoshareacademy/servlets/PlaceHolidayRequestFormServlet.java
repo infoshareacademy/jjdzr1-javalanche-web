@@ -56,7 +56,9 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
         HttpSession session = req.getSession();
         LocalDate holidayFirstDay = LocalDate.parse(req.getParameter("holidayFirstDay"));
         LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
-        formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+        if(holidayFirstDay.isBefore(holidayLastDay) || holidayFirstDay.isEqual(holidayLastDay)){
+            formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+        }
     }
 
 }

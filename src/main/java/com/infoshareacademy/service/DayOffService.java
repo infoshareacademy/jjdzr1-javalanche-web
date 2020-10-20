@@ -47,16 +47,16 @@ public class DayOffService {
     public List<LocalDate> setListDaysWithoutWeekend(LocalDate firstDate, LocalDate lastDate){
         List<LocalDate> dateList = new ArrayList<>();
         LocalDate date = firstDate;
-        dateList.add(date);
+        //dateList.add(date);
         do {
-            date = date.plusDays(1);
             if (date.getDayOfWeek().toString().equals("SATURDAY") || date.getDayOfWeek().toString().equals("SUNDAY")){
 
             }
             else {
                 dateList.add(date);
             }
-        } while (date.isBefore(lastDate));
+            date = date.plusDays(1);
+        } while (date.isBefore(lastDate) || date.isEqual(lastDate));
         return dateList;
     }
 
