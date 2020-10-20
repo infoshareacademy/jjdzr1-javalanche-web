@@ -54,12 +54,14 @@ public class AddUserFormServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-
         req.setAttribute("users", userService.getAll());
     }
 
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) {
-        if(req.getParameter("addUserPassword").equals(req.getParameter("addUserRepeatPassword"))){
+        if(formsService.verifyIfPasswordsMatch(req.getParameter("addUserPassword"),
+                req.getParameter("addUserRepeatPassword")) &&
+            formsService.verifyIfNumberOfDaysOffIsPositive(
+                req.getParameter("addUserDaysOff"))){
             User userToAdd = new User();
             userToAdd.setEmail(req.getParameter("addUserEmail"));
             userToAdd.setPassword(req.getParameter("addUserPassword"));
@@ -72,6 +74,7 @@ public class AddUserFormServlet extends HttpServlet {
             req.setAttribute("addUserStatusIsSuccessful", true);
         } else {
             req.setAttribute("addUserStatusIsSuccessful", false);
+            //TODO add response message
         }
     }
 }

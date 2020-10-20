@@ -28,8 +28,7 @@
         </div>
         <div class="form-group">
             <label for="inputEmail">Days off:</label>
-            <input type="number" name="addUserDaysOff" class="form-control" id="inputDaysOff"
-                   placeholder="Enter number of remaining days off"
+            <input type="number" name="addUserDaysOff" class="form-control" id="inputDaysOff" placeholder="Recommended number of days off: <%=(365-LocalDate.now().getDayOfYear())/14%>"
                    required>
         </div>
 
@@ -61,6 +60,7 @@
             <button class="button-position btn btn-dark" type="reset">Reset
             </button>
         </div>
+
     </div>
     <div class="col-md-6">
     </div>

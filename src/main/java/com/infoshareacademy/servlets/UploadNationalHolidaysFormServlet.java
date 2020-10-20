@@ -41,17 +41,15 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/forms.jsp");
-            setAttributes(req, session);
+            setAttributes(req);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
     }
 
-    private void setAttributes(HttpServletRequest req, HttpSession session) {
+    private void setAttributes(HttpServletRequest req) {
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-
-
         req.setAttribute("users", userService.getAll());
     }
 

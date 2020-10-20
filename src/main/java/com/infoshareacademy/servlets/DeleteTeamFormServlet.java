@@ -56,8 +56,6 @@ public class DeleteTeamFormServlet extends HttpServlet {
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("teamsList", teamService.getAll());
-
-
         req.setAttribute("users", userService.getAll());
     }
 

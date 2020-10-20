@@ -58,6 +58,8 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
         LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
         if(holidayFirstDay.isBefore(holidayLastDay) || holidayFirstDay.isEqual(holidayLastDay)){
             formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+        } else {
+            //TODO return a message about incorrect format
         }
     }
 

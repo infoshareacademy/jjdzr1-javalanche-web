@@ -115,4 +115,12 @@ public class FormsService {
         dayOffRepository.delete(dayOffRepository.findDaysOffByDayyOffId(requestToDeleteId));
     }
 
+
+    public boolean verifyIfPasswordsMatch(String password1, String password2){
+        return password1.equals(password2);
+    }
+
+    public boolean verifyIfNumberOfDaysOffIsPositive(String numberOfDaysOff){
+        return Integer.parseInt(numberOfDaysOff) >= 0;
+    }
 }
