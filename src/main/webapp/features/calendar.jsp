@@ -4,7 +4,9 @@
 <%@ page import="java.util.Map" %>
 
 <div class="container-fluid">
-    <h3 class="h3"; style="margin-top: 20px"; >Calendar</h3>
+    <h3 class="h3" style="margin-top: 20px">
+        <i class="far fa-calendar-alt"></i> Calendar
+    </h3>
 
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
@@ -12,7 +14,7 @@
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h4>
-            Search for employee:
+            <i class="fas fa-search-plus"></i> Search for employee:
         </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
@@ -50,7 +52,7 @@
             <tr>
                 <td scope="col" class="m-0 p-0"
                     style="vertical-align: middle; text-align: end; font-size: x-small">
-                    <button type="button" class="btn btn-outline-danger rounded-0 m-0 p-0 text-wrap"
+                    <button type="button" class="btn btn-outline-secondary rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
                             data-target="#modalUser<%=i%>"
                             style="vertical-align: middle; text-align: center; font-size: small; width: 100px; height: 50px; font-weight: bold;">

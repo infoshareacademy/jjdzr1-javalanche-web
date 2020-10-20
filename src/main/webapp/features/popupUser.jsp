@@ -1,13 +1,6 @@
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: kacper-kwiatkowski
-  Date: 16.09.2020
-  Time: 09:23
-  To change this template use File | Settings | File Templates.
---%>
 
 <% List<UserDto> users2 = (List<UserDto>) request.getAttribute("users");%>
 <% for (int i = 0; i < users2.size(); i++) { %>
