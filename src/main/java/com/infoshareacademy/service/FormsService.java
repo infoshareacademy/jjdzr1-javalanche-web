@@ -91,9 +91,10 @@ public class FormsService {
     }
 
     public void holidayRequestDecisionFormInputHandler(int holidayRequestId, Boolean decision){
-        DayOff dayOff = dayOffRepository.findDaysOffByDayyOffId(holidayRequestId);
+        DayOff dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
         if (decision){
             dayOff.setAccepted(true);
+            dayOff.getUser().setDaysOffLeft(dayOff.getUser().getDaysOffLeft() - dayOff.getListOfDays().size());
             dayOffRepository.update(dayOff);
         }
         else {
@@ -112,7 +113,7 @@ public class FormsService {
     }
 
     public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){
-        dayOffRepository.delete(dayOffRepository.findDaysOffByDayyOffId(requestToDeleteId));
+        dayOffRepository.delete(dayOffRepository.findDaysOffByDayOffId(requestToDeleteId));
     }
 
 
