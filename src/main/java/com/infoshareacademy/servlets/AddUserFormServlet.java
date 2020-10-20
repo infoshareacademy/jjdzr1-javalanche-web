@@ -58,7 +58,6 @@ public class AddUserFormServlet extends HttpServlet {
         req.setAttribute("users", userService.getAll());
     }
 
-
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) {
         if(req.getParameter("addUserPassword").equals(req.getParameter("addUserRepeatPassword"))){
             User userToAdd = new User();
