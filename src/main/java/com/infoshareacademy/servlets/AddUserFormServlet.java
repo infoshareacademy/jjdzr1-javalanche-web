@@ -58,10 +58,9 @@ public class AddUserFormServlet extends HttpServlet {
     }
 
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) {
-        if(formsService.verifyIfPasswordsMatch(req.getParameter("addUserPassword"),
-                req.getParameter("addUserRepeatPassword")) &&
-            formsService.verifyIfNumberOfDaysOffIsPositive(
-                req.getParameter("addUserDaysOff"))){
+        if(formsService.verifyIfPasswordsMatch(
+                req.getParameter("addUserPassword"),
+                req.getParameter("addUserRepeatPassword"))){
             User userToAdd = new User();
             userToAdd.setEmail(req.getParameter("addUserEmail"));
             userToAdd.setPassword(req.getParameter("addUserPassword"));

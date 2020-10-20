@@ -9,7 +9,7 @@
   Time: 21:39
   To change this template use File | Settings | File Templates.
 --%>
-<div class="container-fluid">
+<div class="main-container container-fluid">
     <h3 class="h3">Calendar</h3>
 
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
@@ -43,7 +43,7 @@
                 <% } else { %>
                 <th scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-info text-wrap rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                            style="height: 50px; width: 70px; font-size: xx-small"><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <%
@@ -106,7 +106,7 @@
                     <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
                             data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date.toUpperCase()%>
                     </button>
                 </td>
                 <%

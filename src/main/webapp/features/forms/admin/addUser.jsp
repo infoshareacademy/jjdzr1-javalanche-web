@@ -28,8 +28,9 @@
         </div>
         <div class="form-group">
             <label for="inputEmail">Days off:</label>
-            <input type="number" name="addUserDaysOff" class="form-control" id="inputDaysOff" placeholder="Recommended number of days off: <%=(365-LocalDate.now().getDayOfYear())/14%>"
-                   required>
+            <input type="number" name="addUserDaysOff" class="form-control" id="inputDaysOff"
+                   placeholder="Recommended number of days off: <%=(365-LocalDate.now().getDayOfYear())/14%>"
+                   min="0" required>
         </div>
 
         <fieldset class="form-group ">

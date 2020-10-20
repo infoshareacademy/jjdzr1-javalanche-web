@@ -65,8 +65,6 @@ public class FormsServlet extends HttpServlet {
         req.setAttribute("teamsList", teamService.getAll());
         req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
         req.setAttribute("holidayRequests", dayOffService.getAll());
-/*        Optional<User> test = Optional.empty();
-        req.getSession().setAttribute("returnedUser", test);*/
     }
 
 
