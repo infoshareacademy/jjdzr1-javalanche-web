@@ -79,7 +79,6 @@ public class DayOffService {
         for (UserDto user: userService.getAll()) {
             List<String> dates = new ArrayList<>();
             for (DayOffDto day: getByUserEmail(user.getEmail())) {
-                //TODO change if not completed
                 if (!day.isAccepted()){
                     day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
                 }

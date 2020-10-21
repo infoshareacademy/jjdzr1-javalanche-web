@@ -11,7 +11,6 @@
 --%>
 <div class="main-container container-fluid">
     <h3 class="h3">Calendar</h3>
-
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
@@ -106,7 +105,8 @@
                     <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
                             data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date.toUpperCase()%>
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
+                            disabled><%=date.toUpperCase()%>
                     </button>
                 </td>
                 <%

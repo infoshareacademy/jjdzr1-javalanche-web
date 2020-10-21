@@ -116,6 +116,18 @@ public class FormsService {
         dayOffRepository.delete(dayOffRepository.findDaysOffByDayOffId(requestToDeleteId));
     }
 
+    public void changeEmailInputHandler(String oldEmail, String newEmail){
+        User userWithNewEmail = userRepository.findByEmail(oldEmail);
+        userWithNewEmail.setEmail(newEmail);
+        userRepository.update(userWithNewEmail);
+    }
+
+    public void changePasswordInputHandler(String email, String newPassword){
+        User userWithNewPassword = userRepository.findByEmail(email);
+        userWithNewPassword.setPassword(newPassword);
+        userRepository.update(userWithNewPassword);
+    }
+
     public boolean verifyIfPasswordsMatch(String password1, String password2){
         return password1.equals(password2);
     }
