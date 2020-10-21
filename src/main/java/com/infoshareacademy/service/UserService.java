@@ -1,6 +1,8 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.UserRepository;
 
@@ -18,8 +20,6 @@ public class UserService {
 
     @Inject
     private SecurePasswordService securePasswordService;
-
-    //TODO add logic to daysOffLeft
 
     public List<UserDto> getAll() {
         List<User> users = userRepository.getAll();
@@ -88,5 +88,11 @@ public class UserService {
         user.setDaysOffLeft(26);
         user.setPassword(securePasswordService.encryptor("Admin"));
         userRepository.create(user);
+    }
+
+    public void setDaysOffLeft(DayOff dayOff){
+        User user = dayOff.getUser();
+        user.setDaysOffLeft(user.getDaysOffLeft() - dayOff.getListOfDays().size());
+        userRepository.update(user);
     }
 }

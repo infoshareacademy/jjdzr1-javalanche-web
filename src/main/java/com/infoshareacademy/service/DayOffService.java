@@ -23,6 +23,7 @@ public class DayOffService {
     @Inject
     private UserService userService;
 
+
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
         List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);
@@ -73,4 +74,5 @@ public class DayOffService {
         }
         return map;
     }
+
 }

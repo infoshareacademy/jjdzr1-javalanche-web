@@ -33,6 +33,9 @@ public class FormsService {
     @Inject
     private DayOffService dayOffService;
 
+    @Inject
+    private UserService userService;
+
     public void addUserFormInputDatabaseHandler(User createdUser){
             userRepository.create(createdUser);
     }
@@ -95,6 +98,7 @@ public class FormsService {
         if (decision){
             dayOff.setAccepted(true);
             dayOffRepository.update(dayOff);
+            userService.setDaysOffLeft(dayOff);
         }
         else {
             dayOffRepository.delete(dayOff);
