@@ -1,10 +1,9 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.service.CalendarService;
-import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.*;
+
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +25,8 @@ public class TestServlet extends HttpServlet {
     private DayOffService dayOffService;
     @Inject
     private TeamService teamService;
+    @Inject
+    private EmailService emailService;
 
     private static final Logger LOGGER = Logger.getLogger(TestServlet.class.getName());
 
@@ -47,7 +48,7 @@ public class TestServlet extends HttpServlet {
             req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
             req.setAttribute("teams", teamService.getAll());
 
-            view = getServletContext().getRequestDispatcher("/test.jsp");
+        view = getServletContext().getRequestDispatcher("/test.jsp");
         view.forward(req, resp);
     }
 }

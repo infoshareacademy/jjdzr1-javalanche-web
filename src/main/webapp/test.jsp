@@ -57,72 +57,60 @@
 <div class="d-flex" id="wrapper">
     <!-- Page Content -->
     <div id="page-content-wrapper">
-<%--        <%@include file="calendar.jsp"%>--%>
+        <%--        <%@include file="calendar.jsp"%>--%>
         <!-- testowa czesc strony -->
         <div>
 
-<%--            <div class="container-fluid">--%>
-<%--                <% int levelOfAccess = (int) session.getAttribute("levelOfAccess");%>--%>
-<%--                <% if (levelOfAccess == 1){ %>--%>
-<%--                <button type="button" class="btn-info visible">Button test</button>--%>
-<%--                <% } else { %>--%>
-<%--                <button type="button" class="btn-info invisible">Button test</button>--%>
-<%--                <% } %>--%>
+            <%--            <div class="container-fluid">--%>
+            <%--                <% int levelOfAccess = (int) session.getAttribute("levelOfAccess");%>--%>
+            <%--                <% if (levelOfAccess == 1){ %>--%>
+            <%--                <button type="button" class="btn-info visible">Button test</button>--%>
+            <%--                <% } else { %>--%>
+            <%--                <button type="button" class="btn-info invisible">Button test</button>--%>
+            <%--                <% } %>--%>
 
-<%--            </div>--%>
+            <%--            </div>--%>
 
+            <!-- // testowa czesc strony -->
+
+            <p><%=request.getAttribute("xception").toString()%></p>
         </div>
-        <br><br>
-        <h3> testing: </h3>
-        <div>
-            <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
-            <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
-            <% for (UserDto userDto: userDtoList) { %>
-            <p><%=userDto%></p>
-            <br><br>
-            <% } %>
 
-        </div>
-        <!-- // testowa czesc strony -->
-
+        <!-- /#page-content-wrapper -->
     </div>
-
-
-    <!-- /#page-content-wrapper -->
-</div>
-<!-- /#wrapper -->
-<!-- /#MODAL -->
-<div class="modal fade modalDay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <p>
-                POPAPEK
-            </p>
+    <!-- /#wrapper -->
+    <!-- /#MODAL -->
+    <div class="modal fade modalDay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <p>
+                    POPAPEK
+                </p>
+            </div>
         </div>
     </div>
-</div>
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#calendarTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#calendarTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
 
