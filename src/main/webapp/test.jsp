@@ -9,7 +9,8 @@
 <%@ page import="com.infoshareacademy.service.DayOffService" %>
 <%@ page import="com.infoshareacademy.service.UserService" %>
 <%@ page import="com.infoshareacademy.DTO.TeamDto" %>
-<%@ page import="com.infoshareacademy.DTO.UserDto" %><%--
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
+<%@ page import="com.infoshareacademy.DTO.DayOffDto" %><%--
   Created by IntelliJ IDEA.
   User: karol
   Date: 29.08.2020
@@ -54,13 +55,8 @@
 
 <body>
 <div class="d-flex" id="wrapper">
-
-    <%@ include file="sidebar.jsp" %>
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
-
-        <%@include file="navbar.jsp"%>
 <%--        <%@include file="calendar.jsp"%>--%>
         <!-- testowa czesc strony -->
         <div>
@@ -81,14 +77,12 @@
         <div>
             <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
             <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
-            <% for (TeamDto t: teams) { %>
-                <p><%=t%></p>
-                <br><br>
+
+            <% for (UserDto userDto: userDtoList) { %>
+            <p><%=userDto%></p>
+            <br><br>
             <% } %>
-            <% for (UserDto u: users) { %>
-                <p><%=u%></p>
-                <br><br>
-            <% } %>
+
         </div>
         <!-- // testowa czesc strony -->
 

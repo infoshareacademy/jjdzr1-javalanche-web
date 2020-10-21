@@ -22,6 +22,9 @@ public class Team {
     @OneToOne(cascade = CascadeType.ALL)
     private User teamLeader;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private User assistantTeamLeader;
+
     public Team() {
     }
 
@@ -53,6 +56,14 @@ public class Team {
         this.teamLeader = teamLeader;
     }
 
+    public User getAssistantTeamLeader() {
+        return assistantTeamLeader;
+    }
+
+    public void setAssistantTeamLeader(User assistantTeamLeader) {
+        this.assistantTeamLeader = assistantTeamLeader;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,6 +85,7 @@ public class Team {
                 ", name='" + name + '\'' +
                 ", userEmail=" + userEmail +
                 ", teamLeader=" + teamLeader +
+                ", assistantTeamLeader=" + assistantTeamLeader +
                 '}';
     }
 }

@@ -16,6 +16,9 @@ public class UserService {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private SecurePasswordService securePasswordService;
+
     //TODO add logic to daysOffLeft
 
     public List<UserDto> getAll() {
@@ -34,7 +37,6 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess(), user.isTeamLeader(), user.getTeam());
     }
-
 
     public List<UserDto> createListOfEmployeesWithoutTeam(){
         List<UserDto> usersWithoutTeam = new ArrayList<>();
@@ -70,5 +72,21 @@ public class UserService {
             return empty;
         }
 
+    }
+
+    public boolean isEmptyDatabase(){
+        return userRepository.getAll().isEmpty();
+    }
+
+    public void fillDefaultUser(){
+
+        User user = new User();
+        user.setFirstName("Admin");
+        user.setLastName("Admin");
+        user.setEmail("admin@admin.pl");
+        user.setLevelOfAccess(3);
+        user.setDaysOffLeft(26);
+        user.setPassword(securePasswordService.encryptor("Admin"));
+        userRepository.create(user);
     }
 }
