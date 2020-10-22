@@ -1,4 +1,5 @@
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
+<%@ page import="java.util.List" %>
 
 
 <% List<DayOffDto> daysOffRequests = (List<DayOffDto>) request.getAttribute("daysOffRequests");%>

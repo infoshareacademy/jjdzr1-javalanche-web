@@ -2,6 +2,7 @@
 <%@ page import="com.infoshareacademy.service.DayOffService" %>
 <%@ page import="com.infoshareacademy.model.Team" %>
 <%@ page import="com.infoshareacademy.DAO.UserDao" %>
+<%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <% List<UserDto> employeesInTeam = (List<UserDto>) request.getAttribute("employeesInTeam");
     List<DayOffDto> chosenUserHolidayRequests = (List<DayOffDto>) request.getAttribute("holidayRequests");
     UserDto isLoggedTeamLeader = (UserDto) request.getAttribute("loggedUser");
