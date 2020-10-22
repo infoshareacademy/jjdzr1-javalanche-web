@@ -1,10 +1,7 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.FormsService;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.*;
 import com.infoshareacademy.servlets.FormsServlet;
 import com.sun.net.httpserver.HttpServer;
 
@@ -26,6 +23,9 @@ public class AddUserFormServlet extends HttpServlet {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private SecurePasswordService securePasswordService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -63,8 +63,8 @@ public class AddUserFormServlet extends HttpServlet {
                 req.getParameter("addUserRepeatPassword"))){
             User userToAdd = new User();
             userToAdd.setEmail(req.getParameter("addUserEmail"));
-            userToAdd.setPassword(req.getParameter("addUserPassword"));
-            userToAdd.setPassword(req.getParameter("addUserRepeatPassword"));
+            userToAdd.setPassword(securePasswordService.encryptor(req.getParameter("addUserPassword")));
+
             userToAdd.setFirstName(req.getParameter("addUserFirstName"));
             userToAdd.setLastName(req.getParameter("addUserSurname"));
             userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));

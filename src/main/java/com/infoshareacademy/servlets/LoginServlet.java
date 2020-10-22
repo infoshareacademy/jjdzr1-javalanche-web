@@ -20,8 +20,12 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     private UserService userService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (userService.isEmptyDatabase()) {
+            userService.fillDefaultUser();
+        }
         resp.setCharacterEncoding("UTF-8");
         //TODO jeżeli użytkownik jest zalogowany to informacja, że taki użytkonik zalogowany w sesji
         RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");

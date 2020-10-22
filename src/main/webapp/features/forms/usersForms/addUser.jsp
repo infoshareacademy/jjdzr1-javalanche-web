@@ -57,10 +57,12 @@
         </fieldset>
 
         <div class="button-container">
-            <button class="button-position btn btn-dark" type="submit">Submit
+            <button class="button-position btn btn-dark" type="submit" value="success">Submit
+
             </button>
             <button class="button-position btn btn-dark" type="reset">Reset
             </button>
+
         </div>
 
     </div>

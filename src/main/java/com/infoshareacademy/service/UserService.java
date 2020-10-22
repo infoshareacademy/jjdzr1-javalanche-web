@@ -1,6 +1,8 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.UserRepository;
 
@@ -16,7 +18,8 @@ public class UserService {
     @Inject
     private UserRepository userRepository;
 
-    //TODO add logic to daysOffLeft
+    @Inject
+    private SecurePasswordService securePasswordService;
 
     public List<UserDto> getAll() {
         List<User> users = userRepository.getAll();
@@ -34,7 +37,6 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess(), user.isTeamLeader(), user.getTeam());
     }
-
 
     public List<UserDto> createListOfEmployeesWithoutTeam(){
         List<UserDto> usersWithoutTeam = new ArrayList<>();
@@ -69,5 +71,27 @@ public class UserService {
             List<UserDto>empty = new ArrayList<>();
             return empty;
         }
+    }
+
+    public boolean isEmptyDatabase(){
+        return userRepository.getAll().isEmpty();
+    }
+
+    public void fillDefaultUser(){
+
+        User user = new User();
+        user.setFirstName("Admin");
+        user.setLastName("Admin");
+        user.setEmail("admin@admin.pl");
+        user.setLevelOfAccess(3);
+        user.setDaysOffLeft(26);
+        user.setPassword(securePasswordService.encryptor("Admin"));
+        userRepository.create(user);
+    }
+
+    public void setDaysOffLeft(DayOff dayOff){
+        User user = dayOff.getUser();
+        user.setDaysOffLeft(user.getDaysOffLeft() - dayOff.getListOfDays().size());
+        userRepository.update(user);
     }
 }

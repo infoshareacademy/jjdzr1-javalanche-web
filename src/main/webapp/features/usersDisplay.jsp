@@ -1,11 +1,5 @@
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: kacper-kwiatkowski
-  Date: 16.09.2020
-  Time: 09:14
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
@@ -14,7 +8,7 @@
         <div class="container-fluid" style="overflow: auto">
             <br>
             <h3>
-                Search for employee:
+                <i class="fas fa-search-plus"></i> Search for employee:
             </h3>
             <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
             <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">

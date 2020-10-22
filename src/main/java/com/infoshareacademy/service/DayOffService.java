@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
+import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -64,7 +65,6 @@ public class DayOffService {
         for (UserDto user: userService.getAll()) {
             List<String> dates = new ArrayList<>();
             for (DayOffDto day: getByUserEmail(user.getEmail())) {
-                //TODO change if not completed
                 if (day.isAccepted()){
                     day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
                 }

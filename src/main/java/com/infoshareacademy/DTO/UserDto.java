@@ -1,6 +1,9 @@
 package com.infoshareacademy.DTO;
 
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.Team;
+
+import java.util.Set;
 
 public class UserDto {
 
@@ -13,6 +16,7 @@ public class UserDto {
     private int levelOfAccess;
     private boolean isTeamLeader;
     private Team team;
+    private Set<DayOff> dayOffSet;
 
     public UserDto(int id, String firstName, String lastName, String email, String password, int daysOffLeft, int levelOfAccess, boolean isTeamLeader, Team team) {
         this.id = id;

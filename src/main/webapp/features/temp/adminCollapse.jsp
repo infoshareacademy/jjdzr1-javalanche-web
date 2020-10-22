@@ -6,10 +6,10 @@
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
+                    <button class="btn btn-outline-dark btn-block collapsed" id="collapsed" type="button" data-toggle="collapse"
                             data-target="#collapseOne"
                             aria-expanded="false" aria-controls="collapseOne">
-                        Add user
+                        <div id="collapsible">Add user</div>
                     </button>
                 </h2>
             </div>

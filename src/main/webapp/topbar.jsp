@@ -39,9 +39,9 @@
                     Profile
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="#"> Settings <i class="fas fa-cog"></i> </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/login.jsp">Logout</a>
+                    <a class="dropdown-item" href="/login.jsp"> <i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </li>
 

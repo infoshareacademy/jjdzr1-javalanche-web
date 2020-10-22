@@ -17,10 +17,6 @@
 
         <%@ include file="features/popupUser.jsp" %>
 
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-
     </div>
 
 </div>
