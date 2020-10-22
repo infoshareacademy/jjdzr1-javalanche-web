@@ -19,7 +19,6 @@ public class UserDao implements DAO<User> {
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
-
     @Override
     public void create(User user) {
         entityManager.persist(user);

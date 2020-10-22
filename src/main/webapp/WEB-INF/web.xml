@@ -6,12 +6,32 @@
   <data-source>
     <name>java:/newDefinition</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-    <url>jdbc:mysql://localhost:32768/webapp?serverTimezone=UTC</url>
-    <user>webapp</user>
-    <password>webapp</password>
+    <url>jdbc:mysql://localhost:3306/javalanche?serverTimezone=UTC</url>
+    <user>root</user>
+    <password>9272927292729272</password>
   </data-source>
   <session-config>
     <session-timeout>10</session-timeout>
   </session-config>
+
+  <context-param>
+    <param-name>host</param-name>
+    <param-value>smtp.gmail.com</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>port</param-name>
+    <param-value>587</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>userName</param-name>
+    <param-value>javalanche.isa@gmail.com</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>password</param-name>
+    <param-value>jAvalanche_ISA</param-value>
+  </context-param>
 
 </web-app>

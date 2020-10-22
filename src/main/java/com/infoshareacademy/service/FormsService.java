@@ -9,6 +9,7 @@ import com.infoshareacademy.repository.UserRepository;
 
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
@@ -32,6 +33,12 @@ public class FormsService {
 
     @Inject
     private DayOffService dayOffService;
+
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private EmailService emailService;
 
     public void addUserFormInputDatabaseHandler(User createdUser){
             userRepository.create(createdUser);
@@ -95,6 +102,7 @@ public class FormsService {
         if (decision){
             dayOff.setAccepted(true);
             dayOffRepository.update(dayOff);
+            userService.setDaysOffLeft(dayOff);
         }
         else {
             dayOffRepository.delete(dayOff);
@@ -109,6 +117,7 @@ public class FormsService {
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
         dayOff.setUser(userRepository.findByEmail(email));
         dayOffRepository.create(dayOff);
+
     }
 
     public void deleteHolidayRequestFormInputHandler(int requestToDeleteId){

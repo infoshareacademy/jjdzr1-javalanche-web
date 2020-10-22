@@ -1,10 +1,9 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.service.CalendarService;
-import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.*;
+
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 @WebServlet("/test")
@@ -25,6 +25,8 @@ public class TestServlet extends HttpServlet {
     private DayOffService dayOffService;
     @Inject
     private TeamService teamService;
+    @Inject
+    private EmailService emailService;
 
     private static final Logger LOGGER = Logger.getLogger(TestServlet.class.getName());
 
@@ -41,15 +43,12 @@ public class TestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
             req.setAttribute("calendarView", calendarService.calendarView(30));
             req.setAttribute("users", userService.getAll());
             req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
             req.setAttribute("teams", teamService.getAll());
-            view = getServletContext().getRequestDispatcher("/test.jsp");
-        } else {
-            view = getServletContext().getRequestDispatcher("/badrequest_404");
-        }
+
+        view = getServletContext().getRequestDispatcher("/test.jsp");
         view.forward(req, resp);
     }
 }

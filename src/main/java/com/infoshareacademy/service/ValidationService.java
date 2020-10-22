@@ -11,12 +11,15 @@ public class ValidationService {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private SecurePasswordService securePasswordService;
+
     private static final Logger LOGGER = Logger.getLogger(ValidationService.class.getName());
 
     public boolean isAuthenticated(String email, String password){
         boolean isAuthenticated = false;
         try {
-            if (userRepository.findByEmail(email).getPassword().equals(password)){
+            if (securePasswordService.decryptor(userRepository.findByEmail(email).getPassword()).equals(password)){
                 isAuthenticated = true;
             }
         } catch (Exception e){

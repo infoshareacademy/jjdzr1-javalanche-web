@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
+import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ public class DayOffService {
     private DayOffRepository dayOffRepository;
     @Inject
     private UserService userService;
+
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
@@ -47,7 +49,6 @@ public class DayOffService {
     public List<LocalDate> setListDaysWithoutWeekend(LocalDate firstDate, LocalDate lastDate){
         List<LocalDate> dateList = new ArrayList<>();
         LocalDate date = firstDate;
-        dateList.add(date);
         do {
             date = date.plusDays(1);
             if (date.getDayOfWeek().toString().equals("SATURDAY") || date.getDayOfWeek().toString().equals("SUNDAY")){
@@ -73,4 +74,5 @@ public class DayOffService {
         }
         return map;
     }
+
 }
