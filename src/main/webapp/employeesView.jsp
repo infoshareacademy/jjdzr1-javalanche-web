@@ -15,9 +15,6 @@
 
         <%@ include file="features/popupDay.jsp" %>
 
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
 
     </div>
 
