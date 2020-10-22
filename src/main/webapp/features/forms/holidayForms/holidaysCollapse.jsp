@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div style="margin: 10px">
     <h3>
-        Admin forms
+        Holidays management
     </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
@@ -9,15 +10,14 @@
                     <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
                             data-target="#collapseOne"
                             aria-expanded="false" aria-controls="collapseOne">
-                        Add user
+                        Add holiday request
                     </button>
                 </h2>
             </div>
-
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                  data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="addUser.jsp" %>
+                    <%@ include file="placeHolidayRequest.jsp" %>
                 </div>
             </div>
         </div>
@@ -26,60 +26,36 @@
                 <h2 class="mb-0">
                     <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Delete user
+                        Delete holiday request
                     </button>
                 </h2>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="deleteUser.jsp" %>
+                    <%@ include file="removeHolidayRequest.jsp" %>
                 </div>
             </div>
         </div>
+    </div>
+    <c:if test="${sessionScope.levelOfAccess==2 || sessionScope.levelOfAccess==3}">
         <div class="card">
             <div class="card-header" id="headingThree">
                 <h2 class="mb-0">
                     <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
                             data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Add team
+                        Manage holiday requests
                     </button>
                 </h2>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="addTeam.jsp" %>
+                    <%@ include file="holidayRequestDecision.jsp" %>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header" id="headingFour">
-                <h2 class="mb-0">
-                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
-                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Delete team
-                    </button>
-                </h2>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                <div class="card-body">
-                    <%@ include file="deleteTeam.jsp" %>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingFive">
-                <h2 class="mb-0">
-                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
-                            data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        Upload national holidays
-                    </button>
-                </h2>
-            </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                <div class="card-body">
-                    <%@ include file="uploadNationalHolidays.jsp" %>
-                </div>
-            </div>
-        </div>
-    </div>
+        <c:if test="${sessionScope.levelOfAccess==3}">
+
+        </c:if>
+    </c:if>
+
 </div>

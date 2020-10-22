@@ -1,3 +1,4 @@
+<%@ page import="java.time.LocalDate" %>
 <form action="/addUserForm" method="post">
     <div class="col-md-6">
 

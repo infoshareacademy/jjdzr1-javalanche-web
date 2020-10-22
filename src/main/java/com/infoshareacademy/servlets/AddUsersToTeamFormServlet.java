@@ -42,7 +42,7 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/forms.jsp");
+            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");

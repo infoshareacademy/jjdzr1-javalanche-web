@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.TeamService;
@@ -15,23 +14,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDate;
 
-@WebServlet("/placeHolidayRequestForm")
-public class PlaceHolidayRequestFormServlet extends HttpServlet {
+@WebServlet("/teamsForms")
+public class TeamsFormsServlet extends HttpServlet {
 
     @Inject
     private FormsService formsService;
 
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private DayOffService dayOffService;
+
+    @Inject
+    private TeamService teamService;
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        setRequestDispatcher(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        placeHolidayRequestFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+
         setRequestDispatcher(req, resp);
     }
 
@@ -40,7 +48,7 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/teamForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
@@ -50,17 +58,28 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
+        req.setAttribute("users", userService.getAll());
+        req.setAttribute("daysOffRequests", dayOffService.pendingHolidayRequests(session.getAttribute("username").toString()));
+        req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+        req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
+        req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
+        req.setAttribute("teamsList", teamService.getAll());
+        req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
+        req.setAttribute("holidayRequests", dayOffService.getAll());
     }
 
-    private void placeHolidayRequestFormHandler(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        LocalDate holidayFirstDay = LocalDate.parse(req.getParameter("holidayFirstDay"));
-        LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
-        if(holidayFirstDay.isBefore(holidayLastDay) || holidayFirstDay.isEqual(holidayLastDay)){
-            formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
-        } else {
-            //TODO return a message about incorrect format
-        }
-    }
+
+
+
+
+
+
+    
+
+
+
+
+
+
 
 }

@@ -14,7 +14,7 @@
             </div>
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="holidayRequestDecision.jsp" %>
+                    <%@ include file="../forms/holidayForms/holidayRequestDecision.jsp" %>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="addEmployeesToTeam.jsp" %>
+                    <%@ include file="../forms/teamsForms/addEmployeesToTeam.jsp" %>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                    <%@ include file="removeEmployeesFromTeam.jsp" %>
+                    <%@ include file="../forms/teamsForms/removeEmployeesFromTeam.jsp" %>
                 </div>
             </div>
         </div>
