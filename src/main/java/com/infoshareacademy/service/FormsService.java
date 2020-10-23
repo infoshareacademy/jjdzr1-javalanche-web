@@ -111,7 +111,7 @@ public class FormsService {
         }
     }
 
-    public boolean removeUsersFromTeamInputHandler(String loggedTeamLeaderUsername, String[]employeesToRemoveFromTeam){
+    public boolean removeUsersFromTeamInputHandler(String[]employeesToRemoveFromTeam){
         try{
             User loggedTeamLeader = userRepository.findByEmail(employeesToRemoveFromTeam[0]).getTeam().getTeamLeader();
 

@@ -1,9 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.NationalHolidayService;
-import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -20,8 +17,6 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
 
     @Inject
     private NationalHolidayService nationalHolidayService;
-    @Inject
-    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,23 +36,16 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/managementForms.jsp");
-            setAttributes(req);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
     }
 
-    private void setAttributes(HttpServletRequest req) {
-        req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-        req.setAttribute("users", userService.getAll());
-    }
-
     private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
         String apiKeyInput = req.getParameter("apiKey");
         String selectedYear = req.getParameter("selectedYear");
-        boolean submissionStatus;
-        submissionStatus = nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
+        boolean submissionStatus = nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
         if(submissionStatus){
             req.getSession().setAttribute("managementModificationStatus", "National holidays uploaded to database successfully.");
         } else {

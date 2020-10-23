@@ -1,8 +1,6 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.service.FormsService;
-import com.infoshareacademy.service.UserService;
-
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,8 +17,6 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
     @Inject
     private FormsService formsService;
 
-    @Inject
-    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,19 +36,11 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/teamForms.jsp");
-            //setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
     }
-
-/*    private void setAttributes(HttpServletRequest req, HttpSession session){
-        req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-        req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-        req.setAttribute("teamLeadersWithTeam", userService.createListOfTeamLeadersWithTeam());
-        req.setAttribute("loggedUser", session.getAttribute("username").toString());
-    }*/
 
     private void addUsersToTeamFormHandler(HttpServletRequest req) {
         String loggedTeamLeader;
@@ -63,8 +51,7 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
         }
         String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
 
-        boolean submissionStatus;
-        submissionStatus = formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
+        boolean submissionStatus = formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
         if(submissionStatus){
             req.getSession().setAttribute("teamModificationStatus", "Team modification successful.");
         } else {

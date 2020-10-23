@@ -1,10 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -21,9 +17,6 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
 
     @Inject
     private FormsService formsService;
-
-    @Inject
-    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,25 +36,15 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
             view = getServletContext().getRequestDispatcher("/teamForms.jsp");
-            setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
     }
 
-    private void setAttributes(HttpServletRequest req, HttpSession session){
-        req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-        req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
-        req.setAttribute("employeesInAnyTeam", userService.createListOfEmployeesInAnyTeam());
-        req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
-    }
-
     private void removeUsersFromTeamFormHandler(HttpServletRequest req) {
-        String loggedTeamLeader = req.getSession().getAttribute("username").toString();
         String[] employeesChosenForRemovalFromTeam = req.getParameterValues("selectedUsersToRemoveFromTeam");
-        boolean submissionStatus;
-        submissionStatus = formsService.removeUsersFromTeamInputHandler(loggedTeamLeader, employeesChosenForRemovalFromTeam);
+        boolean submissionStatus = formsService.removeUsersFromTeamInputHandler(employeesChosenForRemovalFromTeam);
         if(submissionStatus){
             req.getSession().setAttribute("teamModificationStatus", "User(s) removed from a team successfully.");
         } else {
