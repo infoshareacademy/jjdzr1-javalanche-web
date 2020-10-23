@@ -54,6 +54,7 @@ public class TeamFormsServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
+        session.setAttribute("teamModificationStatus", "");
     }
 
     private void setAttributes(HttpServletRequest req, HttpSession session){

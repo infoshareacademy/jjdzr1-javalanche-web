@@ -56,6 +56,13 @@ public class WithdrawHolidayRequestFormServlet extends HttpServlet {
 
     private void withdrawHolidayRequestFormHandler(HttpServletRequest req) {
         int holidayRequestIdToDelete = Integer.parseInt(req.getParameter("selectedHolidayRequestToDelete"));
-        formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
+
+        boolean submissionStatus;
+        submissionStatus = formsService.deleteHolidayRequestFormInputHandler(holidayRequestIdToDelete);
+        if(submissionStatus){
+            req.getSession().setAttribute("holidaysModificationStatus", "Holiday request withdrawn successfully");
+        } else {
+            req.getSession().setAttribute("holidaysModificationStatus", "System error. Holiday request withdrawn was unsuccessful.");
+        }
     }
 }

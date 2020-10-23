@@ -2,6 +2,9 @@
     <h3>
         Management forms
     </h3>
+    <h3>
+        <p>${sessionScope.managementModificationStatus} </p>
+    </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">

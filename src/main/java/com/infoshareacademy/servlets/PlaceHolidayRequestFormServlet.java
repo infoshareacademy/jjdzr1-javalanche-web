@@ -55,19 +55,27 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
     }
 
     private void placeHolidayRequestFormHandler(HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession();
         LocalDate holidayFirstDay = LocalDate.parse(req.getParameter("holidayFirstDay"));
         LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
         if(holidayFirstDay.isBefore(holidayLastDay) || holidayFirstDay.isEqual(holidayLastDay)){
-            formsService.placeHolidayRequestInputHandler(
+            boolean submissionStatus;
+            submissionStatus = formsService.placeHolidayRequestInputHandler(
                     holidayFirstDay,
                     holidayLastDay,
-                    session.getAttribute("username").toString(),
-                    Integer.parseInt(session.getAttribute("levelOfAccess").toString()));
+                    req.getSession().getAttribute("username").toString(),
+                    Integer.parseInt(req.getSession().getAttribute("levelOfAccess").toString()));
+            if(submissionStatus){
+                req.getSession().setAttribute("holidayModificationStatus", "Holiday request placed successfully.");
+            } else {
+                req.getSession().setAttribute("holidayModificationStatus", "Holiday request placed unsuccessfully.");
+            }
+
         } else {
+            req.getSession().setAttribute("holidayModificationStatus", "Holiday's last date shouldn't be before first day.");
             //TODO return a message about incorrect format
         }
         sendEmailWithHolidayRequest(req, resp);
+
     }
 
     private void sendEmailWithHolidayRequest(HttpServletRequest req, HttpServletResponse resp) {

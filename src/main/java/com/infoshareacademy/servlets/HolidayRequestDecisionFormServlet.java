@@ -63,6 +63,12 @@ public class                                                                    
     private void holidayRequestDecisionFormHandler(HttpServletRequest req) {
         int chosenHolidayRequestId = Integer.parseInt(req.getParameter("selectedHolidayRequest"));
         Boolean isRequestAccepted = Boolean.parseBoolean(req.getParameter("holidayRequestVerdict"));
-        formsService.holidayRequestDecisionFormInputHandler(chosenHolidayRequestId, isRequestAccepted);
+        boolean submissionStatus;
+        submissionStatus = formsService.holidayRequestDecisionFormInputHandler(chosenHolidayRequestId, isRequestAccepted);
+        if(submissionStatus){
+            req.getSession().setAttribute("holidayModificationStatus", "Holiday request decision was successful.");
+        } else {
+            req.getSession().setAttribute("holidayModificationStatus", "System error. Holiday request decision was  unsuccessful.");
+        }
     }
 }

@@ -3,6 +3,9 @@
     <h3>
         Holidays management
     </h3>
+    <h3>
+    <p>${sessionScope.holidayModificationStatus} </p>
+    </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">

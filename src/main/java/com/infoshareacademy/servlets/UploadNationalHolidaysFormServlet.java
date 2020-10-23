@@ -56,6 +56,12 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
     private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
         String apiKeyInput = req.getParameter("apiKey");
         String selectedYear = req.getParameter("selectedYear");
-        nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
+        boolean submissionStatus;
+        submissionStatus = nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
+        if(submissionStatus){
+            req.getSession().setAttribute("managementModificationStatus", "National holidays uploaded to database successfully.");
+        } else {
+            req.getSession().setAttribute("managementModificationStatus", "System error. Uploading national holidays to database was unsuccessful.");
+        }
     }
 }

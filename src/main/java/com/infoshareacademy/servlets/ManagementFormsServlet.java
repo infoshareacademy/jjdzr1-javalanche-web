@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/ManagementForms")
+@WebServlet("/managementForms")
 public class ManagementFormsServlet extends HttpServlet {
 
     @Inject
@@ -54,6 +54,7 @@ public class ManagementFormsServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
+        session.setAttribute("managementModificationStatus", "");
     }
 
     private void setAttributes(HttpServletRequest req, HttpSession session){

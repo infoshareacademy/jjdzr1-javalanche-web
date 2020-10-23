@@ -60,7 +60,13 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
     private void removeUsersFromTeamFormHandler(HttpServletRequest req) {
         String loggedTeamLeader = req.getSession().getAttribute("username").toString();
         String[] employeesChosenForRemovalFromTeam = req.getParameterValues("selectedUsersToRemoveFromTeam");
-        formsService.removeUsersFromTeamInputHandler(loggedTeamLeader, employeesChosenForRemovalFromTeam);
+        boolean submissionStatus;
+        submissionStatus = formsService.removeUsersFromTeamInputHandler(loggedTeamLeader, employeesChosenForRemovalFromTeam);
+        if(submissionStatus){
+            req.getSession().setAttribute("teamModificationStatus", "User(s) removed from a team successfully.");
+        } else {
+            req.getSession().setAttribute("teamModificationStatus", "System error. Removing user(s) from a team unsuccessful.");
+        }
     }
 
 }

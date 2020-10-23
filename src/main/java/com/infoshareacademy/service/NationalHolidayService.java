@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Local
 public class NationalHolidayService {
@@ -16,17 +17,26 @@ public class NationalHolidayService {
     @Inject
     private NationalHolidayRepository nationalHolidayRepository;
 
-    public void executeApiTransferRequest(String requestedYear, String apiKey) {
-        if(!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))){
-            String apiURL = generateApiFromUrl(requestedYear, apiKey);
-            List<Holidays> jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiURL);
-            if (!jsonHolidays.isEmpty()){
-                transferNationalHolidaysFromJsonToDatabase(jsonHolidays);
+    private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
+
+    public boolean executeApiTransferRequest(String requestedYear, String apiKey) {
+        try{
+            if(!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))){
+                String apiURL = generateApiFromUrl(requestedYear, apiKey);
+                List<Holidays> jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiURL);
+                if (!jsonHolidays.isEmpty()){
+                    transferNationalHolidaysFromJsonToDatabase(jsonHolidays);
+                }
             }
+            return true;
+        } catch (Exception e) {
+            LOGGER.warning(() -> e.getMessage());
+            return false;
         }
+
     }
 
-    public void transferNationalHolidaysFromJsonToDatabase(List<Holidays> jsonList) {
+    private void transferNationalHolidaysFromJsonToDatabase(List<Holidays> jsonList) {
         jsonList.forEach(holiday ->
                 nationalHolidayRepository.create(
                         new NationalHoliday(

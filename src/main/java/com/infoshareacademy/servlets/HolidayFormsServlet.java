@@ -54,6 +54,7 @@ public class HolidayFormsServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
+        session.setAttribute("holidayModificationStatus", "");
     }
 
     private void setAttributes(HttpServletRequest req, HttpSession session){

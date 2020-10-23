@@ -61,6 +61,12 @@ public class DeleteTeamFormServlet extends HttpServlet {
 
     private void deleteTeamFormHandler(HttpServletRequest req) {
         int teamIdToDelete = Integer.parseInt(req.getParameter("selectedTeamIdToDelete"));
-        formsService.deleteTeamFormInputHandler(teamIdToDelete);
+        boolean submissionStatus;
+        submissionStatus = formsService.deleteTeamFormInputHandler(teamIdToDelete);
+        if(submissionStatus){
+            req.getSession().setAttribute("teamModificationStatus", "Team deleted successfully.");
+        } else {
+            req.getSession().setAttribute("teamModificationStatus", "System error. Team deletion unsuccessful.");
+        }
     }
 }

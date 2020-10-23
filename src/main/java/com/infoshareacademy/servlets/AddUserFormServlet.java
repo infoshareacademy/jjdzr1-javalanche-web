@@ -3,6 +3,7 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.*;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
 
 @WebServlet("/addUserForm")
 public class AddUserFormServlet extends HttpServlet {
@@ -32,7 +34,7 @@ public class AddUserFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUserFormHandler(req, resp);
-        //resp.sendRedirect(req.getContextPath() + "/userForms");
+        resp.sendRedirect(req.getContextPath() + "/userForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -56,6 +58,7 @@ public class AddUserFormServlet extends HttpServlet {
     }
 
     private void addUserFormHandler(HttpServletRequest req, HttpServletResponse resp) {
+        boolean submissionStatus;
         if(formsService.verifyIfPasswordsMatch(
                 req.getParameter("addUserPassword"),
                 req.getParameter("addUserRepeatPassword"))){
@@ -67,10 +70,14 @@ public class AddUserFormServlet extends HttpServlet {
             userToAdd.setLastName(req.getParameter("addUserSurname"));
             userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
             userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
-            formsService.addUserFormInputDatabaseHandler(userToAdd);
-            req.setAttribute("addUserStatus", "User added successfully.");
+            submissionStatus = formsService.addUserFormInputDatabaseHandler(userToAdd);
+            if(submissionStatus){
+                req.getSession().setAttribute("userModificationStatus", "User added successfully.");
+            } else {
+                req.getSession().setAttribute("userModificationStatus", "System error. Adding user unsuccessful.");
+            }
         } else {
-            req.setAttribute("addUserStatus", "Passwords do not match. Adding user unsuccessful.");
+            req.getSession().setAttribute("userModificationStatus", "Passwords do not match. Adding user unsuccessful.");
         }
     }
 }

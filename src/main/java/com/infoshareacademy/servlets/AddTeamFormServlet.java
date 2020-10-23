@@ -61,6 +61,14 @@ public class AddTeamFormServlet extends HttpServlet {
     private void addTeamFormHandler(HttpServletRequest req) {
         String teamName = req.getParameter("addTeamName");
         String assignedTeamLeaderUsername = req.getParameter("assignTeamLeaderToGroup");
-        formsService.addTeamFormInputHandler(teamName, assignedTeamLeaderUsername);
+        boolean submissionStatus;
+        submissionStatus = formsService.addTeamFormInputHandler(teamName, assignedTeamLeaderUsername);
+        if(submissionStatus){
+            req.getSession().setAttribute("teamModificationStatus", "Team added successfully.");
+        } else {
+            req.getSession().setAttribute("teamModificationStatus", "System error. Adding team unsuccessful.");
+        }
     }
+
+
 }

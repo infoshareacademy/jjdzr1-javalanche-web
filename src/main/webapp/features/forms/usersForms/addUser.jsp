@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <p>${addUserStatusIsSuccessful} </p>
+            <p>${addingUserStatus} </p>
         </div>
     </div>
 </form>

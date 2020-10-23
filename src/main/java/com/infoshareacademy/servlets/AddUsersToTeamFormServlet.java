@@ -62,7 +62,14 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
             loggedTeamLeader = req.getParameter("assignUserToThisTeamLeader");
         }
         String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
-        formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
+
+        boolean submissionStatus;
+        submissionStatus = formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
+        if(submissionStatus){
+            req.getSession().setAttribute("teamModificationStatus", "Team modification successful.");
+        } else {
+            req.getSession().setAttribute("teamModificationStatus", "System error. Modifying team unsuccessful.");
+        }
     }
 
 

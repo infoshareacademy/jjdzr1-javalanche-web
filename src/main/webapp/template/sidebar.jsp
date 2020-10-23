@@ -14,7 +14,7 @@
             <a href="/teamForms" id="teams" class="list-group-item list-group-item-action bg-light">Teams</a>
             <c:if test="${sessionScope.levelOfAccess==3}">
                 <a href="/userForms" id="user" class="list-group-item list-group-item-action bg-light">Users</a>
-                <a href="/ManagementForms" id="managment" class="list-group-item list-group-item-action bg-light">Management</a>
+                <a href="/managementForms" id="managment" class="list-group-item list-group-item-action bg-light">Management</a>
             </c:if>
         </c:if>
     </div>

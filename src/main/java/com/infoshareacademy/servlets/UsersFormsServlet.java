@@ -54,6 +54,7 @@ public class UsersFormsServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
+        session.setAttribute("userModificationStatus", "");
     }
 
     private void setAttributes(HttpServletRequest req, HttpSession session){

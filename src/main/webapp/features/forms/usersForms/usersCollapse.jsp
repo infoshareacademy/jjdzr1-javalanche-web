@@ -2,6 +2,9 @@
     <h3>
         Users management
     </h3>
+    <h3>
+        <p>${sessionScope.userModificationStatus} </p>
+    </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">
