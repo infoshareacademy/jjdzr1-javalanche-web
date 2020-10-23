@@ -4,7 +4,7 @@
         Holidays management
     </h3>
     <h3>
-    <p>${sessionScope.holidayModificationStatus} </p>
+        <p>${sessionScope.holidayModificationStatus} </p>
     </h3>
     <div class="accordion" id="accordionExample">
         <div class="card">
@@ -38,26 +38,25 @@
                 </div>
             </div>
         </div>
-    </div>
-    <c:if test="${sessionScope.levelOfAccess==2 || sessionScope.levelOfAccess==3}">
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h2 class="mb-0">
-                    <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
-                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Manage holiday requests
-                    </button>
-                </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
-                    <%@ include file="holidayRequestDecision.jsp" %>
+        <c:if test="${sessionScope.levelOfAccess==2 || sessionScope.levelOfAccess==3}">
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                        <button class="btn btn-outline-dark btn-block collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Manage holiday requests
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <%@ include file="holidayRequestDecision.jsp" %>
+                    </div>
                 </div>
             </div>
-        </div>
-        <c:if test="${sessionScope.levelOfAccess==3}">
+            <c:if test="${sessionScope.levelOfAccess==3}">
 
+            </c:if>
         </c:if>
-    </c:if>
-
+    </div>
 </div>
