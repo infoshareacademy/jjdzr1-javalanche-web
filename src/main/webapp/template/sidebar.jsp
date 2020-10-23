@@ -13,7 +13,7 @@
         <c:if test="${sessionScope.levelOfAccess==2 || sessionScope.levelOfAccess==3}">
             <a href="/teamForms" id="teams" class="list-group-item list-group-item-action bg-light">Teams</a>
             <c:if test="${sessionScope.levelOfAccess==3}">
-                <a href="/usersForms" id="user" class="list-group-item list-group-item-action bg-light">Users</a>
+                <a href="/userForms" id="user" class="list-group-item list-group-item-action bg-light">Users</a>
                 <a href="/ManagementForms" id="managment" class="list-group-item list-group-item-action bg-light">Management</a>
             </c:if>
         </c:if>

@@ -88,8 +88,11 @@ public class UserService {
     public List<UserDto> createListOfEmployeesInAnyTeam(){
     try{
         List<UserDto> usersInAnyTeam = new ArrayList<>();
-        getAll().forEach(user -> {
-                    if(user.getTeam()!=null){usersInAnyTeam.add(user);}});
+/*        getAll().forEach(user -> {
+                    if(user.getTeam()!=null){usersInAnyTeam.add(user);}});*/
+        usersInAnyTeam = getAll().stream()
+                .filter(user -> user.getTeam()!=null & user.getLevelOfAccess()==1)
+                .collect(Collectors.toList());
         return usersInAnyTeam;
         }
         catch (Exception e){

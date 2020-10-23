@@ -85,15 +85,21 @@ public class FormsService {
     }
 
     public void removeUsersFromTeamInputHandler(String loggedTeamLeaderUsername, String[]employeesToRemoveFromTeam){
-        User loggedTeamLeader = userRepository.findByEmail(loggedTeamLeaderUsername);
-        List<String> chosenEmployeesUsernamesList = new ArrayList<>(Arrays.asList(employeesToRemoveFromTeam));
+        try{
+            User loggedTeamLeader = userRepository.findByEmail(employeesToRemoveFromTeam[0]).getTeam().getTeamLeader();
 
-        List<String>remainingUsers = loggedTeamLeader.getTeam().getUserEmail();
-        remainingUsers.removeAll(chosenEmployeesUsernamesList);
+            List<String> chosenEmployeesUsernamesList = new ArrayList<>(Arrays.asList(employeesToRemoveFromTeam));
 
-        loggedTeamLeader.getTeam().setUserEmail(remainingUsers);
-        teamRepository.update(loggedTeamLeader.getTeam());
-        chosenEmployeesUsernamesList.forEach(user -> userRepository.findByEmail(user).setTeam(null));
+            List<String>remainingUsers = loggedTeamLeader.getTeam().getUserEmail();
+            remainingUsers.removeAll(chosenEmployeesUsernamesList);
+
+            loggedTeamLeader.getTeam().setUserEmail(remainingUsers);
+            teamRepository.update(loggedTeamLeader.getTeam());
+            chosenEmployeesUsernamesList.forEach(user -> userRepository.findByEmail(user).setTeam(null));
+        } catch (Exception e){
+            LOGGER.warning(() -> e.getMessage());
+        }
+
 
     }
 

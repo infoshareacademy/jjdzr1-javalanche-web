@@ -3,7 +3,6 @@
     <h3>
         Teams management
     </h3>
-
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">

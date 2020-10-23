@@ -1,9 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.FormsService;
-import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
@@ -59,7 +56,7 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
 
     private void addUsersToTeamFormHandler(HttpServletRequest req) {
         String loggedTeamLeader;
-        if(req.getSession().getAttribute("username").equals("2")){
+        if(req.getSession().getAttribute("levelOfAccess").toString().equals("2")){
             loggedTeamLeader = req.getSession().getAttribute("username").toString();
         } else {
             loggedTeamLeader = req.getParameter("assignUserToThisTeamLeader");
