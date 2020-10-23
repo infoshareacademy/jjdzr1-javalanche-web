@@ -33,7 +33,7 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         removeUsersFromTeamFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/teamForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -42,7 +42,7 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/teamForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
@@ -53,6 +53,7 @@ public class RemoveUsersFromTeamFormServlet extends HttpServlet {
     private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
+        req.setAttribute("employeesInAnyTeam", userService.createListOfEmployeesInAnyTeam());
         req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
     }
 

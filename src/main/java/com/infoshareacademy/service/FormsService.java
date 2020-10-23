@@ -110,11 +110,15 @@ public class FormsService {
         }
     }
 
-    public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email){
+    public void placeHolidayRequestInputHandler(LocalDate firstDay, LocalDate lastDay, String email, int levelOfAccess){
         DayOff dayOff = new DayOff();
         dayOff.setFirstDay(firstDay);
         dayOff.setLastDay(lastDay);
-        dayOff.setAccepted(false);
+        if(levelOfAccess==3){
+            dayOff.setAccepted(true);
+        } else {
+            dayOff.setAccepted(false);
+        }
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(firstDay, lastDay));
         dayOff.setUser(userRepository.findByEmail(email));
         dayOffRepository.create(dayOff);

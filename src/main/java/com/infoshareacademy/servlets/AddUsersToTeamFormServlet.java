@@ -33,7 +33,7 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUsersToTeamFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/teamForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -42,22 +42,28 @@ public class AddUsersToTeamFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
-            setAttributes(req, session);
+            view = getServletContext().getRequestDispatcher("/teamForms.jsp");
+            //setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
     }
 
-    private void setAttributes(HttpServletRequest req, HttpSession session){
+/*    private void setAttributes(HttpServletRequest req, HttpSession session){
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-        req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
-    }
+        req.setAttribute("teamLeadersWithTeam", userService.createListOfTeamLeadersWithTeam());
+        req.setAttribute("loggedUser", session.getAttribute("username").toString());
+    }*/
 
     private void addUsersToTeamFormHandler(HttpServletRequest req) {
-        String loggedTeamLeader = req.getSession().getAttribute("username").toString();
+        String loggedTeamLeader;
+        if(req.getSession().getAttribute("username").equals("2")){
+            loggedTeamLeader = req.getSession().getAttribute("username").toString();
+        } else {
+            loggedTeamLeader = req.getParameter("assignUserToThisTeamLeader");
+        }
         String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
         formsService.addUsersToTeamFormInputHandler(loggedTeamLeader, employeesChosenForATeam);
     }

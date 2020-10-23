@@ -65,7 +65,7 @@
                     </button>
                 </td>
                 <% for (String date : calendarView) { %>
-                <% if (mapUsersDaysOff.get(users.get(i).getEmail()).contains(date)) {
+                <% if (mapUsersAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
                 %>
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"

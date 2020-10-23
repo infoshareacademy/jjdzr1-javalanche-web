@@ -6,6 +6,7 @@ import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@RequestScoped
 @WebServlet("/addTeamForm")
 public class AddTeamFormServlet extends HttpServlet {
 
@@ -33,7 +35,7 @@ public class AddTeamFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addTeamFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/teamForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -42,7 +44,7 @@ public class AddTeamFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/teamForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
@@ -53,8 +55,6 @@ public class AddTeamFormServlet extends HttpServlet {
     private void setAttributes(HttpServletRequest req, HttpSession session) {
         req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
         req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
-
-
         req.setAttribute("users", userService.getAll());
     }
 

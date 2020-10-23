@@ -1,6 +1,9 @@
 package com.infoshareacademy.servlets;
-import com.infoshareacademy.model.User;
-import com.infoshareacademy.service.*;
+
+import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.service.FormsService;
+import com.infoshareacademy.service.TeamService;
+import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -11,11 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Optional;
 
-@WebServlet("/forms")
-public class FormsServlet extends HttpServlet {
+@WebServlet("/teamForms")
+public class TeamFormsServlet extends HttpServlet {
 
     @Inject
     private FormsService formsService;
@@ -47,7 +48,7 @@ public class FormsServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/teamForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
@@ -62,6 +63,8 @@ public class FormsServlet extends HttpServlet {
         req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
         req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
         req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
+        req.setAttribute("employeesInAnyTeam", userService.createListOfEmployeesInAnyTeam());
+        req.setAttribute("teamLeadersWithTeam", userService.createListOfTeamLeadersWithTeam());
         req.setAttribute("teamsList", teamService.getAll());
         req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
         req.setAttribute("holidayRequests", dayOffService.getAll());

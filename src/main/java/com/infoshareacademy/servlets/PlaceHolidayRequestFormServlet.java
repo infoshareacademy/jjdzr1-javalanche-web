@@ -33,7 +33,7 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         placeHolidayRequestFormHandler(req, resp);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/holidayForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -59,11 +59,18 @@ public class PlaceHolidayRequestFormServlet extends HttpServlet {
         LocalDate holidayFirstDay = LocalDate.parse(req.getParameter("holidayFirstDay"));
         LocalDate holidayLastDay = LocalDate.parse(req.getParameter("holidayLastDay"));
         if(holidayFirstDay.isBefore(holidayLastDay) || holidayFirstDay.isEqual(holidayLastDay)){
-            formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+            formsService.placeHolidayRequestInputHandler(
+                    holidayFirstDay,
+                    holidayLastDay,
+                    session.getAttribute("username").toString(),
+                    Integer.parseInt(session.getAttribute("levelOfAccess").toString()));
         } else {
             //TODO return a message about incorrect format
         }
-        formsService.placeHolidayRequestInputHandler(holidayFirstDay, holidayLastDay, session.getAttribute("username").toString());
+        sendEmailWithHolidayRequest(req, resp);
+    }
+
+    private void sendEmailWithHolidayRequest(HttpServletRequest req, HttpServletResponse resp) {
         try {
             sendEmailMessage(req, resp);
         } catch (ServletException e) {

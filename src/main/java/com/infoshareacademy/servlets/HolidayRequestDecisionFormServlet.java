@@ -36,7 +36,7 @@ public class                                                                    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         holidayRequestDecisionFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/holidayForms");
         setRequestDispatcher(req, resp);
     }
 

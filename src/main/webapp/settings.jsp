@@ -8,14 +8,15 @@
 <div class="d-flex" id="wrapper">
     <%@ include file="template/sidebar.jsp" %>
 
-    <div id="page-content-wrapper" >
+    <div id="page-content-wrapper">
         <%@ include file="template/headerbar.jsp" %>
 
-        <h3 class="h3">Account Settings</h3>
+        <div class="col-md-6">
+            <h3 class="h3">Account Settings</h3>
+            <%@ include file="features/newEmailForm.jsp" %>
 
-        <%@ include file="features/newEmailForm.jsp" %>
-
-        <%@ include file="features/newPasswordForm.jsp" %>
+            <%@ include file="features/newPasswordForm.jsp" %>
+        </div>
 
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>

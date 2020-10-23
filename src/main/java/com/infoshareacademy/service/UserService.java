@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.DAO.UserDao;
 import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
@@ -54,6 +55,17 @@ public class UserService {
         return teamLeaders;
     }
 
+    public List<UserDto> createListOfTeamLeadersWithTeam(){
+        List<UserDto> teamLeadersWithTeamContainer = new ArrayList<>();
+        try{
+            teamLeadersWithTeamContainer = getAll().stream().filter(user -> user.isTeamLeader()).collect(Collectors.toList());
+            return teamLeadersWithTeamContainer;
+        }
+        catch (Exception e){
+            return teamLeadersWithTeamContainer;
+        }
+    }
+
     public List<UserDto> createListOfEmployeesInThisTeam(String loggedTeamLeader){
         try{
             List<String> usernamesInTeam = userRepository.findByEmail(loggedTeamLeader).getTeam().getUserEmail();
@@ -69,6 +81,19 @@ public class UserService {
         }
         catch (Exception e){
             List<UserDto>empty = new ArrayList<>();
+            return empty;
+        }
+    }
+
+    public List<UserDto> createListOfEmployeesInAnyTeam(){
+    try{
+        List<UserDto> usersInAnyTeam = new ArrayList<>();
+        getAll().forEach(user -> {
+                    if(user.getTeam()!=null){usersInAnyTeam.add(user);}});
+        return usersInAnyTeam;
+        }
+        catch (Exception e){
+            List<UserDto> empty = new ArrayList<>();
             return empty;
         }
     }

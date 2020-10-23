@@ -45,7 +45,7 @@ public class MainServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
 
-        req.setAttribute("calendarView", calendarService.calendarView(30));
+        req.setAttribute("calendarView", calendarService.calendarView(90));
         req.setAttribute("users", userService.getAll());
         req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
         req.setAttribute("notAcceptedHolidays", dayOffService.mapUsersWithNotAcceptedDaysOff());

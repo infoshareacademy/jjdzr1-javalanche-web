@@ -32,7 +32,7 @@ public class WithdrawHolidayRequestFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         withdrawHolidayRequestFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/holidayForms");
         setRequestDispatcher(req, resp);
     }
 

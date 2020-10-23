@@ -2,8 +2,6 @@ package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.*;
-import com.infoshareacademy.servlets.FormsServlet;
-import com.sun.net.httpserver.HttpServer;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -34,7 +32,7 @@ public class AddUserFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUserFormHandler(req, resp);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/userForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -43,7 +41,7 @@ public class AddUserFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/userForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");

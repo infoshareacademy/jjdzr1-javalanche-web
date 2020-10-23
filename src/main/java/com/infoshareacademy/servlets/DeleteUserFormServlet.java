@@ -35,7 +35,7 @@ public class DeleteUserFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         deleteUserFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/forms");
+        resp.sendRedirect(req.getContextPath() + "/userForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -44,7 +44,7 @@ public class DeleteUserFormServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
-            view = getServletContext().getRequestDispatcher("/holidayForms.jsp");
+            view = getServletContext().getRequestDispatcher("/userForms.jsp");
             setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");

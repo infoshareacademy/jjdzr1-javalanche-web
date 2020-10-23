@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% int levelOfAccess = (int) request.getAttribute("levelOfAccess"); %>
+<% int levelOfAccess = (int) request.getSession().getAttribute("levelOfAccess"); %>
 
 <html lang="pl">
 <title>Holiday calendar</title>
