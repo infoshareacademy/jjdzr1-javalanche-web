@@ -32,7 +32,7 @@ public class AddUserFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUserFormHandler(req, resp);
-        resp.sendRedirect(req.getContextPath() + "/userForms");
+        //resp.sendRedirect(req.getContextPath() + "/userForms");
         setRequestDispatcher(req, resp);
     }
 
@@ -68,10 +68,9 @@ public class AddUserFormServlet extends HttpServlet {
             userToAdd.setDaysOffLeft(Integer.parseInt(req.getParameter("addUserDaysOff")));
             userToAdd.setLevelOfAccess(Integer.parseInt(req.getParameter("levelOfAccess")));
             formsService.addUserFormInputDatabaseHandler(userToAdd);
-            req.setAttribute("addUserStatusIsSuccessful", true);
+            req.setAttribute("addUserStatus", "User added successfully.");
         } else {
-            req.setAttribute("addUserStatusIsSuccessful", false);
-            //TODO add response message
+            req.setAttribute("addUserStatus", "Passwords do not match. Adding user unsuccessful.");
         }
     }
 }
