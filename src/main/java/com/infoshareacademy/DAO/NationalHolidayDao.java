@@ -32,6 +32,6 @@ public class NationalHolidayDao implements DAO<NationalHoliday>{
 
     @Override
     public void delete(NationalHoliday nationalHoliday) {
-        entityManager.remove(nationalHoliday);
+        entityManager.remove(entityManager.merge(nationalHoliday));
     }
 }
