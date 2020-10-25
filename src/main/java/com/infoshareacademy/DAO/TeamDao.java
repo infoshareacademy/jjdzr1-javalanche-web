@@ -32,6 +32,6 @@ public class TeamDao implements DAO<Team> {
 
     @Override
     public void delete(Team team) {
-        entityManager.remove(team);
+        entityManager.remove(entityManager.merge(team));
     }
 }

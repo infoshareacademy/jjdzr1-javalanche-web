@@ -2,9 +2,6 @@ package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.*;
-import com.infoshareacademy.servlets.FormsServlet;
-import com.sun.net.httpserver.HttpServer;
-
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

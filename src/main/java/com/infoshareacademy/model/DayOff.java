@@ -24,7 +24,8 @@ public class DayOff implements Serializable {
     @Column(name = "dayOff_isAccepted",nullable = false, columnDefinition = "tinyint(1) default 0")
     private boolean isAccepted;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ElementCollection(fetch = FetchType.EAGER)
