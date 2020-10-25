@@ -73,7 +73,14 @@
 
             <!-- // testowa czesc strony -->
 
-            <p><%=request.getAttribute("xception").toString()%></p>
+                <div class="container-fluid">
+                    <p><%=request.getAttribute("map").toString()%></p>
+                    <p><%Map<String, List<String>> map = (Map<String, List<String>>) request.getAttribute("map");%></p>
+                    <p><%=map.get("jan@kowalski.pl").equals("FRIDAY<br>2020-10-23")%></p>
+
+                    <p><%=map.get("jan@kowalski.pl").contains("FRIDAY<br>2020-10-23")%></p>
+                </div>
+
         </div>
 
 

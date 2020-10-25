@@ -1,8 +1,11 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.service.CalendarService;
-import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.repository.TeamRepository;
+import com.infoshareacademy.repository.UserRepository;
+import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
+
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 
-@WebServlet("/main")
-public class MainServlet extends HttpServlet {
+@WebServlet("/teamView")
+public class TeamViewServlet extends HttpServlet {
 
-    @Inject
-    private CalendarService calendarService;
     @Inject
     private UserService userService;
-    @Inject
-    private DayOffService dayOffService;
-
-    private static final Logger LOGGER = Logger.getLogger(MainServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,10 +35,13 @@ public class MainServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
-            view = getServletContext().getRequestDispatcher("/main.jsp");
-            req.setAttribute("calendarView", calendarService.calendarView(30));
+
+            UserDto teamLeader = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
+
+            req.setAttribute("teamLeader", teamLeader);
             req.setAttribute("users", userService.getAll());
-            req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+
+            view = getServletContext().getRequestDispatcher("/teamView.jsp");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");

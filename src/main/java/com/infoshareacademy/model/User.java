@@ -33,15 +33,17 @@ public class User implements Serializable{
     @Column(name = "user_daysOffLeft", nullable = false)
     private int daysOffLeft;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "user")
     private Set<DayOff> daysOff;
 
-    // nowe dane do bazy
     @Column(name = "user_isTeamleader")
     private boolean isTeamLeader;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "team_id", nullable = true)
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private Team team;
 
     public User() {

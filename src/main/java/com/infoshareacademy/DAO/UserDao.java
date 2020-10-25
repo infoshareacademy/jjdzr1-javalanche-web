@@ -25,13 +25,13 @@ public class UserDao implements DAO<User> {
     }
 
     @Override
-    public void update(User user) {
+    public void update(User user) { ;
         entityManager.merge(user);
     }
 
     @Override
     public void delete(User user) {
-        entityManager.remove(user);
+        entityManager.remove(entityManager.merge(user));
     }
 
 }

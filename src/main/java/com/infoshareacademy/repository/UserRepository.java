@@ -2,9 +2,10 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.DAO.UserDao;
 import com.infoshareacademy.model.User;
-
 import javax.ejb.LocalBean;
 import javax.persistence.NoResultException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @LocalBean
@@ -20,6 +21,8 @@ public class UserRepository extends UserDao {
             LOGGER.warning(exception.getMessage());
         }
         return user;
+
+
     }
 
     public User findById(int id) {
@@ -32,4 +35,11 @@ public class UserRepository extends UserDao {
         return user;
     }
 
+    public void removeUserFromTeam(Integer userId) {
+        User user = findById(userId);
+        entityManager.detach(user);
+        user.setTeam(null);
+        update(user);
+
+    }
 }

@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("username", username);
             req.getSession().setAttribute("firstName", userService.getByEmail(username).getFirstName());
             req.getSession().setAttribute("lastName", userService.getByEmail(username).getLastName());
+            req.getSession().setAttribute("loggedUser", userService.getByEmail(username));
 
             view.forward(req, resp);
 

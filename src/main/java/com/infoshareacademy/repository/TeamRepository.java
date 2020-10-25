@@ -2,12 +2,18 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.DAO.TeamDao;
 import com.infoshareacademy.model.Team;
+import com.infoshareacademy.model.User;
+
 import java.util.List;
 import javax.ejb.LocalBean;
+import javax.inject.Inject;
 import java.util.logging.Logger;
 
 @LocalBean
 public class TeamRepository extends TeamDao {
+
+//    @Inject
+//    private UserRepository userRepository;
 
     private static final Logger LOGGER = Logger.getLogger(DayOffRepository.class.getName());
 
@@ -22,4 +28,6 @@ public class TeamRepository extends TeamDao {
     public Team findByTeamLeader(String email){
         return (Team) entityManager.createQuery("from Team where teamLeader.email like :email").setParameter("email", email).getSingleResult();
     }
+
+
 }
