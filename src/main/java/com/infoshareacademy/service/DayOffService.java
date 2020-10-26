@@ -29,6 +29,10 @@ public class DayOffService {
         return dayOffDtos;
     }
 
+    public List<DayOffDto> getPendingHolidayRequests(){
+        return mapDaysOffToDto(dayOffRepository.findPendingHolidayRequests());
+    }
+
     public List<DayOffDto> getByUserEmail(String email){
         List<DayOff> dayOffs = dayOffRepository.findDaysOffByUserEmail(email);
         List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);

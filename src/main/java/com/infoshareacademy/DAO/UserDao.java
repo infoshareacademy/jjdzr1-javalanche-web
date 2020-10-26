@@ -31,7 +31,7 @@ public class UserDao implements DAO<User> {
 
     @Override
     public void delete(User user) {
-        entityManager.remove(entityManager.merge(user));
+        entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
     }
 
 }

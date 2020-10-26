@@ -6,6 +6,9 @@ import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
+import com.infoshareacademy.service.DayOffService;
+import com.infoshareacademy.service.EmailService;
+import com.infoshareacademy.service.UserService;
 
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -83,9 +86,10 @@ public class FormsService {
             loggedTeamLeader.setTeamLeader(false);
             userRepository.update(loggedTeamLeader);
 
-            Team team = teamRepository.findById(teamId);
+
+/*            Team team = teamRepository.findById(teamId);
             team.setTeamLeader(null);
-            teamRepository.delete(teamRepository.findById(teamId));
+            teamRepository.delete(teamRepository.findById(teamId));*/
             return true;
         } catch (Exception e){
             return false;

@@ -3,6 +3,7 @@ package com.infoshareacademy.repository;
 import com.infoshareacademy.DAO.DayOffDao;
 import com.infoshareacademy.model.DayOff;
 import javax.ejb.LocalBean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -17,6 +18,16 @@ public class DayOffRepository extends DayOffDao {
 
     public List<DayOff> findDaysOffByUserEmail(String email) {
         return entityManager.createQuery("FROM DayOff where user.email LIKE :email").setParameter("email", email).getResultList();
+    }
+
+    public List<DayOff> findPendingHolidayRequests() {
+        List<DayOff> dayOffs = new ArrayList<>();
+        try{
+            dayOffs = entityManager.createQuery("FROM DayOff where isAccepted = FALSE").getResultList();
+            return dayOffs;
+        } catch (Exception e){
+            return dayOffs;
+        }
     }
 
     public DayOff getDayOffById(Integer id){

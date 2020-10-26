@@ -41,7 +41,7 @@ public class AddUserServlet extends HttpServlet {
 
             setNewUser(name, lastName, email, levelOfAccess, daysOff, password);
 
-            view = getServletContext().getRequestDispatcher("/main");
+            view = getServletContext().getRequestDispatcher("/employeesView.jsp");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");

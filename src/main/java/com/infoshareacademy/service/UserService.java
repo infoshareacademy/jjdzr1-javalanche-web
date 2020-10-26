@@ -28,6 +28,12 @@ public class UserService {
         return userDtos;
     }
 
+    public List<UserDto> getAvailableTeamLeaders() {
+        return mapUsersToDto(userRepository.findAvailableTeamLeader());
+    }
+
+    public List<UserDto> getEmployeesWithTeam() { return mapUsersToDto(userRepository.findEmployeesInAnyTeam());}
+
     private List<UserDto> mapUsersToDto(List<User> users) {
         return users.stream()
                 .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess(), user.isTeamLeader(), user.getTeam()))
@@ -98,6 +104,7 @@ public class UserService {
             return empty;
         }
     }
+
 
     public boolean isEmptyDatabase(){
         return userRepository.getAll().isEmpty();
