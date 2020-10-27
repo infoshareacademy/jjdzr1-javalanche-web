@@ -71,7 +71,7 @@
             </div>
             <div class="modal-footer">
                 <form method="post" action="/removeteam">
-                    <input type="text" name="removeTeamsLeader" value="<%=team.getId()%>" hidden>
+                    <input type="text" name="removeTeamsLeader" value="<%=team.getTeamLeader().getId()%>" hidden>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Remove</button>
                 </form>

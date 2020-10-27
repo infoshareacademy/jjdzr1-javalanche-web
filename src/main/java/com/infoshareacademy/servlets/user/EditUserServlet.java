@@ -39,7 +39,7 @@ public class EditUserServlet extends HttpServlet {
             Integer daysOff = Integer.valueOf(req.getParameter("daysOff"));
             User user = userRepository.findByEmail(email);
 
-            setNewUser(name, lastName, email, levelOfAccess, daysOff, user);
+            editUser(name, lastName, email, levelOfAccess, daysOff, user);
 
             view = getServletContext().getRequestDispatcher("/employeesView.jsp");
 
@@ -51,9 +51,7 @@ public class EditUserServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void setNewUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, User user) {
-        //FIXME throws error
-        //java.lang.RuntimeException: javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction.
+    private void editUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, User user) {
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setEmail(email);

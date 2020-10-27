@@ -39,9 +39,7 @@ public class RemoveTeamServlet extends HttpServlet {
 
             int assignedTeamLeader = Integer.parseInt(req.getParameter("removeTeamsLeader"));
             removeTeam(assignedTeamLeader);
-
             view = getServletContext().getRequestDispatcher("/teamsView.jsp");
-
             resp.sendRedirect(req.getContextPath() + "/teams");
         }
         else {
@@ -51,10 +49,18 @@ public class RemoveTeamServlet extends HttpServlet {
     }
 
     private void removeTeam(int teamLeaderId) {
-        //FIXME doesn't work, removes user together with the team
+        //FIXME cannot remove if someone is int he team
         User user = userRepository.findById(teamLeaderId);
+        Team team = teamRepository.findByTeamLeader(user.getEmail());
+
         user.setTeam(null);
+        user.setTeamLeader(false);
         userRepository.update(user);
+
+        team.setTeamLeader(null);
+        team.setUserEmail(null);
+        teamRepository.update(team);
+        teamRepository.delete(team);
     }
 
 }
