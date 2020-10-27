@@ -117,7 +117,7 @@
                 </button>
             </div>
 
-            <form method="post" action="#" autocomplete="off" id="editUserForm<%=user.getId()%>">
+            <form method="post" action="/edituser" autocomplete="off" id="editUserForm<%=user.getId()%>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">

@@ -1,5 +1,6 @@
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
 <title>Holiday calendar</title>

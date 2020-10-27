@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/adduser")
-public class AddUserServlet extends HttpServlet {
+@WebServlet("/edituser")
+public class EditUserServlet extends HttpServlet {
 
     @Inject
     private UserRepository userRepository;
@@ -32,16 +32,16 @@ public class AddUserServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
+            User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
             String name = req.getParameter("name");
             String lastName = req.getParameter("lastName");
             String email = req.getParameter("email");
             Integer levelOfAccess = Integer.valueOf(req.getParameter("levelOfAccess"));
             Integer daysOff = Integer.valueOf(req.getParameter("daysOff"));
-            String password = req.getParameter("password");
 
-            setNewUser(name, lastName, email, levelOfAccess, daysOff, password);
+            setNewUser(name, lastName, email, levelOfAccess, daysOff, user);
 
-            view = getServletContext().getRequestDispatcher("/employees");
+            view = getServletContext().getRequestDispatcher("/employeesView.jsp");
 
             resp.sendRedirect(req.getContextPath() + "/employees");
         }
@@ -51,14 +51,12 @@ public class AddUserServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void setNewUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, String password) {
-        User user = new User();
+    private void setNewUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, User user) {
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setEmail(email);
         user.setLevelOfAccess(levelOfAccess);
         user.setDaysOffLeft(daysOff);
-        user.setPassword(securePasswordService.encryptor(password));
-        userRepository.create(user);
+        userRepository.update(user);
     }
 }

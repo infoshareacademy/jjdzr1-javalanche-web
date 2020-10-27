@@ -39,6 +39,8 @@ public class AddTeamServlet extends HttpServlet {
             setNewTeam(name, assignedTeamLeader);
 
             view = getServletContext().getRequestDispatcher("/teamsView.jsp");
+
+            resp.sendRedirect(req.getContextPath() + "/teams");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");

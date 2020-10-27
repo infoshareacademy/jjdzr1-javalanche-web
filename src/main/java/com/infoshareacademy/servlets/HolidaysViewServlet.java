@@ -22,8 +22,10 @@ public class HolidaysViewServlet extends HttpServlet {
 
     @Inject
     private DayOffService dayOffService;
+
     @Inject
     private UserService userService;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,6 +45,8 @@ public class HolidaysViewServlet extends HttpServlet {
             List<DayOffDto> pendingHolidayRequests = verifyIfListIsNotNull(dayOffService.getPendingHolidayRequests());
             req.setAttribute("pendingHolidayRequests", pendingHolidayRequests);
             req.setAttribute("user", userService.getByEmail(req.getSession().getAttribute("username").toString()));
+
+
 
             view = getServletContext().getRequestDispatcher("/holidaysView.jsp");
         }

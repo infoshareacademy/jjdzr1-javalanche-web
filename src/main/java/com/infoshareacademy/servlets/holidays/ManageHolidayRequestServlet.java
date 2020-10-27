@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet("/manageholidays")
 public class ManageHolidayRequestServlet extends HttpServlet {
@@ -31,6 +33,8 @@ public class ManageHolidayRequestServlet extends HttpServlet {
         if (req.getSession().getAttribute("username") != null){
             manageHolidayRequestDecision(req);
             view = getServletContext().getRequestDispatcher("/holidaysView.jsp");
+
+            resp.sendRedirect(req.getContextPath() + "/holidays");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
@@ -57,11 +61,11 @@ public class ManageHolidayRequestServlet extends HttpServlet {
 
     private void rejectHolidayRequest(HttpServletRequest req) {
 
-        int holidayRequestId;
-        DayOff dayOff;
-        holidayRequestId = Integer.parseInt(req.getParameter("holidayId"));
-        dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
-        dayOff.setUser(null);
+        int holidayRequestId =Integer.parseInt(req.getParameter("holidayId"));
+        DayOff dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
+        //List<LocalDate> removeList = dayOff.getListOfDays();
+        //dayOff.setUser(null);
+        dayOff.setListOfDays(null);
         dayOffRepository.delete(dayOff);
     }
 

@@ -13,7 +13,7 @@
 
         <%@ include file="features/calendarView/calendar.jsp" %>
 
-        <%@ include file="features/calendarView/popupDay.jsp" %>
+        <%@ include file="features/calendarView/placeHolidayRequestDay.jsp" %>
 
         <%@ include file="features/employeeView/popupUser.jsp" %>
 

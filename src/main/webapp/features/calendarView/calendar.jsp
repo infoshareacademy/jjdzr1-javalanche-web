@@ -78,8 +78,10 @@
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-warning rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Pending
+                            data-target="#modalWithdrawHolidayRequest"
+                            data-whatever="<%=date.substring(date.length()-10)%>"
+                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>Pending
                     </button>
                 </td>
                 <%
@@ -93,20 +95,17 @@
                     <%request.setAttribute("currentDate", LocalDate.now().plusDays(i));%>
                     <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            data-date="@<%=date%>"
-                            data-userId="@<%=users.get(i).getId()%>"
+                            data-target="#modalPlaceHolidayRequest"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
                             <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>><%=date%>
                     </button>
                 </td>
-                <%@include file="popupDay.jsp"%>
+                <%@include file="placeHolidayRequestDay.jsp"%>
+                <%@include file="withdrawHolidayRequestDay.jsp"%>
 
                 <% } else { %>
                 <td scope="col" class="m-0 p-0">
                     <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
-                            data-toggle="modal"
-                            data-target="#modalDay"
                             style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
                             disabled><%=date.toUpperCase()%>
                     </button>

@@ -19,20 +19,20 @@ public class NationalHolidayService {
 
     private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
 
-    public boolean executeApiTransferRequest(String requestedYear, String apiKey) {
-        try{
+    public void executeApiTransferRequest(String requestedYear, String apiKey) {
+/*        try{*/
             if(!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))){
                 String apiURL = generateApiFromUrl(requestedYear, apiKey);
                 List<Holidays> jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiURL);
                 if (!jsonHolidays.isEmpty()){
                     transferNationalHolidaysFromJsonToDatabase(jsonHolidays);
-                }
-            }
+             }
+            }/*
             return true;
         } catch (Exception e) {
             LOGGER.warning(() -> e.getMessage());
             return false;
-        }
+        }*/
 
     }
 

@@ -21,7 +21,7 @@
             </tr>
             <tbody id="usersTable">
             <% int i = 1;%>
-            <% for (DayOffDto holidayRequest : pendingHolidayRequests) { %>
+            <% for (DayOffDto holidayRequest : pendingHolidayRequests) {%>
                 <tr>
                     <td><%=i++%></td>
                     <td><%=holidayRequest.getUser().getEmail()%></td>

@@ -15,8 +15,7 @@ import java.io.IOException;
 @WebServlet("/uploadNationalHolidaysForm")
 public class UploadNationalHolidaysFormServlet extends HttpServlet {
 
-    @Inject
-    private NationalHolidayService nationalHolidayService;
+    @Inject NationalHolidayService nationalHolidayService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +25,7 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         uploadNationalHolidaysFormHandler(req);
-        resp.sendRedirect(req.getContextPath() + "/managementForms");
+        resp.sendRedirect(req.getContextPath() + "/management");
         setRequestDispatcher(req, resp);
     }
 
@@ -45,11 +44,11 @@ public class UploadNationalHolidaysFormServlet extends HttpServlet {
     private void uploadNationalHolidaysFormHandler(HttpServletRequest req){
         String apiKeyInput = req.getParameter("apiKey");
         String selectedYear = req.getParameter("selectedYear");
-        boolean submissionStatus = nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
-        if(submissionStatus){
+        /*boolean submissionStatus = */nationalHolidayService.executeApiTransferRequest(selectedYear, apiKeyInput);
+/*        if(submissionStatus){
             req.getSession().setAttribute("managementModificationStatus", "National holidays uploaded to database successfully.");
         } else {
             req.getSession().setAttribute("managementModificationStatus", "System error. Uploading national holidays to database was unsuccessful.");
-        }
+        }*/
     }
 }

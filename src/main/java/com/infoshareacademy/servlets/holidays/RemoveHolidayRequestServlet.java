@@ -1,7 +1,9 @@
 package com.infoshareacademy.servlets.holidays;
 
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
 
@@ -13,12 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@WebServlet("/addteam")
+@WebServlet("/withdrawHolidayRequest")
 public class RemoveHolidayRequestServlet extends HttpServlet {
 
     @Inject
-    private TeamRepository teamRepository;
+    private DayOffRepository dayOffRepository;
 
     @Inject
     private UserRepository userRepository;
@@ -33,11 +38,10 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            String name = req.getParameter("addTeamName");
-            int assignedTeamLeader = Integer.parseInt(req.getParameter("addTeamsLeader"));
-            setNewTeam(name, assignedTeamLeader);
+            withdrawHoliday(req);
+            view = getServletContext().getRequestDispatcher("/main.jsp");
 
-            view = getServletContext().getRequestDispatcher("/teamsView.jsp");
+            resp.sendRedirect(req.getContextPath() + "/main");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
@@ -45,15 +49,17 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void setNewTeam(String name, int teamLeaderId) {
-        Team team = new Team();
-        User user = userRepository.findById(teamLeaderId);
-        team.setTeamLeader(user);
-        team.setName(name);
-        team.setUserEmail(null);
-        user.setTeam(team);
-        user.setTeamLeader(true);
-        userRepository.update(user);
+    private void withdrawHoliday(HttpServletRequest req) {
+        User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
+        LocalDate returnedDay = LocalDate.parse(req.getParameter("chosenDay"));
+        List<DayOff> foundHoliday = dayOffRepository
+                .findDaysOffIdByDayOff(returnedDay)
+                .stream()
+                .filter(dayOff -> dayOff.getUser().getId()==user.getId()).collect(Collectors.toList());
+/*        DayOff dayOff = foundHoliday.get(0);
+        dayOff.setAccepted(true);
+        dayOffRepository.update(dayOff);*/
+        dayOffRepository.delete(foundHoliday.get(0));
     }
 
 }
