@@ -52,7 +52,9 @@ public class RemoveTeamServlet extends HttpServlet {
 
     private void removeTeam(int teamLeaderId) {
         //FIXME doesn't work, removes user together with the team
-        teamRepository.delete(teamRepository.findById(teamLeaderId));
+        User user = userRepository.findById(teamLeaderId);
+        user.setTeam(null);
+        userRepository.update(user);
     }
 
 }

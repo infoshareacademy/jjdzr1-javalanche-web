@@ -84,13 +84,13 @@
     <div class="modal-dialog" role="dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Edit user:</h5>
+                <h5>Edit team:</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <form method="post" action="#" autocomplete="off" id="editUserForm<%=team.getId()%>">
+            <form method="post" action="editteam">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -98,10 +98,23 @@
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Name: </span>
                                 </div>
-                                <input type="text" name="name" value="<%=team.getName()%>" class="form-control col-sm-8"
+                                <input type="text" id="editedName" name="editedName" value="<%=team.getName()%>" class="form-control col-sm-8"
                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name"
                                        required>
+                            </div>
 
+                            <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend col-sm-4">
+                                <span class="input-group-text col-sm-12">Team leader: </span>
+                            </div>
+
+                            <select class="form-control" id="exampleFormControlSelect1" id="editTeamLeader" name="editTeamLeader" class="form-control col-sm-8">
+                                <option value="<%=team.getTeamLeader().getEmail()%>"><%=team.getTeamLeader().getFirstName() + " " + team.getTeamLeader().getLastName() + " " + team.getTeamLeader().getId()%></option>
+                                <%for(UserDto user : teamLeaders){%>
+                                <option value=<%=user.getEmail()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
+                                <%}%>
+                            </select>
+                                <input type="text" name="editedTeamId" value="<%=team.getId()%>" hidden>
                             </div>
                         </div>
                     </div>

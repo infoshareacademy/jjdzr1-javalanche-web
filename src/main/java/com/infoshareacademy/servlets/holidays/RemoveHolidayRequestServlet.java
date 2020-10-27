@@ -50,6 +50,7 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
     }
 
     private void withdrawHoliday(HttpServletRequest req) {
+        //FIXME removes daysoff list, but not dayoff record
         User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
         LocalDate returnedDay = LocalDate.parse(req.getParameter("chosenDay"));
         List<DayOff> foundHoliday = dayOffRepository

@@ -52,6 +52,8 @@ public class EditUserServlet extends HttpServlet {
     }
 
     private void setNewUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, User user) {
+        //FIXME throws error
+        //java.lang.RuntimeException: javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction.
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setEmail(email);

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addteam")
+@WebServlet("/editteam")
 public class EditTeamServlet extends HttpServlet {
 
     @Inject
@@ -33,9 +33,10 @@ public class EditTeamServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            String name = req.getParameter("addTeamName");
-            int assignedTeamLeader = Integer.parseInt(req.getParameter("addTeamsLeader"));
-            setNewTeam(name, assignedTeamLeader);
+            String teamName = req.getParameter("editedName");
+            String teamLeadersEmail = req.getParameter("editTeamLeader");
+            int editedTeamId = Integer.parseInt(req.getParameter("editedTeamId"));
+            editTeam(teamName, teamLeadersEmail, editedTeamId);
 
             view = getServletContext().getRequestDispatcher("/teamsView.jsp");
 
@@ -47,15 +48,20 @@ public class EditTeamServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void setNewTeam(String name, int teamLeaderId) {
-        Team team = new Team();
-        User user = userRepository.findById(teamLeaderId);
-        team.setTeamLeader(user);
+    private void editTeam(String name, String teamLeadersEmail, int editedTeamId) {
+        //FIXME teams are deleted together with team leaders
+        Team team = teamRepository.findById(editedTeamId);
+        User newTeamLeader = userRepository.findByEmail(teamLeadersEmail);
+        User oldTeamLeader = teamRepository.findById(editedTeamId).getTeamLeader();
+
         team.setName(name);
-        team.setUserEmail(null);
-        user.setTeam(team);
-        user.setTeamLeader(true);
-        userRepository.update(user);
+        team.setTeamLeader(newTeamLeader);
+        newTeamLeader.setTeamLeader(true);
+        oldTeamLeader.setTeamLeader(false);
+
+        userRepository.update(newTeamLeader);
+        userRepository.update(oldTeamLeader);
+        teamRepository.update(team);
     }
 
 }
