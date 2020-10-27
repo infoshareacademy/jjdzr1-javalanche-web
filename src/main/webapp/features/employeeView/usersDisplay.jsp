@@ -184,7 +184,7 @@
                 </button>
             </div>
 
-            <form method="post" action="#" autocomplete="off" id="editUserForm<%=user.getId()%>">
+            <form method="post" action="/editpassword" autocomplete="off" id="editUserForm<%=user.getId()%>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -205,6 +205,7 @@
                                     <span class="input-group-text col-sm-12">Info:</span>
                                 </div>
                                 <span id="message<%=user.getId()%>" class="form-control col-sm-8"></span>
+                                <input type="text" name="changePasswordUserId" value="<%=user.getId()%>" hidden>
                             </div>
                         </div>
                     </div>

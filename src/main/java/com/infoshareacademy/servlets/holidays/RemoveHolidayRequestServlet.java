@@ -57,10 +57,11 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
                 .findDaysOffIdByDayOff(returnedDay)
                 .stream()
                 .filter(dayOff -> dayOff.getUser().getId()==user.getId()).collect(Collectors.toList());
-/*        DayOff dayOff = foundHoliday.get(0);
-        dayOff.setAccepted(true);
-        dayOffRepository.update(dayOff);*/
-        dayOffRepository.delete(foundHoliday.get(0));
+        DayOff dayOff = foundHoliday.get(0);
+        dayOff.setUser(null);
+        dayOff.setListOfDays(null);
+        dayOffRepository.update(dayOff);
+        dayOffRepository.delete(dayOff);
     }
 
 }
