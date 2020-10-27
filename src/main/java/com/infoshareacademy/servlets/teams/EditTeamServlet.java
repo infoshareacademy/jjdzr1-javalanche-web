@@ -49,7 +49,7 @@ public class EditTeamServlet extends HttpServlet {
     }
 
     private void editTeam(String name, String teamLeadersEmail, int editedTeamId) {
-        //FIXME teams are deleted together with team leaders
+        //TODO works, after orphan removal was commented
         Team team = teamRepository.findById(editedTeamId);
         User newTeamLeader = userRepository.findByEmail(teamLeadersEmail);
         User oldTeamLeader = teamRepository.findById(editedTeamId).getTeamLeader();
@@ -57,7 +57,9 @@ public class EditTeamServlet extends HttpServlet {
         team.setName(name);
         team.setTeamLeader(newTeamLeader);
         newTeamLeader.setTeamLeader(true);
+        newTeamLeader.setTeam(team);
         oldTeamLeader.setTeamLeader(false);
+        oldTeamLeader.setTeam(null);
 
         userRepository.update(newTeamLeader);
         userRepository.update(oldTeamLeader);

@@ -35,7 +35,7 @@ public class User implements Serializable{
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
-            orphanRemoval = true,
+            /*orphanRemoval = true,*/
             mappedBy = "user")
     private Set<DayOff> daysOff;
 

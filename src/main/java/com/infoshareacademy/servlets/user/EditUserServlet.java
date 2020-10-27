@@ -32,12 +32,12 @@ public class EditUserServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
             String name = req.getParameter("name");
             String lastName = req.getParameter("lastName");
             String email = req.getParameter("email");
             Integer levelOfAccess = Integer.valueOf(req.getParameter("levelOfAccess"));
             Integer daysOff = Integer.valueOf(req.getParameter("daysOff"));
+            User user = userRepository.findByEmail(email);
 
             setNewUser(name, lastName, email, levelOfAccess, daysOff, user);
 
