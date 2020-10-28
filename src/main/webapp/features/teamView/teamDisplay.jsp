@@ -10,10 +10,8 @@
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
-<%--        <h3><%=teamLeader.getTeam().getName()%> list of employees:</h3>--%>
-        <br>
         <h4>
-            <i class="fas fa-search-plus"></i> Search for employee:
+            <i class="fas fa-search-plus"></i> Search in team:
         </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
         <table class="table table-striped" cellspacing="0" width="100%">

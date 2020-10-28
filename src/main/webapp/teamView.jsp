@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
-<title>Holiday calendar</title>
+<title>Team</title>
 <head>
     <%@ include file="features/headSection.jsp" %>
 </head>

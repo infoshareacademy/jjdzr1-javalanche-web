@@ -6,10 +6,10 @@
         <img src="/images/javalanche2.jpg" alt="logo" width="144" height="60"/>
     </div>
     <div class="list-group list-group-flush">
-        <a href="/employees" id="employees" class="list-group-item list-group-item-action bg-light"><i
-                class="fas fa-user-alt"></i> Employees</a>
         <a href="/main" id="main" class="list-group-item list-group-item-action bg-light"> <i
                 class="far fa-calendar-alt"></i> Calendar view</a>
+        <a href="/employees" id="employees" class="list-group-item list-group-item-action bg-light"><i
+                class="fas fa-user-alt"></i> Employees</a>
 
         <c:if test="${sessionScope.levelOfAccess==2}">
             <a href="/team" id="team" class="list-group-item list-group-item-action bg-light">

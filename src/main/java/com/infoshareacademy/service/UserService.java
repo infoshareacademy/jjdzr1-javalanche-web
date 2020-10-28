@@ -52,6 +52,13 @@ public class UserService {
                 }});
         return usersWithoutTeam;
     }
+    public List<UserDto> createListOfEmployeesWithTeam(){
+        List<UserDto> usersWithoutTeam = new ArrayList<>();
+        getAll().forEach(user -> {if (user.getTeam()!=null & user.getLevelOfAccess()==1) {
+                    usersWithoutTeam.add(user);
+                }});
+        return usersWithoutTeam;
+    }
 
     public List<UserDto> createListOfTeamLeadersWithoutTeam(){
         List<UserDto> teamLeaders = new ArrayList<>();

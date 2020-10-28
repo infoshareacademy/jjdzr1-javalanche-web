@@ -13,9 +13,6 @@
 
         <div class="col-md-6">
             <h3 class="h3">Account Settings</h3>
-            <%@ include file="features/newEmailForm.jsp" %>
-
-            <%@ include file="features/newPasswordForm.jsp" %>
         </div>
 
         <%--INSERT YOUR CODE HERE--%>

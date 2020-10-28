@@ -19,6 +19,7 @@
         <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
         <% UserDto admin = (UserDto) request.getAttribute("admin");%>
         <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
+        <% List<UserDto> usersInTeam = (List<UserDto>) request.getAttribute("userWithTeam");%>
 
         <% if (teams.isEmpty()){ %>
         <%@include file="features/teamsView/noTeamsDisplay.jsp"%>

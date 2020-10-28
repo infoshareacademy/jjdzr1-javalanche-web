@@ -1,9 +1,8 @@
+<%@ page import="com.infoshareacademy.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
-        <br>
-        <h3>List of teams:</h3>
         <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for teams:
@@ -12,10 +11,10 @@
         <table class="table table-striped" cellspacing="0" width="100%">
             <tr>
                 <th scope="row">#</th>
-                <th scope="row">Team's name</th>
-                <th scope="row">Team leader's email</th>
-                <th scope="row">Team leader's first name</th>
-                <th scope="row">Team leader's last name</th>
+                <th scope="row">Name</th>
+                <th scope="row">E-mail</th>
+                <th scope="row">First name</th>
+                <th scope="row">Last name</th>
                 <th scope="row">Action</th>
             </tr>
             <tbody id="usersTable">
@@ -39,6 +38,28 @@
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                         data-target="#editModal<%=team.getId()%>">Edit team
                                 </button>
+                            </div>
+                            <div class="btn-group mr-2" role="group" data-html="true">
+                                <button type="button" class="btn btn-info btn-sm" data-html="true"
+                                        data-toggle="popover" data-placement="bottom" title="Users in team"
+                                        data-content=
+                                                "<%
+                                                for(UserDto userInTeam : usersInTeam){
+                                                if(team.getId()==userInTeam.getTeam().getId()){%>
+                                                <%=userInTeam.getEmail() + ": " +
+                                                 " " + userInTeam.getFirstName() + " " + userInTeam.getLastName() + "<br>"%>
+<%
+                                            }
+                                        }
+                                %>"
+                                >
+                                    View team
+                                </button>
+                                <script>
+                                    $(function () {
+                                        $('[data-toggle="popover"]').popover({ trigger: "hover", html: true })
+                                    })
+                                </script>
                             </div>
                             <div class="btn-group mr-2" role="group">
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
@@ -67,7 +88,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                Name: <%=team.getName()%> / Team Leader: <%=team.getTeamLeader().getFirstName()%> <%=team.getTeamLeader().getLastName()%>
+                Name: <%=team.getName()%> / Team
+                Leader: <%=team.getTeamLeader().getFirstName()%> <%=team.getTeamLeader().getLastName()%>
             </div>
             <div class="modal-footer">
                 <form method="post" action="/removeteam">
@@ -98,22 +120,26 @@
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Name: </span>
                                 </div>
-                                <input type="text" id="editedName" name="editedName" value="<%=team.getName()%>" class="form-control col-sm-8"
+                                <input type="text" id="editedName" name="editedName" value="<%=team.getName()%>"
+                                       class="form-control col-sm-8"
                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name"
                                        required>
                             </div>
 
                             <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend col-sm-4">
-                                <span class="input-group-text col-sm-12">Team leader: </span>
-                            </div>
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Team leader: </span>
+                                </div>
 
-                            <select class="form-control" id="exampleFormControlSelect1" id="editTeamLeader" name="editTeamLeader" class="form-control col-sm-8">
-                                <option value="<%=team.getTeamLeader().getEmail()%>"><%=team.getTeamLeader().getFirstName() + " " + team.getTeamLeader().getLastName() + " " + team.getTeamLeader().getId()%></option>
-                                <%for(UserDto user : teamLeaders){%>
-                                <option value=<%=user.getEmail()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%></option>
-                                <%}%>
-                            </select>
+                                <select class="form-control" id="exampleFormControlSelect1" id="editTeamLeader"
+                                        name="editTeamLeader" class="form-control col-sm-8">
+                                    <option value="<%=team.getTeamLeader().getEmail()%>"><%=team.getTeamLeader().getFirstName() + " " + team.getTeamLeader().getLastName() + " " + team.getTeamLeader().getId()%>
+                                    </option>
+                                    <%for (UserDto user : teamLeaders) {%>
+                                    <option value=<%=user.getEmail()%>><%=user.getFirstName() + " " + user.getLastName() + " " + user.getId()%>
+                                    </option>
+                                    <%}%>
+                                </select>
                                 <input type="text" name="editedTeamId" value="<%=team.getId()%>" hidden>
                             </div>
                         </div>
@@ -132,5 +158,5 @@
 <% } %>
 
 
-<%@include file="addTeamModal.jsp"%>
+<%@include file="addTeamModal.jsp" %>
 

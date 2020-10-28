@@ -3,7 +3,7 @@
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
-<title>Holiday calendar</title>
+<title>Holidays list</title>
 <head>
     <%@ include file="features/headSection.jsp" %>
 </head>

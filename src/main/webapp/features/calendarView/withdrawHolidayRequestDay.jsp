@@ -8,13 +8,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
+            <div class="modal-body">
+                <h7>Are you sure you want to withdraw this request:</h7>
+            </div>
             <form autocomplete="off" method="post" action="/withdrawHolidayRequest" id="withdrawHolidayRequestForm">
 
                 <div class="modal-footer">
                     <input type="text" name="chosenDay" id="chosenDay" hidden>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="withdrawRequest" >Withdraw request</button>
+                    <button type="submit" class="btn btn-danger" id="withdrawRequest" >Withdraw request</button>
                 </div>
             </form>
 

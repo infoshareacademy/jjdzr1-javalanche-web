@@ -45,6 +45,7 @@ public class TeamsViewServlet extends HttpServlet {
             req.setAttribute("admin", userService.getByEmail(req.getSession().getAttribute("username").toString()));
             req.setAttribute("teamLeaders", userService.getAvailableTeamLeaders());
             req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+            req.setAttribute("userWithTeam", userService.createListOfEmployeesWithTeam());
 
             view = getServletContext().getRequestDispatcher("/teamsView.jsp");
         }

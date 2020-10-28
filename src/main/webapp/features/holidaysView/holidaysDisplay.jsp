@@ -3,8 +3,6 @@
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
-        <h3>List of pending holidays:</h3>
-        <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for holidays:
         </h4>
@@ -12,24 +10,30 @@
         <table class="table table-striped" cellspacing="0" width="100%">
             <tr>
                 <th scope="row">#</th>
-                <th scope="row">Employee's e-mail</th>
-                <th scope="row">Employee's first name</th>
-                <th scope="row">Employee's last name</th>
-                <th scope="row">Request's first day</th>
-                <th scope="row">Request's last name</th>
+                <th scope="row">E-mail</th>
+                <th scope="row">First name</th>
+                <th scope="row">Last name</th>
+                <th scope="row">First day</th>
+                <th scope="row">Last name</th>
                 <th scope="row">Action</th>
             </tr>
             <tbody id="usersTable">
             <% int i = 1;%>
             <% for (DayOffDto holidayRequest : pendingHolidayRequests) {%>
-                <tr>
-                    <td><%=i++%></td>
-                    <td><%=holidayRequest.getUser().getEmail()%></td>
-                    <td><%=holidayRequest.getUser().getFirstName()%></td>
-                    <td><%=holidayRequest.getUser().getLastName()%></td>
-                    <td><%=holidayRequest.getFirstDay()%></td>
-                    <td><%=holidayRequest.getLastDay()%></td>
-                    <td>
+            <tr>
+                <td><%=i++%>
+                </td>
+                <td><%=holidayRequest.getUser().getEmail()%>
+                </td>
+                <td><%=holidayRequest.getUser().getFirstName()%>
+                </td>
+                <td><%=holidayRequest.getUser().getLastName()%>
+                </td>
+                <td><%=holidayRequest.getFirstDay()%>
+                </td>
+                <td><%=holidayRequest.getLastDay()%>
+                </td>
+                <td>
                     <div class="row">
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
@@ -39,20 +43,21 @@
                             </div>
                             <div class="btn-group mr-2" role="group">
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#removeModal<%=holidayRequest.getId()%>" id="removeFromTeamButton<%=holidayRequest.getId()%>">Remove request
+                                        data-target="#removeModal<%=holidayRequest.getId()%>"
+                                        id="removeFromTeamButton<%=holidayRequest.getId()%>">Reject request
                                 </button>
                             </div>
                         </div>
                     </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             <% } %>
             </tbody>
         </table>
     </div>
 </div>
 
-<% for (DayOffDto holidayRequest: pendingHolidayRequests) { %>
+<% for (DayOffDto holidayRequest : pendingHolidayRequests) { %>
 <div class="modal fade" id="removeModal<%=holidayRequest.getId()%>" tabindex="-1" role="form">
     <div class="modal-dialog" role="form">
         <div class="modal-content">

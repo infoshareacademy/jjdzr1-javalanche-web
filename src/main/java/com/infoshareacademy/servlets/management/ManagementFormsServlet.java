@@ -1,7 +1,6 @@
 package com.infoshareacademy.servlets.management;
 
 import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.FormsService;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
@@ -18,8 +17,6 @@ import java.io.IOException;
 @WebServlet("/management")
 public class ManagementFormsServlet extends HttpServlet {
 
-    @Inject
-    private FormsService formsService;
 
     @Inject
     private UserService userService;
