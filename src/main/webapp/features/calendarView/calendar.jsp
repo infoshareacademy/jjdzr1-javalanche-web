@@ -36,12 +36,12 @@
                                 || date.contains("FRIDAY")) {
                 %>
                 <th>
-                    <button type="button" class="button button-col-header-weekday"><%=date.toUpperCase()%>
+                    <button type="button" class="button button-col-header-weekday" disabled><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <% } else { %>
                 <th>
-                    <button type="button" class="button button-col-header-weekendday"><%=date.toUpperCase()%>
+                    <button type="button" class="button button-col-header-weekendday" disabled><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <%
@@ -80,7 +80,7 @@
                             data-toggle="modal"
                             data-target="#modalWithdrawHolidayRequest"
                             data-whatever="<%=date.substring(date.length()-10)%>"
-                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>Pending
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>PENDING
                     </button>
                 </td>
                 <%
@@ -91,21 +91,19 @@
                         || date.contains("FRIDAY")) {
                 %>
                 <td>
-                    <button type="button" class="button button-row-weekendday">
-<%--                <td scope="col" class="m-0 p-0">
                     <%request.setAttribute("currentDate", LocalDate.now().plusDays(i));%>
-                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
-                            data-toggle="modal"<%/*date.toUpperCase()*/%>
+                    <button type="button" class="button button-row-weekday"
+                            data-toggle="modal"
                             data-target="#modalPlaceHolidayRequest"
-                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>><%=date%>
-                    </button>--%>
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
+                    </button>
                 </td>
                 <%@include file="placeHolidayRequestDay.jsp"%>
                 <%@include file="withdrawHolidayRequestDay.jsp"%>
 
                 <% } else { %>
                 <td>
-                    <button type="button" class="button button-row-weekday"
+                    <button type="button" class="button button-row-weekendday"
                             data-toggle="modal"
                             data-target="#modalDay" disabled><%/*date.toUpperCase()*/%>
                     </button>

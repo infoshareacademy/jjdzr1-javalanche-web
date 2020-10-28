@@ -13,9 +13,14 @@
     font-weight: bold;
     display:table-cell;
     vertical-align:middle;
+    outline:none;
 }
  .button:hover{
-     border: black 3px solid;
+
+ }
+
+ .button:disabled{
+     outline:none;
  }
 
 .button-col-header-weekday{
@@ -23,7 +28,13 @@
     background-color: #e7e7e7;
 }
 
-.button-col-header-weekday:hover:focus{
+.button-col-header-weekday:hover{
+    color: #98a0a6;
+    background-color: #e7e7e7;
+}
+
+.button-col-header-weekday:disabled,
+.button-col-header-weekday[disabled]{
     color: #98a0a6;
     background-color: #e7e7e7;
 }
@@ -38,11 +49,16 @@
     background-color: #d4d4d4;
 }
 
+.button-col-header-weekendday:disabled,
+.button-col-header-weekendday[disabled]{
+    color: #7c8287;
+    background-color: #d4d4d4;
+}
+
 .button-row-header-user{
     margin: 20px;
     width: 130px;
     height: 50px;
-    /*align-items: center;*/
     text-align: center;
     border-radius: 10px;
     color: #8d9193;
@@ -50,7 +66,9 @@
     font-size: 12px;
 }
 
-.button-row-header-user:hover {
+.button-row-header-user:hover,
+.button-row-header-user:focus,
+.button-row-header-user:active {
     margin: 20px;
     width: 130px;
     height: 50px;
@@ -60,6 +78,7 @@
     color: #ffffff;
     background-color: #2b2b2b;
     font-size: 12px;
+    outline:none;
 }
 
 .button-row-dayoff{
@@ -78,6 +97,15 @@
     position: center;
 }
 
+.button-row-dayoff:disabled,
+.button-row-dayoff[disabled]{
+    background: #009747;
+    align-self: end;
+    color: #ffffff;
+    height: 40px;
+    position: center;
+}
+
 .button-row-pending{
     background: #ffb918;
     align-self: end;
@@ -85,7 +113,6 @@
     height: 40px;
     position: center;
 }
-
 .button-row-pending:hover{
     background: #ec9a00;
     align-self: end;
@@ -94,33 +121,44 @@
     position: center;
 }
 
-.button-row-weekendday{
+.button-row-pending:disabled,
+.button-row-pending[disabled]{
+    background: #ffb918;
     align-self: end;
-    height: 40px;
-    position: center;
-}
-
-.button-row-weekendday:hover{
-    align-self: end;
+    color: #ffffff;
     height: 40px;
     position: center;
 }
 
 .button-row-weekday{
-    color: #98a0a6;
-    background: repeating-linear-gradient(-56deg,#e7e7e7 ,#e7e7e7 10px, #c6c6c6 10px, #c4c4c4 20px);
     align-self: end;
     height: 40px;
     position: center;
+    background-color: #ededed;
 }
 
 .button-row-weekday:hover{
+    align-self: end;
+    height: 40px;
+    position: center;
+    background-color: #e3e3e3;
+}
+
+.button-row-weekday:disabled,
+.button-row-weekday[disabled]{
+    align-self: end;
+    height: 40px;
+    position: center;
+    background-color: #ededed;
+    outline:none;
+}
+
+.button-row-weekendday{
     color: #98a0a6;
     background: repeating-linear-gradient(-56deg,#e7e7e7 ,#e7e7e7 10px, #c6c6c6 10px, #c4c4c4 20px);
     align-self: end;
     height: 40px;
     position: center;
-    border: none;
 }
 
 table{
@@ -159,6 +197,9 @@ table.calendar tbody tr{
 
 }
 
+*:focus {
+    outline: 0 !important;
+}
 
 
 
