@@ -1,10 +1,8 @@
 package com.infoshareacademy.servlets.holidays;
 
 import com.infoshareacademy.model.DayOff;
-import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
-import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
 
 import javax.inject.Inject;
@@ -50,7 +48,6 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
     }
 
     private void withdrawHoliday(HttpServletRequest req) {
-        //FIXME removes daysoff list, but not dayoff record
         User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
         LocalDate returnedDay = LocalDate.parse(req.getParameter("chosenDay"));
         List<DayOff> foundHoliday = dayOffRepository

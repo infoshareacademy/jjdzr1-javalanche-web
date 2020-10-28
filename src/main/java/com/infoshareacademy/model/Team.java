@@ -19,7 +19,7 @@ public class Team {
     @CollectionTable(name = "listUsersInTeam", joinColumns = @JoinColumn(name = "team_id"))
     private List<String> userEmail;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER /*orphanRemoval = true*/)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User teamLeader;
 
     public Team() {

@@ -49,7 +49,6 @@ public class EditTeamServlet extends HttpServlet {
     }
 
     private void editTeam(String name, String teamLeadersEmail, int editedTeamId) {
-        //TODO works, after orphan removal was commented
         Team team = teamRepository.findById(editedTeamId);
         User newTeamLeader = userRepository.findByEmail(teamLeadersEmail);
         User oldTeamLeader = teamRepository.findById(editedTeamId).getTeamLeader();

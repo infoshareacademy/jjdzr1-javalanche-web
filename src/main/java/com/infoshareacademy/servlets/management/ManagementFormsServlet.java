@@ -17,7 +17,6 @@ import java.io.IOException;
 @WebServlet("/management")
 public class ManagementFormsServlet extends HttpServlet {
 
-
     @Inject
     private UserService userService;
 

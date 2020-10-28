@@ -1,8 +1,5 @@
 package com.infoshareacademy.servlets.settings;
 
-import com.infoshareacademy.service.CalendarService;
-import com.infoshareacademy.service.DayOffService;
-import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.servlets.TestServlet;
 

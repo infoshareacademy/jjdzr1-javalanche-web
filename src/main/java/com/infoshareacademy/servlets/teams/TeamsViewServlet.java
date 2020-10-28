@@ -1,8 +1,5 @@
 package com.infoshareacademy.servlets.teams;
 
-import com.infoshareacademy.DTO.TeamDto;
-import com.infoshareacademy.DTO.UserDto;
-import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
@@ -14,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/teams")
 public class TeamsViewServlet extends HttpServlet {

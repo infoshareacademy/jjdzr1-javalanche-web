@@ -1,10 +1,8 @@
 package com.infoshareacademy.servlets.holidays;
 
 import com.infoshareacademy.model.DayOff;
-import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
-import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.DayOffService;
 

@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets.teams;
 
-import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.TeamRepository;
@@ -31,7 +30,6 @@ public class RemoveTeamServlet extends HttpServlet {
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //FIXME does work, but throws null
 
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
@@ -49,18 +47,34 @@ public class RemoveTeamServlet extends HttpServlet {
     }
 
     private void removeTeam(int teamLeaderId) {
-        //FIXME cannot remove if someone is int he team
         User user = userRepository.findById(teamLeaderId);
         Team team = teamRepository.findByTeamLeader(user.getEmail());
 
-        user.setTeam(null);
-        user.setTeamLeader(false);
-        userRepository.update(user);
+        clearUsersTeamRelations(team);
+        clearTeamLeader(user);
+        removeTeam(team);
+    }
 
+    private void removeTeam(Team team) {
         team.setTeamLeader(null);
         team.setUserEmail(null);
         teamRepository.update(team);
         teamRepository.delete(team);
+    }
+
+    private void clearTeamLeader(User user) {
+        user.setTeam(null);
+        user.setTeamLeader(false);
+        userRepository.update(user);
+    }
+
+    private void clearUsersTeamRelations(Team team) {
+        List<String> usersInTeam = team.getUserEmail();
+        for(String id : usersInTeam){
+            User memberOfTeam = userRepository.findById(Integer.parseInt(id));
+            memberOfTeam.setTeam(null);
+            userRepository.update(memberOfTeam);
+        }
     }
 
 }

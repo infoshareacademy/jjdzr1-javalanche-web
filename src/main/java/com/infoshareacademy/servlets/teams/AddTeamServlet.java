@@ -2,9 +2,7 @@ package com.infoshareacademy.servlets.teams;
 
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
-import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
-import com.infoshareacademy.service.SecurePasswordService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -18,8 +16,6 @@ import java.io.IOException;
 @WebServlet("/addteam")
 public class AddTeamServlet extends HttpServlet {
 
-    @Inject
-    private TeamRepository teamRepository;
 
     @Inject
     private UserRepository userRepository;

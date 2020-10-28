@@ -19,9 +19,6 @@ public class EditUserServlet extends HttpServlet {
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private SecurePasswordService securePasswordService;
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);

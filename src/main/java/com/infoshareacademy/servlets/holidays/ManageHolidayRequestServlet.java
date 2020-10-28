@@ -1,10 +1,7 @@
 package com.infoshareacademy.servlets.holidays;
 
 import com.infoshareacademy.model.DayOff;
-import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
-import com.infoshareacademy.repository.UserRepository;
-import com.infoshareacademy.service.SecurePasswordService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -14,9 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @WebServlet("/manageholidays")
 public class ManageHolidayRequestServlet extends HttpServlet {
@@ -61,7 +55,6 @@ public class ManageHolidayRequestServlet extends HttpServlet {
     }
 
     private void rejectHolidayRequest(HttpServletRequest req) {
-        //FIXME doesnt remove request
         int holidayRequestId = Integer.parseInt(req.getParameter("holidayId"));
         DayOff dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
         dayOff.setListOfDays(null);
