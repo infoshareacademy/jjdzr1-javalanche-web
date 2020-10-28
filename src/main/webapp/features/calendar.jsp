@@ -3,6 +3,10 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
 
+<head>
+    <link rel="stylesheet" href="/css/calendar.css">
+</head>
+
 <div class="container-fluid">
     <h3 class="h3" style="margin-top: 20px">
         <i class="far fa-calendar-alt"></i> Calendar
@@ -18,10 +22,10 @@
         </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
-        <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
+        <table class="calendar" width="95%" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
-                <th scope="col" class="m-0 p-0"></th>
+                <th scope="col" class=""></th>
                 <%
                     for (String date : calendarView) {
                         if (date.contains("MONDAY")
@@ -30,15 +34,13 @@
                                 || date.contains("THURSDAY")
                                 || date.contains("FRIDAY")) {
                 %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                <th>
+                    <button type="button" class="button button-col-header-weekday"><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <% } else { %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-info text-wrap rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                <th>
+                    <button type="button" class="button button-col-header-weekendday"><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <%
@@ -50,26 +52,23 @@
             <tbody id="calendarTable">
             <% for (int i = 0; i < users.size(); i++) { %>
             <tr>
-                <td scope="col" class="m-0 p-0"
-                    style="vertical-align: middle; text-align: end; font-size: x-small">
-                    <button type="button" class="btn btn-outline-secondary rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-header-user"
                             data-toggle="modal"
-                            data-target="#modalUser<%=i%>"
-                            style="vertical-align: middle; text-align: center; font-size: small; width: 100px; height: 50px; font-weight: bold;">
-                        <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getFirstName()%>
-                        </p>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getLastName()%>
-                        </p>
+                            data-target="#modalUser<%=i%>">
+
+                            <%= users.get(i).getFirstName().toUpperCase()%><br>
+                            <%= users.get(i).getLastName().toUpperCase()%>
+
                     </button>
                 </td>
                 <% for (String date : calendarView) { %>
                 <% if (mapUsersDaysOff.get(users.get(i).getEmail()).contains(date)) {
                 %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-dayoff"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Day off
+                            data-target="#modalDay" disabled>DAY OFF
                     </button>
                 </td>
                 <%
@@ -79,20 +78,18 @@
                         || date.contains("THURSDAY")
                         || date.contains("FRIDAY")) {
                 %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-weekendday"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"><%=date%>
+                            data-target="#modalDay"><%/*date.toUpperCase()*/%>
                     </button>
                 </td>
 
                 <% } else { %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-weekday"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled><%=date%>
+                            data-target="#modalDay" disabled><%/*date.toUpperCase()*/%>
                     </button>
                 </td>
                 <%
