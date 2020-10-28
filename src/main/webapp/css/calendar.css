@@ -78,6 +78,22 @@
     position: center;
 }
 
+.button-row-pending{
+    background: #ffb918;
+    align-self: end;
+    color: #ffffff;
+    height: 40px;
+    position: center;
+}
+
+.button-row-pending:hover{
+    background: #ec9a00;
+    align-self: end;
+    color: #ffffff;
+    height: 40px;
+    position: center;
+}
+
 .button-row-weekendday{
     align-self: end;
     height: 40px;

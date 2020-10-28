@@ -27,6 +27,12 @@ public class NationalHoliday implements Serializable {
     public NationalHoliday() {
     }
 
+    public NationalHoliday(String name, String description, LocalDate holidayDate) {
+        this.name = name;
+        this.description = description;
+        this.holidayDate = holidayDate;
+    }
+
     public int getId() {
         return id;
     }

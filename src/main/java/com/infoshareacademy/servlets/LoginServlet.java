@@ -40,17 +40,16 @@ public class LoginServlet extends HttpServlet {
         req.getSession(true);
 
         if (validationService.isAuthenticated(username, password)) {
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/main");
 
             req.getSession().setAttribute("levelOfAccess", userService.getByEmail(username).getLevelOfAccess());
-            //FIXME
-            req.getSession().setAttribute("username", username);
+            req.getSession().setAttribute("username", userService.getByEmail(username).getEmail());
             req.getSession().setAttribute("firstName", userService.getByEmail(username).getFirstName());
             req.getSession().setAttribute("lastName", userService.getByEmail(username).getLastName());
             req.getSession().setAttribute("loggedUser", userService.getByEmail(username));
 
-            view.forward(req, resp);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/main.jsp");
 
+            view.forward(req, resp);
         } else {
             RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
             view.forward(req, resp);

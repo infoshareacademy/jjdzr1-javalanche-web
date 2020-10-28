@@ -45,7 +45,7 @@ public class TestServlet extends HttpServlet {
         RequestDispatcher view;
             req.setAttribute("calendarView", calendarService.calendarView(30));
             req.setAttribute("users", userService.getAll());
-            req.setAttribute("map", dayOffService.mapUsersWithDaysOff());
+            req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
             req.setAttribute("teams", teamService.getAll());
 
         view = getServletContext().getRequestDispatcher("/test.jsp");

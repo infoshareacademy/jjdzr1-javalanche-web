@@ -41,7 +41,9 @@ public class AddUserServlet extends HttpServlet {
 
             setNewUser(name, lastName, email, levelOfAccess, daysOff, password);
 
-            view = getServletContext().getRequestDispatcher("/main");
+            view = getServletContext().getRequestDispatcher("/employees");
+
+            resp.sendRedirect(req.getContextPath() + "/employees");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");

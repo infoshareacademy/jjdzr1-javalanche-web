@@ -14,7 +14,7 @@
 
         <div class="container-fluid">
 
-            <%@ include file="features/usersDisplay.jsp" %>
+            <%@ include file="features/employeeView/usersDisplay.jsp" %>
 
             <div class="row justify-content-sm-end">
                 <div class="col-md-2 .ml-md-auto">
