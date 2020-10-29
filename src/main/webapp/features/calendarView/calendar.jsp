@@ -3,7 +3,9 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
 
-
+<head>
+    <link rel="stylesheet" href="/css/calendar.css">
+</head>
 <div class="container-fluid">
     <h3 class="h3" style="margin-top: 20px">
         <i class="far fa-calendar-alt"></i> Calendar
@@ -92,14 +94,16 @@
                 %>
                 <td>
                     <%request.setAttribute("currentDate", LocalDate.now().plusDays(i));%>
-                    <button type="button" class="button button-row-weekday"
+                    <button type="button"
+                            class="button button-row-weekday"
                             data-toggle="modal"
                             data-target="#modalPlaceHolidayRequest"
+                            data-date="<%=date.substring(date.length()-10)%>"
                             <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
                     </button>
+
+
                 </td>
-                <%@include file="placeHolidayRequestDay.jsp" %>
-                <%@include file="withdrawHolidayRequestDay.jsp" %>
 
                 <% } else { %>
                 <td>
@@ -117,3 +121,81 @@
         </table>
     </div>
 </div>
+<%--
+
+<div class="modal fade" id="modalPlaceHolidayRequest" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Place holiday request<span id="provider_mobile"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form autocomplete="off" method="post" action="/addHolidayRequest" id="addHolidayRequestForm">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">First day: </span>
+                                </div>
+                                <input id="StartDate" name="StartDate" type="date"
+                                       class="start form-control form-field-width form-group">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Last day: </span>
+                                </div>
+                                <input id="EndDate" name="EndDate" type="date"
+                                       class="end col form-control form-field-width form-group"
+                                       max="<%=LocalDate.now().plusDays(366).toString()%>">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="placeRequestButton">Place request</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+--%>
+
+<%@include file="placeHolidayRequestDay.jsp" %>
+<%@include file="withdrawHolidayRequestDay.jsp" %>
+
+<script>
+    $('#modalPlaceHolidayRequest').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        document.getElementById("StartDate").setAttribute("min", button.data('date'))
+        document.getElementById("StartDate").setAttribute("value", button.data('date'))
+
+
+        document.getElementById("EndDate").setAttribute("min", button.data('date'))
+        document.getElementById("EndDate").setAttribute("value", button.data('date'))
+        var modal = $(this)
+    })
+</script>
+<script>
+    $("#ed_endtimedate").change(function() {
+        var startDate = document.getElementById("StartDate").value;
+        var endDate = document.getElementById("EndDate").value;
+
+        if ((Date.parse(ed_endtimedate) <= Date.parse(ed_starttimedate))) {
+            alert("End date should be greater than Start date");
+            document.getElementById("EndDate").value = "";
+        }
+    });
+</script>
