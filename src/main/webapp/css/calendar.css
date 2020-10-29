@@ -160,18 +160,32 @@
     position: center;
 }
 
-table{
-    border-collapse: collapse;
+table.calendar{
+    display: block; !important;
+    height: 700px; !important;
+    overflow-y: scroll; !important;
+
+    border-collapse: separate;
     border-spacing: 0;
 }
 
-table.calendar{
-    border-collapse: collapse;
-    border-spacing: 0;
-    display: block; !important;
-    height: 900px; !important;
-    overflow-y: scroll; !important;
+table.calendar thead{
+    background-color: white;
 }
+
+table.calendar thead th{
+    border-bottom: 2px solid #848484;
+}
+
+table.calendar thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: 90px;
+    background-color: #ffffff;
+}
+
 
 table.calendar thead th:nth-child(2) button{
     border-bottom-left-radius: 10px;
@@ -179,8 +193,9 @@ table.calendar thead th:nth-child(2) button{
 }
 
 table.calendar thead th:nth-child(1){
-    min-width: 170px;
 
+    border-bottom: 2px solid #848484;
+    min-width: 170px;
 }
 
 table.calendar thead th:last-child button{
@@ -199,9 +214,6 @@ table.calendar tr td:last-of-type button{
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
     margin-right: 20px;
-}
-
-table.calendar tbody {
 }
 
 *:focus {
