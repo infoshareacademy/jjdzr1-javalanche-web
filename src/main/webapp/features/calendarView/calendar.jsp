@@ -13,7 +13,7 @@
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
     <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
-    <div class="container-fluid" <%--style="overflow: auto"--%>>
+    <div class="container-fluid">
         <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for employee:
