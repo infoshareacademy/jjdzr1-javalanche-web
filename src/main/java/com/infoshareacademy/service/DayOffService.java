@@ -23,11 +23,14 @@ public class DayOffService {
     @Inject
     private UserService userService;
 
-
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
         List<DayOffDto> dayOffDtos = mapDaysOffToDto(dayOffs);
         return dayOffDtos;
+    }
+
+    public List<DayOffDto> getPendingHolidayRequests(){
+        return mapDaysOffToDto(dayOffRepository.findPendingHolidayRequests());
     }
 
     public List<DayOffDto> getByUserEmail(String email){
@@ -50,18 +53,18 @@ public class DayOffService {
         List<LocalDate> dateList = new ArrayList<>();
         LocalDate date = firstDate;
         do {
-            date = date.plusDays(1);
             if (date.getDayOfWeek().toString().equals("SATURDAY") || date.getDayOfWeek().toString().equals("SUNDAY")){
 
             }
             else {
                 dateList.add(date);
             }
-        } while (date.isBefore(lastDate));
+            date = date.plusDays(1);
+        } while (date.isBefore(lastDate) || date.isEqual(lastDate));
         return dateList;
     }
 
-    public Map<String, List<String>> mapUsersWithDaysOff(){
+    public Map<String, List<String>> mapUsersWithAcceptedDaysOff(){
         Map<String, List<String>> map = new LinkedHashMap<>();
         for (UserDto user: userService.getAll()) {
             List<String> dates = new ArrayList<>();
@@ -75,4 +78,17 @@ public class DayOffService {
         return map;
     }
 
+    public Map<String, List<String>> mapUsersWithNotAcceptedDaysOff(){
+        Map<String, List<String>> map = new LinkedHashMap<>();
+        for (UserDto user: userService.getAll()) {
+            List<String> dates = new ArrayList<>();
+            for (DayOffDto day: getByUserEmail(user.getEmail())) {
+                if (!day.isAccepted()){
+                    day.getListOfDays().forEach(localDate -> dates.add(localDate.getDayOfWeek()+"<br>"+localDate));
+                }
+            }
+            map.put(user.getEmail(), dates);
+        }
+        return map;
+    }
 }

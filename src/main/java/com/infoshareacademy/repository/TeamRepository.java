@@ -12,9 +12,6 @@ import java.util.logging.Logger;
 @LocalBean
 public class TeamRepository extends TeamDao {
 
-//    @Inject
-//    private UserRepository userRepository;
-
     private static final Logger LOGGER = Logger.getLogger(DayOffRepository.class.getName());
 
     public List<Team> findByName(String name){
@@ -28,6 +25,5 @@ public class TeamRepository extends TeamDao {
     public Team findByTeamLeader(String email){
         return (Team) entityManager.createQuery("from Team where teamLeader.email like :email").setParameter("email", email).getSingleResult();
     }
-
 
 }

@@ -35,7 +35,6 @@ public class User implements Serializable{
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
-            orphanRemoval = true,
             mappedBy = "user")
     private Set<DayOff> daysOff;
 
@@ -128,6 +127,8 @@ public class User implements Serializable{
     public Set<DayOff> getDaysOff() {
         return daysOff;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
