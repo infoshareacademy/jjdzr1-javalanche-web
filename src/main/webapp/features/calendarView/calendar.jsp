@@ -6,7 +6,9 @@
 <head>
     <link rel="stylesheet" href="/css/calendar.css">
 </head>
-<div class="container-fluid">
+
+
+<div class="container-fluid" style="position: relative">
     <h3 class="h3" style="margin-top: 20px">
         <i class="far fa-calendar-alt"></i> Calendar
     </h3>
@@ -15,14 +17,14 @@
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
     <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
-    <div class="container-fluid">
+    <div id="calendar"  class="container-fluid calendar">
         <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for employee:
         </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
-        <table class="calendar" width="100%" cellspacing="0" cellpadding="0">
+        <table class="calendar" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
                 <th scope="col" class=""></th>
@@ -121,57 +123,6 @@
         </table>
     </div>
 </div>
-<%--
-
-<div class="modal fade" id="modalPlaceHolidayRequest" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Place holiday request<span id="provider_mobile"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <form autocomplete="off" method="post" action="/addHolidayRequest" id="addHolidayRequestForm">
-                    <div class="row">
-                        <div class="col">
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend col-sm-4">
-                                    <span class="input-group-text col-sm-12">First day: </span>
-                                </div>
-                                <input id="StartDate" name="StartDate" type="date"
-                                       class="start form-control form-field-width form-group">
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend col-sm-4">
-                                    <span class="input-group-text col-sm-12">Last day: </span>
-                                </div>
-                                <input id="EndDate" name="EndDate" type="date"
-                                       class="end col form-control form-field-width form-group"
-                                       max="<%=LocalDate.now().plusDays(366).toString()%>">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="placeRequestButton">Place request</button>
-            </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
-
-
-
---%>
 
 <%@include file="placeHolidayRequestDay.jsp" %>
 <%@include file="withdrawHolidayRequestDay.jsp" %>
