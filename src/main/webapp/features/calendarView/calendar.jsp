@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.infoshareacademy.model.User" %>
 
 <head>
     <link rel="stylesheet" href="/css/calendar.css">
@@ -16,6 +17,7 @@
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
     <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
+    <% User loggedUser = (User) request.getSession().getAttribute("username");%>
     <div id="calendar"  class="container-fluid calendar">
         <br>
         <h4>
