@@ -58,7 +58,6 @@ public class ManagementFormsServlet extends HttpServlet {
         req.setAttribute("users", userService.getAll());
         req.setAttribute("daysOffRequests", dayOffService.pendingHolidayRequests(session.getAttribute("username").toString()));
         req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-        req.setAttribute("employeesInTeam", userService.createListOfEmployeesInThisTeam(session.getAttribute("username").toString()));
         req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
         req.setAttribute("teamsList", teamService.getAll());
         req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));

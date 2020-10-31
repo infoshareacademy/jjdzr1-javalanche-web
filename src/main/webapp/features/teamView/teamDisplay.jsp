@@ -147,8 +147,6 @@
     </div>
 </div>
 
-
-
 <script>
     document.getElementById("editModal<%=user.getId()%>").onclick = functionRadioButton();
     function functionRadioButton() {
@@ -162,5 +160,16 @@
     }
 </script>
 
-<% } %>
+<%}%>
 
+<div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style="position: absolute; bottom: 15px; right: 15px">
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#addtoteammodal">Add to team</button>
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#removefromteammodal">Remove from team</button>
+</div>
+
+<%@ include file="addEmployeesToTeam.jsp" %>
+<%@ include file="removeEmployeesFromTeam.jsp" %>

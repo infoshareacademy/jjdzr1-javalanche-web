@@ -1,10 +1,7 @@
 package com.infoshareacademy.servlets.team;
 
-import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
-import com.infoshareacademy.service.TeamService;
-import com.infoshareacademy.service.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -15,16 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/team")
-public class TeamViewServlet extends HttpServlet {
+@WebServlet("/removefromteam")
+public class removeEmployeesFromTeamServlet extends HttpServlet {
 
     @Inject
-    private UserService userService;
+    private UserRepository userRepository;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setRequestDispatcher(req, resp);
-    }
+    @Inject
+    private TeamRepository teamRepository;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,20 +31,15 @@ public class TeamViewServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            UserDto teamLeader = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-
-            req.setAttribute("teamLeader", teamLeader);
-            req.setAttribute("users", userService.getAll());
-
-            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInTeam(req.getSession().getAttribute("username").toString()));
-
-
             view = getServletContext().getRequestDispatcher("/teamView.jsp");
+
+            resp.sendRedirect(req.getContextPath() + "/team");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
     }
+
+
 }

@@ -46,6 +46,26 @@ public class UserRepository extends UserDao {
         return users;
     }
 
+    public List<User> findEmployeesInTeam(String email){
+        List users = new ArrayList<>();
+        try {
+            users = entityManager.createQuery("from User where team.teamLeader.email = :email and levelOfAccess = 1").setParameter("email", email).getResultList();
+        } catch (NoResultException exception) {
+            LOGGER.warning(exception.getMessage());
+        }
+        return users;
+    }
+
+    public List<User> findEmployeesWithoutTeam(){
+        List users = new ArrayList<>();
+        try {
+            users = entityManager.createQuery("from User where team = null and levelOfAccess = 1").getResultList();
+        } catch (NoResultException exception) {
+            LOGGER.warning(exception.getMessage());
+        }
+        return users;
+    }
+
     public List<User> findAvailableTeamLeader(){
         List users = new ArrayList<>();
         try {
