@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @WebServlet("/addHolidayRequest")
 public class AddHolidayRequestServlet extends HttpServlet {
@@ -61,6 +62,8 @@ public class AddHolidayRequestServlet extends HttpServlet {
         dayOff.setAccepted(user.getLevelOfAccess() == 3);
         dayOff.setListOfDays(dayOffService.setListDaysWithoutWeekend(startDay, endDay));
         dayOffRepository.create(dayOff);
+        user.setDaysOffLeft((int) (user.getDaysOffLeft() - ChronoUnit.DAYS.between(startDay, endDay) - 1));
+        userRepository.update(user);
     }
 
 }

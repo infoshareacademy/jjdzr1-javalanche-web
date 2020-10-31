@@ -12,7 +12,6 @@
     <h3 class="h3" style="margin-top: 20px">
         <i class="far fa-calendar-alt"></i> Calendar
     </h3>
-
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
@@ -100,7 +99,9 @@
                             class="button button-row-weekday"
                             data-toggle="modal"
                             data-target="#modalPlaceHolidayRequest"
-                            data-date="<%=date.substring(date.length()-10)%>"
+                            data-start="<%=date.substring(date.length()-10)%>"
+                            data-end="<%=LocalDate.parse(date.substring(date.length()-10)).plusDays(Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))-1).toString()%>"
+
                             <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
                     </button>
 
@@ -127,26 +128,33 @@
 <%@include file="placeHolidayRequestDay.jsp" %>
 <%@include file="withdrawHolidayRequestDay.jsp" %>
 
+
 <script>
     $('#modalPlaceHolidayRequest').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        document.getElementById("StartDate").setAttribute("min", button.data('date'))
-        document.getElementById("StartDate").setAttribute("value", button.data('date'))
+        var button = $(event.relatedTarget)
+        var startDate = button.data('start')
+        var endDate = button.data('end')
 
+        document.getElementById("StartDate").setAttribute("min", button.data('start'))
+        document.getElementById("StartDate").setAttribute("value", button.data('start'))
 
-        document.getElementById("EndDate").setAttribute("min", button.data('date'))
-        document.getElementById("EndDate").setAttribute("value", button.data('date'))
+        document.getElementById("EndDate").setAttribute("min", button.data('start'))
+        document.getElementById("EndDate").setAttribute("value", button.data('start'))
+        document.getElementById("EndDate").setAttribute("max", button.data('end'))
+
         var modal = $(this)
     })
-</script>
-<script>
-    $("#ed_endtimedate").change(function() {
-        var startDate = document.getElementById("StartDate").value;
-        var endDate = document.getElementById("EndDate").value;
 
-        if ((Date.parse(ed_endtimedate) <= Date.parse(ed_starttimedate))) {
-            alert("End date should be greater than Start date");
-            document.getElementById("EndDate").value = "";
-        }
-    });
+/*    var strDate = button.data('date')
+    var dateArr = strDate.split('-')
+    var year = dateArr[0]
+    var month = dateArr[1]-1
+    var day = dateArr[2]
+    let date = new Date(year, month, day)
+    date.setDate(date.getDate() + <%=Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))%>)
+    year = date.getFullYear()
+    month = date.getMonth() + 1
+    day = date.getDate()
+    var strMaxDate = year.toString() + "-" + month.toString()  + "-" + day.toString() ;
+    alert(strMaxDate)*/
 </script>

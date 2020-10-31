@@ -1,7 +1,9 @@
 package com.infoshareacademy.servlets.holidays;
 
 import com.infoshareacademy.model.DayOff;
+import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.UserRepository;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,9 @@ public class ManageHolidayRequestServlet extends HttpServlet {
 
     @Inject
     private DayOffRepository dayOffRepository;
+
+    @Inject
+    private UserRepository userRepository;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,10 +62,17 @@ public class ManageHolidayRequestServlet extends HttpServlet {
     private void rejectHolidayRequest(HttpServletRequest req) {
         int holidayRequestId = Integer.parseInt(req.getParameter("holidayId"));
         DayOff dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
+
+        int amountOfDaysOffToReturn = dayOff.getListOfDays().size();
+        User user = dayOff.getUser();
+        user.setDaysOffLeft(user.getDaysOffLeft() + amountOfDaysOffToReturn);
+        userRepository.update(user);
+
         dayOff.setListOfDays(null);
         dayOff.setUser(null);
         dayOffRepository.update(dayOff);
         dayOffRepository.delete(dayOff);
+
     }
 
 
