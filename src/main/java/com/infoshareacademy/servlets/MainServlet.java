@@ -43,12 +43,14 @@ public class MainServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
             view = getServletContext().getRequestDispatcher("/main.jsp");
+
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
 
         req.setAttribute("calendarView", calendarService.calendarView(30));
+        req.setAttribute("accountableWorkingDays", calendarService.accountableWorkingDaysList(req.getSession().getAttribute("username").toString()));
         req.setAttribute("users", userService.getAll());
         req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
         req.setAttribute("notAcceptedHolidays", dayOffService.mapUsersWithNotAcceptedDaysOff());

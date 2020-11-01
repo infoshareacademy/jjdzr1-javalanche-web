@@ -2,8 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="com.infoshareacademy.model.User" %>
-
 <head>
     <link rel="stylesheet" href="/css/calendar.css">
 </head>
@@ -17,8 +15,9 @@
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
     <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
-    <% User loggedUser = (User) request.getSession().getAttribute("username");%>
-    <div id="calendar"  class="container-fluid calendar">
+    <% List<String> accountableWorkingDays = (List<String>) request.getAttribute("accountableWorkingDays");%>
+    <% int numberOfDaysOf = (int) request.getAttribute("numberOfDaysOff");%>
+    <div id="calendar" class="container-fluid calendar">
         <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for employee:
@@ -102,9 +101,18 @@
                             data-toggle="modal"
                             data-target="#modalPlaceHolidayRequest"
                             data-start="<%=date.substring(date.length()-10)%>"
-                            data-end="<%=LocalDate.parse(date.substring(date.length()-10)).plusDays(Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))-1).toString()%>"
-
-                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
+                            <%
+                                String endDate;
+                                if (accountableWorkingDays.size() < accountableWorkingDays.indexOf(date.substring(date.length() - 10)) + numberOfDaysOf) {
+                                    endDate = LocalDate.now().plusDays(365).toString();
+                                } else if (numberOfDaysOf > 1) {
+                                    endDate = accountableWorkingDays.get(accountableWorkingDays.indexOf(date.substring(date.length() - 10)) + numberOfDaysOf - 1);
+                                } else {
+                                    endDate = date.substring(date.length() - 10);
+                                }
+                            %>
+                            data-end="<%=endDate%>"
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail()) | numberOfDaysOf==0){%>disabled<%}%>>
                     </button>
 
 
@@ -147,16 +155,4 @@
         var modal = $(this)
     })
 
-/*    var strDate = button.data('date')
-    var dateArr = strDate.split('-')
-    var year = dateArr[0]
-    var month = dateArr[1]-1
-    var day = dateArr[2]
-    let date = new Date(year, month, day)
-    date.setDate(date.getDate() + <%=Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))%>)
-    year = date.getFullYear()
-    month = date.getMonth() + 1
-    day = date.getDate()
-    var strMaxDate = year.toString() + "-" + month.toString()  + "-" + day.toString() ;
-    alert(strMaxDate)*/
 </script>
