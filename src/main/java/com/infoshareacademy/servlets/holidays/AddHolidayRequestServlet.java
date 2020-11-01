@@ -54,6 +54,8 @@ public class AddHolidayRequestServlet extends HttpServlet {
     }
 
     private void setNewHolidayRequest(LocalDate startDay, LocalDate endDay, HttpServletRequest req) {
+        //TODO merge days off if one overwrites the other.
+
         User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
         DayOff dayOff = new DayOff();
         dayOff.setFirstDay(startDay);

@@ -43,7 +43,6 @@ public class MainServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
             view = getServletContext().getRequestDispatcher("/main.jsp");
-
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");

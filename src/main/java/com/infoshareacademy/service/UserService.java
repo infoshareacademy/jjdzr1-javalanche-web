@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public List<UserDto> createListOfEmployeesInTeam(String email) {
-        return mapUsersToDto(userRepository.findEmployeesInTeam(email));
+        return mapUsersToDto(userRepository.findEmployeesInAnyTeam());
     }
 
     private List<UserDto> mapUsersToDto(List<User> users) {
