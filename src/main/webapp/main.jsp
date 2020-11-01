@@ -11,11 +11,11 @@
     <div id="page-content-wrapper" >
         <%@ include file="template/headerbar.jsp" %>
 
-        <%@ include file="features/calendar.jsp" %>
+        <%@ include file="features/calendarView/calendar.jsp" %>
 
-        <%@ include file="features/popupDay.jsp" %>
+        <%@ include file="features/calendarView/placeHolidayRequestDay.jsp" %>
 
-        <%@ include file="features/popupUser.jsp" %>
+        <%@ include file="features/employeeView/popupUser.jsp" %>
 
     </div>
 

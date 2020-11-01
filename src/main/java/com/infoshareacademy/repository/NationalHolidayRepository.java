@@ -37,7 +37,5 @@ public class NationalHolidayRepository extends NationalHolidayDao {
         }
         return nationalHoliday;
     }
-
-
 }
 

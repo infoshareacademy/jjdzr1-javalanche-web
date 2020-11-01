@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HolidaysJsonData {
@@ -64,7 +65,20 @@ public class HolidaysJsonData {
             e.printStackTrace();
         }
 
-        return gson.fromJson(content.toString(), HolidaysJsonData.class).getServerResponse().getHolidays();
+        return getHolidays(gson, content);
+    }
+
+    private static List<Holidays> getHolidays(Gson gson, StringBuilder content) {
+        if(isApiRequestSuccessful(gson.fromJson(content.toString(), HolidaysJsonData.class).getServerInfo().getCode())){
+            return gson.fromJson(content.toString(), HolidaysJsonData.class).getServerResponse().getHolidays();
+        } else {
+            List<Holidays> emptyList;
+            return  emptyList = new ArrayList<>();
+        }
+    }
+
+    private static boolean isApiRequestSuccessful(Integer requestStatus){
+        return requestStatus > 199 & requestStatus < 300;
     }
 }
 

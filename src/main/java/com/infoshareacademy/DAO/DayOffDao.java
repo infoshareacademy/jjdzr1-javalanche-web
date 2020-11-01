@@ -31,6 +31,6 @@ public class DayOffDao implements DAO<DayOff> {
 
     @Override
     public void delete(DayOff dayOff) {
-        entityManager.remove(entityManager.merge(dayOff));
+        entityManager.remove(entityManager.contains(dayOff) ? dayOff : entityManager.merge(dayOff));
     }
 }

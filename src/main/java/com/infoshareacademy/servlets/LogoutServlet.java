@@ -17,6 +17,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
+        //FIXME When returning to previous site, session still continues.
         req.getSession().invalidate();
         RequestDispatcher view = getServletContext().getRequestDispatcher("/logout.jsp");
         view.forward(req,resp);

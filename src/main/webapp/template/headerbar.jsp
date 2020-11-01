@@ -23,7 +23,7 @@
                         <%=request.getSession().getAttribute("firstName")%> <%=request.getSession().getAttribute("lastName")%>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/settings">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
