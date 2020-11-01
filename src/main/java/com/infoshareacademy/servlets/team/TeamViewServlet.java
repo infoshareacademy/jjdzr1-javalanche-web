@@ -41,6 +41,10 @@ public class TeamViewServlet extends HttpServlet {
             req.setAttribute("teamLeader", teamLeader);
             req.setAttribute("users", userService.getAll());
 
+            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInTeam(req.getSession().getAttribute("username").toString()));
+
+
             view = getServletContext().getRequestDispatcher("/teamView.jsp");
         }
         else {

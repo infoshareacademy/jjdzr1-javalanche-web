@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.CalendarService;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.UserService;
@@ -22,6 +23,8 @@ public class MainServlet extends HttpServlet {
     private UserService userService;
     @Inject
     private DayOffService dayOffService;
+    @Inject
+    private UserRepository userRepository;
 
     private static final Logger LOGGER = Logger.getLogger(MainServlet.class.getName());
 
@@ -45,10 +48,13 @@ public class MainServlet extends HttpServlet {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
 
-        req.setAttribute("calendarView", calendarService.calendarView(90));
+
+        req.setAttribute("calendarView", calendarService.calendarView(30));
         req.setAttribute("users", userService.getAll());
         req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
         req.setAttribute("notAcceptedHolidays", dayOffService.mapUsersWithNotAcceptedDaysOff());
+        req.setAttribute("numberOfDaysOff", userRepository.findByEmail(req.getSession().getAttribute("username").toString()).getDaysOffLeft());
+
 
         view.forward(req, resp);
     }

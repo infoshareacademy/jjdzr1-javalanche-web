@@ -2,6 +2,7 @@ package com.infoshareacademy.servlets.teams;
 
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.model.User;
+import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;
 
 import javax.inject.Inject;
@@ -12,13 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 @WebServlet("/addteam")
 public class AddTeamServlet extends HttpServlet {
 
-
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private TeamRepository teamRepository;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,13 +52,17 @@ public class AddTeamServlet extends HttpServlet {
 
     private void setNewTeam(String name, int teamLeaderId) {
         Team team = new Team();
+        teamRepository.create(team);
         User user = userRepository.findById(teamLeaderId);
         team.setTeamLeader(user);
         team.setName(name);
-        team.setUserEmail(null);
-        user.setTeam(team);
+        team.setUserEmail(new ArrayList<String>(Collections.singletonList(String.valueOf(user.getId()))));
+        teamRepository.update(team);
+
         user.setTeamLeader(true);
+        user.setTeam(team);
         userRepository.update(user);
+
     }
 
 }

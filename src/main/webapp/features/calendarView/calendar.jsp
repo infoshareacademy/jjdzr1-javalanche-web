@@ -3,26 +3,30 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Map" %>
 
-<div class="container-fluid">
+<head>
+    <link rel="stylesheet" href="/css/calendar.css">
+</head>
+
+
+<div class="container-fluid" style="position: relative">
     <h3 class="h3" style="margin-top: 20px">
         <i class="far fa-calendar-alt"></i> Calendar
     </h3>
-
     <% List<String> calendarView = (List<String>) request.getAttribute("calendarView"); %>
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
     <% Map<String, List<LocalDate>> mapUsersAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("acceptedHolidays");%>
     <% Map<String, List<LocalDate>> mapUsersNotAcceptedDaysOff = (Map<String, List<LocalDate>>) request.getAttribute("notAcceptedHolidays");%>
-    <div class="container-fluid" style="overflow: auto">
+    <div id="calendar"  class="container-fluid calendar">
         <br>
         <h4>
             <i class="fas fa-search-plus"></i> Search for employee:
         </h4>
         <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
-        <table class="table table-bordered table-sm m-1 p-1" cellspacing="0" width="100%">
+        <table class="calendar" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
-                <th scope="col" class="m-0 p-0"></th>
+                <th scope="col" class=""></th>
                 <%
                     for (String date : calendarView) {
                         if (date.contains("MONDAY")
@@ -31,15 +35,14 @@
                                 || date.contains("THURSDAY")
                                 || date.contains("FRIDAY")) {
                 %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-danger text-wrap rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"><%=date%>
+                <th>
+                    <button type="button" class="button button-col-header-weekday" disabled><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <% } else { %>
-                <th scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-info text-wrap rounded-0 m-0 p-0"
-                            style="height: 50px; width: 70px; font-size: xx-small"><%=date.toUpperCase()%>
+                <th>
+                    <button type="button" class="button button-col-header-weekendday"
+                            disabled><%=date.toUpperCase()%>
                     </button>
                 </th>
                 <%
@@ -51,37 +54,36 @@
             <tbody id="calendarTable">
             <% for (int i = 0; i < users.size(); i++) { %>
             <tr>
-                <td scope="col" class="m-0 p-0"
-                    style="vertical-align: middle; text-align: end; font-size: x-small">
-                    <button type="button" class="btn btn-outline-secondary rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-header-user"
                             data-toggle="modal"
-                            data-target="#modalUser<%=i%>"
-                            style="vertical-align: middle; text-align: center; font-size: small; width: 100px; height: 50px; font-weight: bold;">
-                        <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getFirstName()%>
-                        </p>
-                        <p style="margin-top: auto; margin-bottom: auto"><%= users.get(i).getLastName()%>
-                        </p>
+                            data-target="#modalUser<%=i%>">
+
+                        <%= users.get(i).getFirstName().toUpperCase()%><br>
+                        <%= users.get(i).getLastName().toUpperCase()%>
+
                     </button>
                 </td>
                 <% for (String date : calendarView) { %>
                 <% if (mapUsersAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
                 %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-success rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-dayoff"
                             data-toggle="modal"
-                            data-target="#modalDay"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset" disabled>Day off
+                            data-target="#modalDay" disabled>DAY OFF
                     </button>
                 </td>
-                <% } else if (mapUsersNotAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
+                <%
+                    //FIXME
+                } else if (mapUsersNotAcceptedDaysOff.get(users.get(i).getEmail()).contains(date)) {
                 %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-warning rounded-0 m-0 p-0 text-wrap"
+                <td>
+                    <button type="button" class="button button-row-pending"
                             data-toggle="modal"
                             data-target="#modalWithdrawHolidayRequest"
                             data-whatever="<%=date.substring(date.length()-10)%>"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>Pending
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
+                        PENDING
                     </button>
                 </td>
                 <%
@@ -91,23 +93,26 @@
                         || date.contains("THURSDAY")
                         || date.contains("FRIDAY")) {
                 %>
-                <td scope="col" class="m-0 p-0">
+                <td>
                     <%request.setAttribute("currentDate", LocalDate.now().plusDays(i));%>
-                    <button type="button" class="btn btn-secondary rounded-0 m-0 p-0 text-wrap"
+                    <button type="button"
+                            class="button button-row-weekday"
                             data-toggle="modal"
                             data-target="#modalPlaceHolidayRequest"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>><%=date%>
+                            data-start="<%=date.substring(date.length()-10)%>"
+                            data-end="<%=LocalDate.parse(date.substring(date.length()-10)).plusDays(Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))-1).toString()%>"
+
+                            <%if(!request.getSession().getAttribute("username").equals(users.get(i).getEmail())){%>disabled<%}%>>
                     </button>
+
+
                 </td>
-                <%@include file="placeHolidayRequestDay.jsp"%>
-                <%@include file="withdrawHolidayRequestDay.jsp"%>
 
                 <% } else { %>
-                <td scope="col" class="m-0 p-0">
-                    <button type="button" class="btn btn-info rounded-0 m-0 p-0 text-wrap"
-                            style="width: 70px; height: 50px; font-size: xx-small; padding: unset"
-                            disabled><%=date.toUpperCase()%>
+                <td>
+                    <button type="button" class="button button-row-weekendday"
+                            data-toggle="modal"
+                            data-target="#modalDay" disabled><%/*date.toUpperCase()*/%>
                     </button>
                 </td>
                 <%
@@ -120,3 +125,36 @@
     </div>
 </div>
 
+<%@include file="placeHolidayRequestDay.jsp" %>
+<%@include file="withdrawHolidayRequestDay.jsp" %>
+
+
+<script>
+    $('#modalPlaceHolidayRequest').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var startDate = button.data('start')
+        var endDate = button.data('end')
+
+        document.getElementById("StartDate").setAttribute("min", button.data('start'))
+        document.getElementById("StartDate").setAttribute("value", button.data('start'))
+
+        document.getElementById("EndDate").setAttribute("min", button.data('start'))
+        document.getElementById("EndDate").setAttribute("value", button.data('start'))
+        document.getElementById("EndDate").setAttribute("max", button.data('end'))
+
+        var modal = $(this)
+    })
+
+/*    var strDate = button.data('date')
+    var dateArr = strDate.split('-')
+    var year = dateArr[0]
+    var month = dateArr[1]-1
+    var day = dateArr[2]
+    let date = new Date(year, month, day)
+    date.setDate(date.getDate() + <%=Integer.parseInt(String.valueOf(request.getAttribute("numberOfDaysOff")))%>)
+    year = date.getFullYear()
+    month = date.getMonth() + 1
+    day = date.getDate()
+    var strMaxDate = year.toString() + "-" + month.toString()  + "-" + day.toString() ;
+    alert(strMaxDate)*/
+</script>

@@ -49,16 +49,25 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
 
     private void withdrawHoliday(HttpServletRequest req) {
         User user = userRepository.findByEmail(req.getSession().getAttribute("username").toString());
+
         LocalDate returnedDay = LocalDate.parse(req.getParameter("chosenDay"));
+
         List<DayOff> foundHoliday = dayOffRepository
                 .findDaysOffIdByDayOff(returnedDay)
                 .stream()
-                .filter(dayOff -> dayOff.getUser().getId()==user.getId()).collect(Collectors.toList());
+                .filter(dayOff -> dayOff.getUser().getId()==user.getId())
+                .collect(Collectors.toList());
         DayOff dayOff = foundHoliday.get(0);
+
+        int amountOfDaysOffToReturn = dayOff.getListOfDays().size();
+        user.setDaysOffLeft(user.getDaysOffLeft() + amountOfDaysOffToReturn);
+        userRepository.update(user);
+
         dayOff.setUser(null);
         dayOff.setListOfDays(null);
         dayOffRepository.update(dayOff);
         dayOffRepository.delete(dayOff);
+
     }
 
 }

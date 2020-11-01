@@ -46,8 +46,6 @@ public class HolidaysViewServlet extends HttpServlet {
             req.setAttribute("pendingHolidayRequests", pendingHolidayRequests);
             req.setAttribute("user", userService.getByEmail(req.getSession().getAttribute("username").toString()));
 
-
-
             view = getServletContext().getRequestDispatcher("/holidaysView.jsp");
         }
         else {
