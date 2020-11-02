@@ -1,21 +1,9 @@
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.infoshareacademy.model.Team" %>
 <%@ page import="com.infoshareacademy.DTO.TeamDto" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="pl">
-<title>Holiday calendar</title>
-<head>
-    <%@ include file="features/headSection.jsp" %>
-</head>
-<body>
-<div class="d-flex" id="wrapper">
-    <%@ include file="template/sidebar.jsp" %>
+<%@include file="template/header.jsp"%>
 
-    <div id="page-content-wrapper" >
-        <%@ include file="template/headerbar.jsp" %>
-
+<!-- MAIN CONTENT GOES HERE -->
         <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
         <% UserDto admin = (UserDto) request.getAttribute("admin");%>
         <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
@@ -29,3 +17,13 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function () {
+        $('#teamsTable').DataTable({
+            "dom":'<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+        });
+        $('#teamsTable_filter label').addClass('justify-content-sm-end');
+    });
+</script>
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>

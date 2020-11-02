@@ -377,10 +377,6 @@
         $('#employyesTable_filter label').addClass('justify-content-sm-end');
         $(".dropdown-toggle").dropdown();
     });
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
 </script>
 <!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>

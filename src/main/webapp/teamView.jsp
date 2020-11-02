@@ -5,6 +5,9 @@
 <!-- MAIN CONTENT GOES HERE -->
 <div class="container-fluid">
     <% List<UserDto> team = (List<UserDto>) request.getAttribute("team"); %>
+    <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>
+    <br>
+    <h3><%=teamLeader.getTeam().getName()%>:</h3>
     <br><br>
     <div class="container-fluid">
         <table id="usersTable" class="table table-striped" style="width:100%">
@@ -212,11 +215,6 @@
             "dom":'<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
         });
         $('#usersTable_filter label').addClass('justify-content-sm-end');
-        $(".dropdown-toggle").dropdown();
-    });
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
     });
 </script>
 <!-- END OF MAIN CONTENT -->
