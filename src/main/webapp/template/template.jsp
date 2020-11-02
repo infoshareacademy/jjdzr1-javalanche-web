@@ -1,7 +1,10 @@
-<%@include file="header.jsp"%>
+<%@include file="template/header.jsp"%>
 
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
+<!-- MAIN CONTENT GOES HERE -->
 
-<%@include file="footer.jsp"%>
+<%--INSERT YOUR CODE HERE--%>
+<%--INSERT YOUR CODE HERE--%>
+<%--INSERT YOUR CODE HERE--%>
+
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>
