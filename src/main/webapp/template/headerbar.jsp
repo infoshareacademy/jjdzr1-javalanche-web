@@ -1,6 +1,4 @@
 
-<div id="page-content-wrapper">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
         <button class="btn btn-outline-light" id="menu-toggle">Menu</button>
 
@@ -56,4 +54,3 @@
             });
         });
     </script>
-</div>
