@@ -26,8 +26,6 @@ public class ManagementFormsServlet extends HttpServlet {
     @Inject
     private TeamService teamService;
 
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);

@@ -5,7 +5,7 @@
 <html lang="pl">
 <title>Holidays list</title>
 <head>
-    <%@ include file="features/headSection.jsp" %>
+    <%@ include file="template/headSection.jsp" %>
 </head>
 <body>
 <div class="d-flex" id="wrapper">
