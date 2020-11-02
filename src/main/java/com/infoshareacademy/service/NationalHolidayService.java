@@ -20,6 +20,7 @@ public class NationalHolidayService {
     private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
 
     public void executeApiTransferRequest(String requestedYear, String apiKey) {
+        //FIXME!!!
 /*        try{*/
             if(!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))){
                 String apiURL = generateApiFromUrl(requestedYear, apiKey);
