@@ -1,19 +1,10 @@
-<head>
-    <%@ include file="/features/headSection.jsp" %>
-</head>
-<body>
-<div class="d-flex" id="wrapper">
-    <%@ include file="/template/sidebar.jsp" %>
+<%@include file="template/header.jsp"%>
 
-    <div id="page-content-wrapper" >
-        <%@ include file="/template/headerbar.jsp" %>
+<!-- MAIN CONTENT GOES HERE -->
 
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
-        <%--INSERT YOUR CODE HERE--%>
+<%--INSERT YOUR CODE HERE--%>
+<%--INSERT YOUR CODE HERE--%>
+<%--INSERT YOUR CODE HERE--%>
 
-    </div>
-
-</div>
-
-</body>
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>

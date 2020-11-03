@@ -27,8 +27,34 @@ public class removeEmployeesFromTeamServlet extends HttpServlet {
     private TeamRepository teamRepository;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
+        RequestDispatcher view;
+        if (req.getSession().getAttribute("username") != null){
+            userRepository.removeUserFromTeam((Integer) req.getAttribute("userId"));
+            view = getServletContext().getRequestDispatcher("/team");
+        }
+        else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+        view.forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setRequestDispatcher(req, resp);
+        resp.setCharacterEncoding("UTF-8");
+        RequestDispatcher view;
+        if (req.getSession().getAttribute("username") != null){
+
+            String[] employeesChosenForRemovalFromTeam = req.getParameterValues("selectedUsersToRemoveFromTeam");
+            removeUsersFromTeamFormHandler(req, employeesChosenForRemovalFromTeam);
+
+            view = getServletContext().getRequestDispatcher("/team");
+        }
+        else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+        view.forward(req, resp);
     }
 
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
