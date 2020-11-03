@@ -28,6 +28,15 @@ public class UserService {
         return userDtos;
     }
 
+    public List<UserDto> getUsersFromTeam(String teamLeaderEmail){
+        User teamLeader = userRepository.findByEmail(teamLeaderEmail);
+        List<User> team = new ArrayList<>();
+        for (String s: teamLeader.getTeam().getUserEmail()) {
+            team.add(userRepository.findByEmail(s));
+        }
+        return mapUsersToDto(team);
+    }
+
     public List<UserDto> getAvailableTeamLeaders() {
         return mapUsersToDto(userRepository.findAvailableTeamLeader());
     }

@@ -1,5 +1,7 @@
 package com.infoshareacademy.servlets;
 
+import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.User;
 import com.infoshareacademy.service.*;
 
 import javax.inject.Inject;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 @WebServlet("/test")
@@ -43,10 +47,8 @@ public class TestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-            req.setAttribute("calendarView", calendarService.calendarView(30));
-            req.setAttribute("users", userService.getAll());
-            req.setAttribute("acceptedHolidays", dayOffService.mapUsersWithAcceptedDaysOff());
-            req.setAttribute("teams", teamService.getAll());
+
+        req.setAttribute("users", userService.getAll());
 
         view = getServletContext().getRequestDispatcher("/test.jsp");
         view.forward(req, resp);

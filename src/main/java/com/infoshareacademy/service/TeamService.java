@@ -1,6 +1,7 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.DTO.TeamDto;
+import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.Team;
 import com.infoshareacademy.repository.TeamRepository;
 import com.infoshareacademy.repository.UserRepository;

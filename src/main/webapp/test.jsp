@@ -1,124 +1,385 @@
-<%@ page import="com.infoshareacademy.model.User" %>
-<%@ page import="com.infoshareacademy.repository.UserRepository" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="com.infoshareacademy.repository.DayOffRepository" %>
-<%@ page import="com.infoshareacademy.model.DayOff" %>
-<%@ page import="com.infoshareacademy.api.HolidaysJsonData" %>
-<%@ page import="com.infoshareacademy.api.Holidays" %>
-<%@ page import="java.util.*" %>
-<%@ page import="com.infoshareacademy.service.DayOffService" %>
-<%@ page import="com.infoshareacademy.service.UserService" %>
-<%@ page import="com.infoshareacademy.DTO.TeamDto" %>
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
-<%@ page import="com.infoshareacademy.DTO.DayOffDto" %><%--
-  Created by IntelliJ IDEA.
-  User: karol
-  Date: 29.08.2020
-  Time: 14:18
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="pl">
-<title>Holiday calendar</title>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"></link>
+<%@ page import="java.util.List" %>
+<%@include file="template/header.jsp"%>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+<!-- MAIN CONTENT GOES HERE -->
+<div class="container-fluid">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- Bootstrap core CSS -->
-    <!--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
-    <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <div class="container-fluid" style="overflow: auto">
+        <br>
 
-    <!-- Custom styles for table   -->
-    <link href="css/table_date.css" rel="stylesheet">
-    <meta http-equiv="refresh">
+        <table id="employyesTable" class="table table-striped" width="100%">
+            <thead>
+            <tr>
+                <th scope="row">#</th>
+                <th scope="row">Name</th>
+                <th scope="row">Last Name</th>
+                <th scope="row">Email</th>
+                <th scope="row">Days off left</th>
+                <th scope="row">Team name</th>
+                <th scope="row">Action</th>
+            </tr>
+            </thead>
 
-</head>
-
-<body>
-<div class="d-flex" id="wrapper">
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <%--        <%@include file="calendar.jsp"%>--%>
-        <!-- testowa czesc strony -->
-        <div>
-
-            <%--            <div class="container-fluid">--%>
-            <%--                <% int levelOfAccess = (int) session.getAttribute("levelOfAccess");%>--%>
-            <%--                <% if (levelOfAccess == 1){ %>--%>
-            <%--                <button type="button" class="btn-info visible">Button test</button>--%>
-            <%--                <% } else { %>--%>
-            <%--                <button type="button" class="btn-info invisible">Button test</button>--%>
-            <%--                <% } %>--%>
-
-            <%--            </div>--%>
-
-            <!-- // testowa czesc strony -->
-
-                <div class="container-fluid">
-                    <p><%=request.getAttribute("map").toString()%></p>
-                    <p><%Map<String, List<String>> map = (Map<String, List<String>>) request.getAttribute("map");%></p>
-                    <p><%=map.get("jan@kowalski.pl").equals("FRIDAY<br>2020-10-23")%></p>
-
-                    <p><%=map.get("jan@kowalski.pl").contains("FRIDAY<br>2020-10-23")%></p>
-                </div>
-
-        </div>
-
-
-        <!-- /#page-content-wrapper -->
+            <tbody>
+            <% int i = 1;
+                for (UserDto user : users) { %>
+            <tr>
+                <td><%=i++ %>
+                </td>
+                <td><%=user.getFirstName() %>
+                </td>
+                <td><%=user.getLastName() %>
+                </td>
+                <td><%=user.getEmail() %>
+                </td>
+                <td><%=user.getDaysOffLeft() %>
+                </td>
+                <% if (user.getTeam() == null || user.getTeam().getName() == null) { %>
+                <td>Not assigned</td>
+                <% } else { %>
+                <td><%=user.getTeam().getName()%></td>
+                <% } %>
+                <td>
+                    <div class="row">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group">
+                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#editModal<%=user.getId()%>">Edit user
+                                </button>
+                            </div>
+                            <div class="btn-group mr-2" role="group">
+                                <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                        data-target="#editPassword<%=user.getId()%>">Change password
+                                </button>
+                            </div>
+                            <div class="btn-group mr-2" role="group">
+                                <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#deleteModal<%=user.getId()%>">Delete user
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th scope="row">#</th>
+                <th scope="row">Name</th>
+                <th scope="row">Last Name</th>
+                <th scope="row">Email</th>
+                <th scope="row">Days off left</th>
+                <th scope="row">Team name</th>
+                <th scope="row">Action</th>
+            </tr>
+            </tfoot>
+        </table>
     </div>
-    <!-- /#wrapper -->
-    <!-- /#MODAL -->
-    <div class="modal fade modalDay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+
+    <% for (UserDto user: users) { %>
+    <div class="modal fade" id="deleteModal<%=user.getId()%>" tabindex="-1" role="form">
+        <div class="modal-dialog" role="form">
             <div class="modal-content">
-                <p>
-                    POPAPEK
-                </p>
+                <div class="modal-header">
+                    <h5>Delete user:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% if (user.getTeam() != null) { %>
+                <div class="modal-body">
+                    <p><%=user.getFirstName()%> <%=user.getLastName()%> is assigned to <%=user.getTeam().getName()%></p>
+                    <p>Please remove user from team first.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <% } else if (user.getEmail().equals(request.getSession().getAttribute("username"))) { %>
+                <div class="modal-body">
+                    <p>You cannot remove yourself</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <% } else { %>
+                <div class="modal-body">
+                    <%=user.getFirstName()%> <%=user.getLastName()%>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="/deleteUser">
+                        <input type="text" name="userId" value="<%=user.getId()%>" hidden>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <% } %>
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Menu Toggle Script -->
+    <div class="modal fade" id="editModal<%=user.getId()%>" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Edit user:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="/edituser" autocomplete="off" id="editUserForm<%=user.getId()%>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Name: </span>
+                                    </div>
+                                    <input type="text" name="name" value="<%=user.getFirstName()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Last name: </span>
+                                    </div>
+                                    <input type="text" name="lastName" value="<%=user.getLastName()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">E-mail: </span>
+                                    </div>
+                                    <input type="email" name="email" value="<%=user.getEmail()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
+                                </div>
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">User type: </span>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="levelOfAccess" id="radioButtonAdmin<%=user.getId()%>" class="form-control-input" value="3"><label class="form-control-label" for="radioButtonAdmin<%=user.getId()%>">Admin</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="levelOfAccess" id="radioButtonTeamLeader<%=user.getId()%>" class="form-control-input" value="2"><label class="form-control-label" for="radioButtonTeamLeader<%=user.getId()%>">Team leader</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="levelOfAccess" id="radioButtonEmployee<%=user.getId()%>" class="form-control-input" value="1"><label class="form-control-label" for="radioButtonEmployee<%=user.getId()%>">Employee</label>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Days off left: </span>
+                                    </div>
+                                    <input type="number" name="daysOff" value="<%=user.getDaysOffLeft()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Enter number of remaining days off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editPassword<%=user.getId()%>" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Change password:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="/editpassword" autocomplete="off" id="editUserForm<%=user.getId()%>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Password:</span>
+                                    </div>
+                                    <input type="password" name="password" id="password<%=user.getId()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required autocomplete="new-password">
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Retype password:</span>
+                                    </div>
+                                    <input type="password" name="confirmPassword" id="confirmPassword<%=user.getId()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend col-sm-4">
+                                        <span class="input-group-text col-sm-12">Info:</span>
+                                    </div>
+                                    <span id="message<%=user.getId()%>" class="form-control col-sm-8"></span>
+                                    <input type="text" name="changePasswordUserId" value="<%=user.getId()%>" hidden>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="updateButton<%=user.getId()%>" disabled>Change password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+        document.getElementById("editModal<%=user.getId()%>").onclick = functionRadioButton();
+        function functionRadioButton() {
+            if ((<%=user.getLevelOfAccess()%>) === 1) {
+                document.getElementById("radioButtonEmployee<%=user.getId()%>").checked = true;
+            } else if ((<%=user.getLevelOfAccess()%>) === 2) {
+                document.getElementById("radioButtonTeamLeader<%=user.getId()%>").checked = true;
+            } else if ((<%=user.getLevelOfAccess()%>) === 3) {
+                document.getElementById("radioButtonAdmin<%=user.getId()%>").checked = true;
+            }
+        }
+        $('#password<%=user.getId()%>, #confirmPassword<%=user.getId()%>').on('keyup', function () {
+            $('#message<%=user.getId()%>').html('password doesn\'t match!').css('color', 'red');
+
+            if ($('#password<%=user.getId()%>').val().length === 0 || $('#confirmPassword<%=user.getId()%>').val().length ===0){
+                document.getElementById("addNewUserButton<%=user.getId()%>").disabled = true;
+
+            } else if ($('#password<%=user.getId()%>').val() === $('#confirmPassword<%=user.getId()%>').val()) {
+                $('#message<%=user.getId()%>').html('password matches!').css('color', 'green');
+                document.getElementById("updateButton<%=user.getId()%>").disabled = false;
+            } else {
+                document.getElementById("updateButton<%=user.getId()%>").disabled = true;
+            }
         });
     </script>
-    <script>
-        $(document).ready(function () {
-            $("#myInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#calendarTable tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
+    <% } %>
+
+
+    <div class="row justify-content-sm-end">
+        <div class="col-md-2 .ml-md-auto">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add new user</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add new user:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="post" action="/adduser" id="addUserForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Name: </span>
+                                </div>
+                                <input type="text" name="name" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Last name: </span>
+                                </div>
+                                <input type="text" name="lastName" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">E-mail: </span>
+                                </div>
+                                <input type="email" name="email" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">User type: </span>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="levelOfAccess" id="radioButtonAdmin" class="form-control-input" value="3"><label class="form-control-label" for="radioButtonAdmin">Admin</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="levelOfAccess" id="radioButtonTeamLeader" class="form-control-input" value="2"><label class="form-control-label" for="radioButtonTeamLeader">Team leader</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="levelOfAccess" id="radioButtonEmployee" class="form-control-input" value="1" checked><label class="form-control-label" for="radioButtonEmployee">Employee</label>
+                                </div>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Days off left: </span>
+                                </div>
+                                <input type="number" name="daysOff" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Enter number of remaining days off" required>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Password:</span>
+                                </div>
+                                <input type="password" name="password" id="password" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required autocomplete="new-password">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Retype password:</span>
+                                </div>
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend col-sm-4">
+                                    <span class="input-group-text col-sm-12">Info:</span>
+                                </div>
+                                <span id="message" class="form-control col-sm-8"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="addNewUserButton" disabled>Add</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $('#password, #confirmPassword').on('keyup', function () {
+        $('#message').html('password doesn\'t match!').css('color', 'red');
+
+        if ($('#password').val().length === 0 || $('#confirmPassword').val().length ===0){
+            document.getElementById("addNewUserButton").disabled = true;
+
+        } else if ($('#password').val() === $('#confirmPassword').val()) {
+            $('#message').html('password matches!').css('color', 'green');
+            document.getElementById("addNewUserButton").disabled = false;
+        } else {
+            document.getElementById("addNewUserButton").disabled = true;
+        }
+    });
+    $(document).ready(function () {
+        $('#employyesTable').DataTable({
+            "dom":'<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
         });
-    </script>
+        $('#employyesTable_filter label').addClass('justify-content-sm-end');
+        $(".dropdown-toggle").dropdown();
+    });
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>
 
-</body>
-
-</html>

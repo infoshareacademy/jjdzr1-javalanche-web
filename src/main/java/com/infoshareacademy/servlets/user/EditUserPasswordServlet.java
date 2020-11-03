@@ -33,9 +33,9 @@ public class EditUserPasswordServlet extends HttpServlet {
         if (req.getSession().getAttribute("username") != null){
 
             String password = req.getParameter("password");
-            Integer changePasswordUserId = Integer.parseInt(req.getParameter("changePasswordUserId"));
+            Integer userId = Integer.parseInt(req.getParameter("userId"));
 
-            editUser(password, changePasswordUserId);
+            editUser(password, userId);
 
             view = getServletContext().getRequestDispatcher("/employeesView.jsp");
 
@@ -47,8 +47,8 @@ public class EditUserPasswordServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void editUser(String password, Integer changePasswordUserId) {
-        User user = userRepository.findById(changePasswordUserId);
+    private void editUser(String password, Integer userId) {
+        User user = userRepository.findById(userId);
         user.setPassword(securePasswordService.encryptor(password));
         userRepository.update(user);
     }
