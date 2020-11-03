@@ -8,7 +8,7 @@
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
     <url>jdbc:mysql://localhost:3306/javalanche?serverTimezone=UTC</url>
     <user>root</user>
-    <password>9272927292729272</password>
+    <password>root</password>
   </data-source>
   <session-config>
     <session-timeout>10</session-timeout>
