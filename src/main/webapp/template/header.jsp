@@ -48,10 +48,11 @@
                     class="far fa-calendar-alt"></i> Calendar view</a>
             <a href="/employees" id="employees" class="list-group-item list-group-item-action bg-light"><i
                     class="fas fa-user-alt"></i> Employees</a>
-
             <c:if test="${sessionScope.levelOfAccess==2}">
                 <a href="/team" id="team" class="list-group-item list-group-item-action bg-light">
                     <i class="fas fa-user-friends"></i> Team</a>
+                <a href="/statistics" id="statistics" class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-chart-bar"></i> Statistics</a>
             </c:if>
             <c:if test="${sessionScope.levelOfAccess==3}">
                 <a href="/teams" id="teams" class="list-group-item list-group-item-action bg-light">
@@ -60,10 +61,11 @@
                     <i class="fab fa-algolia"></i> Holidays</a>
                 <a href="/management" id="management" class="list-group-item list-group-item-action bg-light"><i
                         class="fas fa-cog"></i> Management</a>
+                <a href="/statistics" id="statistics" class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-chart-bar"></i> Statistics</a>
             </c:if>
         </div>
     </div>
-
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
             <button class="btn btn-outline-light" id="menu-toggle">Menu</button>

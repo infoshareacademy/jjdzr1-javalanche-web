@@ -1,8 +1,6 @@
-package com.infoshareacademy.servlets.team;
+package com.infoshareacademy.servlets.statistics;
 
 import com.infoshareacademy.DTO.UserDto;
-import com.infoshareacademy.repository.TeamRepository;
-import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
@@ -13,10 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@WebServlet("/team")
-public class TeamViewServlet extends HttpServlet {
+import java.io.*;
+@WebServlet("/statistics")
+public class StatisticsServlet extends HttpServlet {
 
     @Inject
     private UserService userService;
@@ -37,14 +34,11 @@ public class TeamViewServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
-
-            UserDto user = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-            req.setAttribute("teamLeader", user);
-            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
-            view = getServletContext().getRequestDispatcher("/teamView.jsp");
-
-        }
+        //            UserDto user = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
+        //            req.setAttribute("teamLeader", user);
+        //            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
+        if (req.getSession().getAttribute("username") != null)
+            view = getServletContext().getRequestDispatcher("/statisticsView/statistics.jsp");
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
