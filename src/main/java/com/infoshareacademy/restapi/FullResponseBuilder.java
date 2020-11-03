@@ -1,4 +1,4 @@
-package com.infoshareacademy.utils;
+package com.infoshareacademy.restapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,8 +61,5 @@ public class FullResponseBuilder {
                 .append(content);
 
         return fullResponseBuilder.toString();
-    }
-    public void print(){
-        String string = getFullResponse();
     }
 }

@@ -1,19 +1,19 @@
-package com.infoshareacademy.utils;
+package com.infoshareacademy.restapi;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Statistics {
+public class Request {
+    public static final String API_URL = "http://localhost:8081/api/dayoff";
 
     public void sendGet() throws IOException {
-        URL url = new URL("http://localhost:8081/api/dayoff");
+        URL url = new URL(API_URL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("id", "userId");
 
@@ -44,5 +44,6 @@ public class Statistics {
         } else {
             streamReader = new InputStreamReader(con.getInputStream());
         }
+        System.out.println(content.toString());
     }
 }

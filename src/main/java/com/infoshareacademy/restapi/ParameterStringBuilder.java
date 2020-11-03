@@ -1,4 +1,4 @@
-package com.infoshareacademy.utils;
+package com.infoshareacademy.restapi;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
