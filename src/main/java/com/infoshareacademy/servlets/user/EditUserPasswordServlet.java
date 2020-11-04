@@ -32,19 +32,37 @@ public class EditUserPasswordServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            String password = req.getParameter("password");
-            Integer userId = Integer.parseInt(req.getParameter("userId"));
+            performRequestWithValidation(req);
 
-            editUser(password, userId);
+            view = getServletContext().getRequestDispatcher("/employees");
 
-            view = getServletContext().getRequestDispatcher("/employeesView.jsp");
-
-            resp.sendRedirect(req.getContextPath() + "/employees");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            String password = req.getParameter("password");
+            Integer userId = Integer.parseInt(req.getParameter("userId"));
+
+            editUser(password, userId);
+
+            message = "edited successfully";
+            status = true;
+        } catch (Exception e){
+            message = "edited unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Password");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void editUser(String password, Integer userId) {

@@ -4,6 +4,9 @@
 
 <!-- MAIN CONTENT GOES HERE -->
 
+
+        <%@include file="features/validator.jsp"%>
+
         <% UserDto user = (UserDto) request.getAttribute("user");%>
         <% List<DayOffDto> pendingHolidayRequests = (List<DayOffDto>) request.getAttribute("pendingHolidayRequests");%>
 

@@ -29,6 +29,25 @@ public class EditUserServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
+            performRequestWithValidation(req);
+
+            view = getServletContext().getRequestDispatcher("/employees");
+        }
+        else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+        view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            String password = req.getParameter("password");
+            Integer userId = Integer.parseInt(req.getParameter("userId"));
+
             String name = req.getParameter("name");
             String lastName = req.getParameter("lastName");
             String email = req.getParameter("email");
@@ -38,14 +57,15 @@ public class EditUserServlet extends HttpServlet {
 
             editUser(name, lastName, email, levelOfAccess, daysOff, user);
 
-            view = getServletContext().getRequestDispatcher("/employeesView.jsp");
+            message = "edited successfully";
+            status = true;
+        } catch (Exception e){
+            message = "edited unsuccessfully";
+        }
 
-            resp.sendRedirect(req.getContextPath() + "/employees");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/badrequest_404");
-        }
-        view.forward(req, resp);
+        req.getSession().setAttribute("task", "User");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void editUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, User user) {

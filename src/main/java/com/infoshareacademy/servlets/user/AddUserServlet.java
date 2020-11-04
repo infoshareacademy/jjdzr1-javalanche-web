@@ -30,8 +30,23 @@ public class AddUserServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
+        if (req.getSession().getAttribute("username") != null) {
 
+            performRequestWithValidation(req);
+
+            view = getServletContext().getRequestDispatcher("/employees");
+        } else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+        view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
             String name = req.getParameter("name");
             String lastName = req.getParameter("lastName");
             String email = req.getParameter("email");
@@ -41,14 +56,15 @@ public class AddUserServlet extends HttpServlet {
 
             setNewUser(name, lastName, email, levelOfAccess, daysOff, password);
 
-            view = getServletContext().getRequestDispatcher("/employees");
+            message = "added successfully";
+            status = true;
+        } catch (Exception e) {
+            message = "edited unsuccessfully";
+        }
 
-            resp.sendRedirect(req.getContextPath() + "/employees");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/badrequest_404");
-        }
-        view.forward(req, resp);
+        req.getSession().setAttribute("task", "User");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void setNewUser(String name, String lastName, String email, Integer levelOfAccess, Integer daysOff, String password) {

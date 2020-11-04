@@ -33,19 +33,35 @@ public class EditTeamServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            String teamName = req.getParameter("editedName");
-            String teamLeadersEmail = req.getParameter("editTeamLeader");
-            int editedTeamId = Integer.parseInt(req.getParameter("editedTeamId"));
-            editTeam(teamName, teamLeadersEmail, editedTeamId);
-
-            view = getServletContext().getRequestDispatcher("/teamsView.jsp");
-
-            resp.sendRedirect(req.getContextPath() + "/teams");
+            performRequestWithValidation(req);
+            view = getServletContext().getRequestDispatcher("/teams");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            String teamName = req.getParameter("editedName");
+            String teamLeadersEmail = req.getParameter("editTeamLeader");
+            int editedTeamId = Integer.parseInt(req.getParameter("editedTeamId"));
+            editTeam(teamName, teamLeadersEmail, editedTeamId);
+
+            message = "edited successfully";
+            status = true;
+        } catch (Exception e){
+            message = "edited unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Team");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void editTeam(String name, String teamLeadersEmail, int editedTeamId) {

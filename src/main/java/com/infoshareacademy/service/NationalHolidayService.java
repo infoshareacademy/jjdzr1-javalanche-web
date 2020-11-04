@@ -19,35 +19,30 @@ public class NationalHolidayService {
 
     private static final Logger LOGGER = Logger.getLogger(CalendarService.class.getName());
 
-    public void executeApiTransferRequest(String requestedYear, String apiKey) {
-/*        try{*/
-            if(!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))){
-                String apiURL = generateApiFromUrl(requestedYear, apiKey);
-                List<Holidays> jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiURL);
-                if (!jsonHolidays.isEmpty()){
-                    transferNationalHolidaysFromJsonToDatabase(jsonHolidays);
-             }
-            }/*
-            return true;
-        } catch (Exception e) {
-            LOGGER.warning(() -> e.getMessage());
-            return false;
-        }*/
-
+    public void executeApiTransferRequest(String requestedYear, String apiKey) throws Exception {
+        if (!findIfHolidaysAlreadyInDatabase(Integer.parseInt(requestedYear))) {
+            String apiURL = generateApiFromUrl(requestedYear, apiKey);
+            List<Holidays> jsonHolidays = HolidaysJsonData.readNationalHolidaysFromApiUrl(apiURL);
+            if (!jsonHolidays.isEmpty()) {
+                transferNationalHolidaysFromJsonToDatabase(jsonHolidays);
+            } else {
+                throw new Exception();
+            }
+        }
     }
 
     private void transferNationalHolidaysFromJsonToDatabase(List<Holidays> jsonList) {
         jsonList.forEach(holiday ->
                 nationalHolidayRepository.create(
                         new NationalHoliday(
-                        holiday.getName(),
-                        holiday.getDescription(),
-                        holiday.getHolidayDateInLocalDateFormat()
+                                holiday.getName(),
+                                holiday.getDescription(),
+                                holiday.getHolidayDateInLocalDateFormat()
                         )));
     }
 
-    private boolean findIfHolidaysAlreadyInDatabase(int year){
-        return nationalHolidayRepository.getAll().stream().anyMatch(holiday -> holiday.getHolidayDate().getYear()==year);
+    private boolean findIfHolidaysAlreadyInDatabase(int year) {
+        return nationalHolidayRepository.getAll().stream().anyMatch(holiday -> holiday.getHolidayDate().getYear() == year);
     }
 
     private String generateApiFromUrl(String requestedYear, String apiKey) {

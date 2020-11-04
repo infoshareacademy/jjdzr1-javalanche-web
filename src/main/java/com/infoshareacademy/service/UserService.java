@@ -42,13 +42,17 @@ public class UserService {
     }
 
     public List<UserDto> createListOfEmployeesInTeam(String email) {
-        return mapUsersToDto(userRepository.findEmployeesInTeam(email));
+        return mapUsersToDto(userRepository.findEmployeesInAnyTeam());
     }
 
     private List<UserDto> mapUsersToDto(List<User> users) {
-        return users.stream()
-                .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess(), user.isTeamLeader(), user.getTeam()))
-                .collect(Collectors.toList());
+        try {
+            return users.stream()
+                    .map(user -> new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getDaysOffLeft(), user.getLevelOfAccess(), user.isTeamLeader(), user.getTeam()))
+                    .collect(Collectors.toList());
+        } catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 
     public UserDto getByEmail(String email) {
