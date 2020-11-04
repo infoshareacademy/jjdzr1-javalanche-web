@@ -1,49 +1,58 @@
 package com.infoshareacademy.restapi;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mysql.cj.xdevapi.JsonArray;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Request {
     public static final String API_URL = "http://localhost:8081/api/dayoff";
+    String updatedResponse = "";
+    public String sendGet() throws IOException {
+        URL urlForGetRequest = new URL(API_URL);
+        String readLine = null;
+        HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", "application/json");
 
-    public void sendGet() throws IOException {
-        URL url = new URL(API_URL);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
 
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("id", "userId");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
 
-        con.setDoOutput(true);
-        DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
-        out.flush();
-        out.close();
+        int responseCode1 = connection.getResponseCode();
 
-        con.setRequestProperty("Content-Type", "application/json");
-        String contentType = con.getHeaderField("Content-Type");
-        con.setConnectTimeout(5000);
-        con.setReadTimeout(5000);
+        if (responseCode1 == HttpURLConnection.HTTP_OK) {
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            while ((readLine = in.readLine()) != null) {
+                response.append(readLine);
+                updatedResponse = response.toString();
+                return updatedResponse;
+            }
+            in.close();
 
-        int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-
-        Reader streamReader = null;
-
-        if (status > 299) {
-            streamReader = new InputStreamReader(con.getErrorStream());
         } else {
-            streamReader = new InputStreamReader(con.getInputStream());
+            System.out.println("GET NOT WORKED");
         }
-        System.out.println(content.toString());
+        connection.disconnect();
+        System.out.println(updatedResponse);
+        return updatedResponse;
+    }
+    public Map jsonToList (){
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonObject object = (JsonObject) parser.parse(updatedResponse);
+
+
+      }
     }
 }

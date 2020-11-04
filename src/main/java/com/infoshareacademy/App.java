@@ -1,6 +1,7 @@
 package com.infoshareacademy;
 
 import com.infoshareacademy.restapi.ParameterStringBuilder;
+import com.infoshareacademy.restapi.Request;
 import com.infoshareacademy.service.DayOffService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,110 +21,112 @@ public class App {
 
     public static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     public static final String API_URL = "http://localhost:8081/api/dayoff";
+
     public static void main(String[] args) throws IOException {
+        System.out.println("jAvalanche");
+//
+//        final String POST_PARAMS = "{\n" + "\"id\": 1,\r\n" +
+//
+//        "\"userId\": 1\r\n}";
+//
+//        System.out.println(POST_PARAMS);
+//
+//        URL obj = new URL(API_URL);
+//
+//        HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+//
+//        postConnection.setRequestMethod("POST");
+//
+//        postConnection.setRequestProperty("userId","1");
+//
+//        postConnection.setRequestProperty("Content-Type", "application/json");
+//
+//        postConnection.setDoOutput(true);
+//
+//        OutputStream os = postConnection.getOutputStream();
+//
+//        os.write(POST_PARAMS.getBytes());
+//
+//        os.flush();
+//
+//        os.close();
+//
+//
+//        int responseCode = postConnection.getResponseCode();
+//
+//        System.out.println("POST Response Code :  " + responseCode);
+//
+//        System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+//
+//        if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
+//
+//            BufferedReader in = new BufferedReader(new InputStreamReader(
+//
+//                    postConnection.getInputStream()));
+//
+//            String inputLine;
+//
+//            StringBuffer response = new StringBuffer();
+//
+//            while ((inputLine = in .readLine()) != null) {
+//
+//                response.append(inputLine);
+//
+//            } in .close();
+//
+//            // print result
+//
+//            System.out.println(response.toString());
+//
+//        } else {
+//
+//            System.out.println("POST NOT WORKED");
+//
+//        }
 
-
-        final String POST_PARAMS = "{\n" + "\"id\": 1,\r\n" +
-
-        "\"userId\": 1\r\n}";
-
-        System.out.println(POST_PARAMS);
-
-        URL obj = new URL(API_URL);
-
-        HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
-
-        postConnection.setRequestMethod("POST");
-
-        postConnection.setRequestProperty("userId","1");
-
-        postConnection.setRequestProperty("Content-Type", "application/json");
-
-        postConnection.setDoOutput(true);
-
-        OutputStream os = postConnection.getOutputStream();
-
-        os.write(POST_PARAMS.getBytes());
-
-        os.flush();
-
-        os.close();
-
-
-        int responseCode = postConnection.getResponseCode();
-
-        System.out.println("POST Response Code :  " + responseCode);
-
-        System.out.println("POST Response Message : " + postConnection.getResponseMessage());
-
-        if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-
-                    postConnection.getInputStream()));
-
-            String inputLine;
-
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in .readLine()) != null) {
-
-                response.append(inputLine);
-
-            } in .close();
-
-            // print result
-
-            System.out.println(response.toString());
-
-        } else {
-
-            System.out.println("POST NOT WORKED");
-
-        }
-
-        URL urlForGetRequest = new URL(API_URL);
-
-        String readLine = null;
-
-        HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
-
-        conection.setRequestMethod("GET");
-
-        conection.setRequestProperty("userId", "a1bcdef"); // set userId its a sample here
-
-        int responseCode1 = conection.getResponseCode();
-
-        if (responseCode1 == HttpURLConnection.HTTP_OK) {
-
-            BufferedReader in = new BufferedReader(
-
-                    new InputStreamReader(conection.getInputStream()));
-
-            StringBuffer response = new StringBuffer();
-
-            while ((readLine = in .readLine()) != null) {
-
-                response.append(readLine);
-
-            } in .close();
-
-            // print result
-
-            System.out.println("JSON String Result " + response.toString());
-
-            //GetAndPost.POSTRequest(response.toString());
-
-        } else {
-
-            System.out.println("GET NOT WORKED");
-
-        }
-
-
-
-
-}
+//        URL urlForGetRequest = new URL(API_URL);
+//
+//        String readLine = null;
+//
+//        HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+//
+//        conection.setRequestMethod("GET");
+//
+//        conection.setRequestProperty("Content-Type", "application/json");
+//
+//        int responseCode1 = conection.getResponseCode();
+//
+//        if (responseCode1 == HttpURLConnection.HTTP_OK) {
+//
+//            BufferedReader in = new BufferedReader(
+//
+//                    new InputStreamReader(conection.getInputStream()));
+//
+//            StringBuilder response = new StringBuilder();
+//
+//            while ((readLine = in .readLine()) != null) {
+//
+//                response.append(readLine);
+//
+//            } in .close();
+//
+//            // print result
+//
+//            System.out.println("JSON String Result " + response.toString());
+//
+//            //GetAndPost.POSTRequest(response.toString());
+//
+//        } else {
+//
+//            System.out.println("GET NOT WORKED");
+//
+//        }
+//    }
+//
+//
+//
+//
+//}
 //        STDOUT.info("jAvalanche \n");
 //
 //
@@ -164,5 +167,8 @@ public class App {
 //            }
 //            System.out.println(content.toString());
 //        }
-    }
 
+        Request request = new Request();
+        System.out.println(request.sendGet());
+    }
+}
