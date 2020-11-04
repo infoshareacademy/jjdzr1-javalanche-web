@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
 <div class="container-fluid">
     <% List<UserDto> team = (List<UserDto>) request.getAttribute("team"); %>
     <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>
@@ -217,6 +216,5 @@
         $('#usersTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>
 

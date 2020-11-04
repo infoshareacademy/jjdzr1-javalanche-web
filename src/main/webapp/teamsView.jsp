@@ -3,7 +3,6 @@
 <%@ page import="com.infoshareacademy.DTO.TeamDto" %>
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
         <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
         <% UserDto admin = (UserDto) request.getAttribute("admin");%>
         <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
@@ -25,5 +24,4 @@
         $('#teamsTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>

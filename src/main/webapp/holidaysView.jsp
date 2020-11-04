@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
 
         <% UserDto user = (UserDto) request.getAttribute("user");%>
         <% List<DayOffDto> pendingHolidayRequests = (List<DayOffDto>) request.getAttribute("pendingHolidayRequests");%>
@@ -21,5 +20,4 @@
         $('#holidayRequestsTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>
