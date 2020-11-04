@@ -5,6 +5,8 @@ import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
+import com.infoshareacademy.repository.NationalHolidayRepository;
+
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -20,8 +22,12 @@ public class DayOffService {
 
     @Inject
     private DayOffRepository dayOffRepository;
+
     @Inject
     private UserService userService;
+
+    @Inject
+    private NationalHolidayRepository nationalHolidayRepository;
 
     public List<DayOffDto> getAll(){
         List<DayOff> dayOffs = dayOffRepository.getAll();
@@ -55,8 +61,9 @@ public class DayOffService {
         do {
             if (date.getDayOfWeek().toString().equals("SATURDAY") || date.getDayOfWeek().toString().equals("SUNDAY")){
 
-            }
-            else {
+            } else if (nationalHolidayRepository.findByDate(date)!=null){
+
+            } else {
                 dateList.add(date);
             }
             date = date.plusDays(1);

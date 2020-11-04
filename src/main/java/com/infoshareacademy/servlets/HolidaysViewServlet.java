@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/holidays")
 public class HolidaysViewServlet extends HttpServlet {
@@ -55,10 +56,6 @@ public class HolidaysViewServlet extends HttpServlet {
     }
 
     private List<DayOffDto> verifyIfListIsNotNull(List<DayOffDto> listToVerify){
-        if(listToVerify==null){
-            return new ArrayList<>();
-        } else {
-            return listToVerify;
-        }
+        return Objects.requireNonNullElseGet(listToVerify, ArrayList::new);
     }
 }

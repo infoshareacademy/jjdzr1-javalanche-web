@@ -1,6 +1,8 @@
 <%@include file="template/header.jsp"%>
 
 
+        <%@ include file="features/validator.jsp" %>
+
         <%@ include file="features/calendarView/calendar.jsp" %>
 
         <%@ include file="features/calendarView/placeHolidayRequestDay.jsp" %>

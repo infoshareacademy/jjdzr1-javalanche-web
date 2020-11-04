@@ -22,13 +22,30 @@ public class DeleteUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        Integer userId = Integer.valueOf(req.getParameter("userId"));
-        userRepository.delete(userRepository.findById(userId));
+        performRequestWithValidation(req);
 
-        RequestDispatcher view = getServletContext().getRequestDispatcher("/employeesView.jsp");
-
-        resp.sendRedirect(req.getContextPath() + "/employees");
+        RequestDispatcher view = getServletContext().getRequestDispatcher("/employees");
 
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            Integer userId = Integer.valueOf(req.getParameter("userId"));
+            userRepository.delete(userRepository.findById(userId));
+
+            message = "deleted successfully";
+            status = true;
+        } catch (Exception e){
+            message = "deleted unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "User");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 }

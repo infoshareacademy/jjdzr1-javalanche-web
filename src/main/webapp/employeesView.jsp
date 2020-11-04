@@ -6,10 +6,11 @@
 
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
+    <%@include file="features/validator.jsp" %>
+
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>Employees: </h3>
-        <br><br>
 
         <table id="employyesTable" class="table table-striped" width="100%">
             <thead>

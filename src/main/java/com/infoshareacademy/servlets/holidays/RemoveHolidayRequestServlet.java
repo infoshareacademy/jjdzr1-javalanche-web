@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,15 +37,31 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            withdrawHoliday(req);
-            view = getServletContext().getRequestDispatcher("/main.jsp");
-
-            resp.sendRedirect(req.getContextPath() + "/main");
+            performRequestWithValidation(req);
+            view = getServletContext().getRequestDispatcher("/main");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            withdrawHoliday(req);
+            message = "withdrawn successfully";
+            status = true;
+        } catch (Exception e){
+            message = "withdrawn unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Holiday request");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void withdrawHoliday(HttpServletRequest req) {
@@ -59,7 +76,7 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
                 .collect(Collectors.toList());
         DayOff dayOff = foundHoliday.get(0);
 
-        int amountOfDaysOffToReturn = dayOff.getListOfDays().size();
+        int amountOfDaysOffToReturn = new HashSet<>(dayOff.getListOfDays()).size();
         user.setDaysOffLeft(user.getDaysOffLeft() + amountOfDaysOffToReturn);
         userRepository.update(user);
 

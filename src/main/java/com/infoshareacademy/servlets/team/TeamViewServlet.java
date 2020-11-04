@@ -37,23 +37,19 @@ public class TeamViewServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
-//
-//            UserDto teamLeader = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-//
-//            req.setAttribute("teamLeader", teamLeader);
-//            req.setAttribute("users", userService.getAll());
-//
-//            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-//            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInTeam(req.getSession().getAttribute("username").toString()));
-//
-            UserDto user = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-            req.setAttribute("teamLeader", user);
-            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
+        if (req.getSession().getAttribute("username") != null) {
+
+            UserDto teamLeader = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
+
+            req.setAttribute("teamLeader", teamLeader);
+            req.setAttribute("users", userService.getAll());
+
+            req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
+            req.setAttribute("employeesInTeam", userService.createListOfEmployeesInTeam(req.getSession().getAttribute("username").toString()));
+
             view = getServletContext().getRequestDispatcher("/teamView.jsp");
 
-        }
-        else {
+        } else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);

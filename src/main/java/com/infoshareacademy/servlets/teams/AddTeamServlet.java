@@ -34,20 +34,36 @@ public class AddTeamServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
+        if (req.getSession().getAttribute("username") != null) {
 
+            performRequestWithValidation(req);
+
+            view = getServletContext().getRequestDispatcher("/teams");
+        } else {
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
+        }
+        view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
             String name = req.getParameter("addTeamName");
             int assignedTeamLeader = Integer.parseInt(req.getParameter("addTeamsLeader"));
             setNewTeam(name, assignedTeamLeader);
 
-            view = getServletContext().getRequestDispatcher("/teamsView.jsp");
+            message = "added successfully";
+            status = true;
+        } catch (Exception e) {
+            message = "added unsuccessfully";
+        }
 
-            resp.sendRedirect(req.getContextPath() + "/teams");
-        }
-        else {
-            view = getServletContext().getRequestDispatcher("/badrequest_404");
-        }
-        view.forward(req, resp);
+        req.getSession().setAttribute("task", "Team");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void setNewTeam(String name, int teamLeaderId) {
