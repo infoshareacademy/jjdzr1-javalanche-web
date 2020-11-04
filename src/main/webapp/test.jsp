@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
 <div class="container-fluid">
 
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
@@ -380,6 +379,5 @@
         $("#wrapper").toggleClass("toggled");
     });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>
 

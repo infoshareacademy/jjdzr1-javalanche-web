@@ -8,10 +8,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" rel="stylesheet">
 
-    <!-- Custom styles for table -->
     <link href="../css/table_date.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -23,13 +21,11 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <%@ include file="/features/favicon.jsp" %>
-    <!-- DataTables -->
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.22/datatables.min.css"/>
 
 </head>
 <body>
-<!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"
@@ -48,11 +44,12 @@
                     class="far fa-calendar-alt"></i> Calendar view</a>
             <a href="/employees" id="employees" class="list-group-item list-group-item-action bg-light"><i
                     class="fas fa-user-alt"></i> Employees</a>
+
             <c:if test="${sessionScope.levelOfAccess==2}">
                 <a href="/team" id="team" class="list-group-item list-group-item-action bg-light">
                     <i class="fas fa-user-friends"></i> Team</a>
-                <a href="/statistics" id="statistics" class="list-group-item list-group-item-action bg-light">
-                    <i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="/holidays" id="team" class="list-group-item list-group-item-action bg-light">
+                    <i class="fab fa-algolia"></i> Holidays</a>
             </c:if>
             <c:if test="${sessionScope.levelOfAccess==3}">
                 <a href="/teams" id="teams" class="list-group-item list-group-item-action bg-light">
@@ -61,11 +58,10 @@
                     <i class="fab fa-algolia"></i> Holidays</a>
                 <a href="/management" id="management" class="list-group-item list-group-item-action bg-light"><i
                         class="fas fa-cog"></i> Management</a>
-                <a href="/statistics" id="statistics" class="list-group-item list-group-item-action bg-light">
-                    <i class="fas fa-chart-bar"></i> Statistics</a>
             </c:if>
         </div>
     </div>
+
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
             <button class="btn btn-outline-light" id="menu-toggle">Menu</button>

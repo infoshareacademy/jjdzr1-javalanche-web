@@ -36,7 +36,9 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="addNewUserButton" <%if (teamLeaders.isEmpty()) {%>disabled<%}%>>Add</button>
+                    <button type="submit" class="btn btn-primary" id="addNewUserButton"
+                            <%if (teamLeaders.isEmpty()) {%>disabled<%}%>>Add
+                    </button>
                 </div>
             </form>
         </div>
@@ -45,10 +47,9 @@
 
 <div class="row justify-content-sm-end" style="">
     <div class="col-md-2 .ml-md-auto">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeamModal" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px; ">Add new team
+        <button type="button" class="btn btn-primary btn-lg" aria-label="Basic example"
+                data-toggle="modal" data-target="#addTeamModal"
+                style="position: fixed;bottom: 20px;right: 20px; ">Add new team
         </button>
     </div>
 </div>

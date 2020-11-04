@@ -42,5 +42,17 @@ public class DayOffRepository extends DayOffDao {
     public List<DayOff> getHolidayRequestsWithinTeam(Integer teamId){
         return (List<DayOff>) entityManager.createQuery("FROM DayOff where id like :teamId and user.levelOfAccess = 1").getResultList();
     }
+
+    public List<DayOff> getOverlappingHolidays(DayOff dayOff){
+        return (List<DayOff>) entityManager.createQuery("FROM DayOff  where user.email like :email and (firstDay between :firstDay and :lastDay or lastDay between :firstDay and :lastDay)")
+                .setParameter("email", dayOff.getUser().getEmail())
+                .setParameter("firstDay", dayOff.getFirstDay())
+                .setParameter("lastDay", dayOff.getLastDay())
+                .getResultList();
+    }
+
+    public void uploadDaysOffForNewYear(){
+        entityManager.createQuery("UPDATE User set daysOffLeft = daysOffLeft + 26").executeUpdate();
+    }
 }
 

@@ -1,16 +1,16 @@
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
-<%@include file="template/header.jsp"%>
+<%@include file="template/header.jsp" %>
 
-<!-- MAIN CONTENT GOES HERE -->
 <div class="container-fluid">
 
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
+    <%@include file="features/validator.jsp" %>
+
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>Employees: </h3>
-        <br><br>
 
         <table id="employyesTable" class="table table-striped" width="100%">
             <thead>
@@ -42,28 +42,61 @@
                 <% if (user.getTeam() == null || user.getTeam().getName() == null) { %>
                 <td>Not assigned</td>
                 <% } else { %>
-                <td><%=user.getTeam().getName()%></td>
+                <td><%=user.getTeam().getName()%>
+                </td>
                 <% } %>
                 <td>
-                    <div class="row">
-                        <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group mr-2" role="group">
-                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#editModal<%=user.getId()%>">Edit user
-                                </button>
-                            </div>
-                            <div class="btn-group mr-2" role="group">
-                                <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#editPassword<%=user.getId()%>">Change password
-                                </button>
-                            </div>
-                            <div class="btn-group mr-2" role="group">
-                                <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#deleteModal<%=user.getId()%>">Delete user
-                                </button>
+                    <c:if test="${sessionScope.levelOfAccess>1}">
+                        <div class="row">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#editModal<%=user.getId()%>">Edit user
+                                    </button>
+                                </div>
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#editPassword<%=user.getId()%>">Change password
+                                    </button>
+                                </div>
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#deleteModal<%=user.getId()%>">Delete user
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
+                    <c:if test="${sessionScope.levelOfAccess==1}">
+                        <div class="row">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-secondary btn-sm"
+                                            data-target="#editModal<%=user.getId()%> disabled"
+                                            data-toggle="popover" data-placement="bottom"
+                                            title="You need higher permissions"
+                                    >Edit user
+                                    </button>
+                                </div>
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-secondary btn-sm"
+                                            data-target="#editPassword<%=user.getId()%> disabled"
+                                            data-toggle="popover" data-placement="bottom"
+                                            title="You need higher permissions"
+                                    >Change password
+                                    </button>
+                                </div>
+                                <div class="btn-group mr-2" role="group">
+                                    <button type="submit" class="btn btn-secondary btn-sm"
+                                            data-target="#deleteModal<%=user.getId()%> disabled"
+                                            data-toggle="popover" data-placement="bottom"
+                                            title="You need higher permissions"
+                                    >Delete user
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
                 </td>
             </tr>
             <% } %>
@@ -82,7 +115,7 @@
         </table>
     </div>
 
-    <% for (UserDto user: users) { %>
+    <% for (UserDto user : users) { %>
     <div class="modal fade" id="deleteModal<%=user.getId()%>" tabindex="-1" role="form">
         <div class="modal-dialog" role="form">
             <div class="modal-content">
@@ -94,7 +127,8 @@
                 </div>
                 <% if (user.getTeam() != null) { %>
                 <div class="modal-body">
-                    <p><%=user.getFirstName()%> <%=user.getLastName()%> is assigned to <%=user.getTeam().getName()%></p>
+                    <p><%=user.getFirstName()%> <%=user.getLastName()%> is assigned to <%=user.getTeam().getName()%>
+                    </p>
                     <p>Please remove user from team first.</p>
                 </div>
                 <div class="modal-footer">
@@ -141,19 +175,25 @@
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">Name: </span>
                                     </div>
-                                    <input type="text" name="name" value="<%=user.getFirstName()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
+                                    <input type="text" name="name" value="<%=user.getFirstName()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">Last name: </span>
                                     </div>
-                                    <input type="text" name="lastName" value="<%=user.getLastName()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
+                                    <input type="text" name="lastName" value="<%=user.getLastName()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">E-mail: </span>
                                     </div>
-                                    <input type="email" name="email" value="<%=user.getEmail()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
+                                    <input type="email" name="email" value="<%=user.getEmail()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
                                 </div>
 
                                 <div class="input-group input-group-sm mb-3">
@@ -161,20 +201,32 @@
                                         <span class="input-group-text col-sm-12">User type: </span>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" name="levelOfAccess" id="radioButtonAdmin<%=user.getId()%>" class="form-control-input" value="3"><label class="form-control-label" for="radioButtonAdmin<%=user.getId()%>">Admin</label>
+                                        <input type="radio" name="levelOfAccess" id="radioButtonAdmin<%=user.getId()%>"
+                                               class="form-control-input" value="3"><label class="form-control-label"
+                                                                                           for="radioButtonAdmin<%=user.getId()%>">Admin</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" name="levelOfAccess" id="radioButtonTeamLeader<%=user.getId()%>" class="form-control-input" value="2"><label class="form-control-label" for="radioButtonTeamLeader<%=user.getId()%>">Team leader</label>
+                                        <input type="radio" name="levelOfAccess"
+                                               id="radioButtonTeamLeader<%=user.getId()%>" class="form-control-input"
+                                               value="2"><label class="form-control-label"
+                                                                for="radioButtonTeamLeader<%=user.getId()%>">Team
+                                        leader</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" name="levelOfAccess" id="radioButtonEmployee<%=user.getId()%>" class="form-control-input" value="1"><label class="form-control-label" for="radioButtonEmployee<%=user.getId()%>">Employee</label>
+                                        <input type="radio" name="levelOfAccess"
+                                               id="radioButtonEmployee<%=user.getId()%>" class="form-control-input"
+                                               value="1"><label class="form-control-label"
+                                                                for="radioButtonEmployee<%=user.getId()%>">Employee</label>
                                     </div>
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">Days off left: </span>
                                     </div>
-                                    <input type="number" name="daysOff" value="<%=user.getDaysOffLeft()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Enter number of remaining days off" required>
+                                    <input type="number" name="daysOff" value="<%=user.getDaysOffLeft()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm"
+                                           placeholder="Enter number of remaining days off" required>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +252,8 @@
                     </button>
                 </div>
 
-                <form method="post" action="${pageContext.request.contextPath}/editpassword" autocomplete="off" id="editUserForm<%=user.getId()%>">
+                <form method="post" action="${pageContext.request.contextPath}/editpassword" autocomplete="off"
+                      id="editUserForm<%=user.getId()%>">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col">
@@ -208,13 +261,17 @@
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">Password:</span>
                                     </div>
-                                    <input type="password" name="password" id="password<%=user.getId()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required autocomplete="new-password">
+                                    <input type="password" name="password" id="password<%=user.getId()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" required autocomplete="new-password">
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend col-sm-4">
                                         <span class="input-group-text col-sm-12">Retype password:</span>
                                     </div>
-                                    <input type="password" name="confirmPassword" id="confirmPassword<%=user.getId()%>" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                    <input type="password" name="confirmPassword" id="confirmPassword<%=user.getId()%>"
+                                           class="form-control col-sm-8" aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm" required>
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend col-sm-4">
@@ -229,7 +286,9 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="updateButton<%=user.getId()%>" disabled>Change password</button>
+                        <button type="submit" class="btn btn-primary" id="updateButton<%=user.getId()%>" disabled>Change
+                            password
+                        </button>
                     </div>
                 </form>
             </div>
@@ -238,6 +297,7 @@
 
     <script>
         document.getElementById("editModal<%=user.getId()%>").onclick = functionRadioButton();
+
         function functionRadioButton() {
             if ((<%=user.getLevelOfAccess()%>) === 1) {
                 document.getElementById("radioButtonEmployee<%=user.getId()%>").checked = true;
@@ -247,10 +307,11 @@
                 document.getElementById("radioButtonAdmin<%=user.getId()%>").checked = true;
             }
         }
+
         $('#password<%=user.getId()%>, #confirmPassword<%=user.getId()%>').on('keyup', function () {
             $('#message<%=user.getId()%>').html('password doesn\'t match!').css('color', 'red');
 
-            if ($('#password<%=user.getId()%>').val().length === 0 || $('#confirmPassword<%=user.getId()%>').val().length ===0){
+            if ($('#password<%=user.getId()%>').val().length === 0 || $('#confirmPassword<%=user.getId()%>').val().length === 0) {
                 document.getElementById("addNewUserButton<%=user.getId()%>").disabled = true;
 
             } else if ($('#password<%=user.getId()%>').val() === $('#confirmPassword<%=user.getId()%>').val()) {
@@ -266,7 +327,10 @@
     <br><br>
     <div class="row justify-content-sm-start">
         <div class="col-md-2 .ml-md-auto">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add new user</button>
+            <c:if test="${sessionScope.levelOfAccess>1}">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add new user
+                </c:if>
+            </button>
         </div>
     </div>
 </div>
@@ -289,19 +353,22 @@
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Name: </span>
                                 </div>
-                                <input type="text" name="name" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
+                                <input type="text" name="name" class="form-control col-sm-8" aria-label="Small"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="Name" required>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Last name: </span>
                                 </div>
-                                <input type="text" name="lastName" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
+                                <input type="text" name="lastName" class="form-control col-sm-8" aria-label="Small"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="Lastname" required>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">E-mail: </span>
                                 </div>
-                                <input type="email" name="email" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
+                                <input type="email" name="email" class="form-control col-sm-8" aria-label="Small"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="Email" required>
                             </div>
 
                             <div class="input-group input-group-sm mb-3">
@@ -309,32 +376,45 @@
                                     <span class="input-group-text col-sm-12">User type: </span>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="levelOfAccess" id="radioButtonAdmin" class="form-control-input" value="3"><label class="form-control-label" for="radioButtonAdmin">Admin</label>
+                                    <input type="radio" name="levelOfAccess" id="radioButtonAdmin"
+                                           class="form-control-input" value="3"><label class="form-control-label"
+                                                                                       for="radioButtonAdmin">Admin</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="levelOfAccess" id="radioButtonTeamLeader" class="form-control-input" value="2"><label class="form-control-label" for="radioButtonTeamLeader">Team leader</label>
+                                    <input type="radio" name="levelOfAccess" id="radioButtonTeamLeader"
+                                           class="form-control-input" value="2"><label class="form-control-label"
+                                                                                       for="radioButtonTeamLeader">Team
+                                    leader</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="levelOfAccess" id="radioButtonEmployee" class="form-control-input" value="1" checked><label class="form-control-label" for="radioButtonEmployee">Employee</label>
+                                    <input type="radio" name="levelOfAccess" id="radioButtonEmployee"
+                                           class="form-control-input" value="1" checked><label
+                                        class="form-control-label" for="radioButtonEmployee">Employee</label>
                                 </div>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Days off left: </span>
                                 </div>
-                                <input type="number" name="daysOff" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Enter number of remaining days off" required>
+                                <input type="number" name="daysOff" class="form-control col-sm-8" aria-label="Small"
+                                       aria-describedby="inputGroup-sizing-sm"
+                                       placeholder="Enter number of remaining days off" required>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Password:</span>
                                 </div>
-                                <input type="password" name="password" id="password" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required autocomplete="new-password">
+                                <input type="password" name="password" id="password" class="form-control col-sm-8"
+                                       aria-label="Small" aria-describedby="inputGroup-sizing-sm" required
+                                       autocomplete="new-password">
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
                                     <span class="input-group-text col-sm-12">Retype password:</span>
                                 </div>
-                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control col-sm-8" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <input type="password" name="confirmPassword" id="confirmPassword"
+                                       class="form-control col-sm-8" aria-label="Small"
+                                       aria-describedby="inputGroup-sizing-sm" required>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend col-sm-4">
@@ -360,7 +440,7 @@
     $('#password, #confirmPassword').on('keyup', function () {
         $('#message').html('password doesn\'t match!').css('color', 'red');
 
-        if ($('#password').val().length === 0 || $('#confirmPassword').val().length ===0){
+        if ($('#password').val().length === 0 || $('#confirmPassword').val().length === 0) {
             document.getElementById("addNewUserButton").disabled = true;
 
         } else if ($('#password').val() === $('#confirmPassword').val()) {
@@ -372,11 +452,11 @@
     });
     $(document).ready(function () {
         $('#employyesTable').DataTable({
-            "dom":'<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+            "dom": '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
         });
         $('#employyesTable_filter label').addClass('justify-content-sm-end');
         $(".dropdown-toggle").dropdown();
     });
 </script>
 <!-- END OF MAIN CONTENT -->
-<%@include file="template/footer.jsp"%>
+<%@include file="template/footer.jsp" %>

@@ -1,6 +1,7 @@
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
+
+        <%@ include file="features/validator.jsp" %>
 
         <%@ include file="features/calendarView/calendar.jsp" %>
 
@@ -16,5 +17,4 @@
                 $('#calendarTable_filter label').addClass('justify-content-sm-end');
         });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>

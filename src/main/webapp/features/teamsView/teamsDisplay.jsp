@@ -38,27 +38,14 @@
                                         data-target="#editModal<%=team.getId()%>">Edit team
                                 </button>
                             </div>
-                            <div class="btn-group mr-2" role="group" data-html="true">
-                                <button type="button" class="btn btn-info btn-sm" data-html="true"
-                                        data-toggle="popover" data-placement="bottom" title="Users in team"
-                                        data-content=
-                                                "<%
-                                                for(UserDto userInTeam : usersInTeam){
-                                                if(team.getId()==userInTeam.getTeam().getId()){%>
-                                                <%=userInTeam.getEmail() + ": " +
-                                                 " " + userInTeam.getFirstName() + " " + userInTeam.getLastName() + "<br>"%>
-<%
-                                            }
-                                        }
-                                %>"
-                                >
+                            <div class="btn-group mr-2" role="group">
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#viewTeamModal<%=team.getId()%>"
+                                        id="viewTeamButton<%=team.getId()%>">
                                     View team
                                 </button>
-                                <script>
-                                    $(function () {
-                                        $('[data-toggle="popover"]').popover({ trigger: "hover", html: true })
-                                    })
-                                </script>
+
+                                <%@ include file="viewEmployeesToTeam.jsp" %>
                             </div>
                             <div class="btn-group mr-2" role="group">
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
