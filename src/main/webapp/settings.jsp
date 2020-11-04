@@ -1,16 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="pl">
-<title>Holiday calendar</title>
-<head>
-    <%@ include file="template/headSection.jsp" %>
-</head>
-<body>
-<div class="d-flex" id="wrapper">
-    <%@ include file="template/sidebar.jsp" %>
+<%@include file="template/header.jsp"%>
 
-    <div id="page-content-wrapper">
-        <%@ include file="template/headerbar.jsp" %>
-
+<!-- MAIN CONTENT GOES HERE -->
         <div class="col-md-6">
             <h3 class="h3">Account Settings</h3>
         </div>
@@ -19,9 +9,5 @@
         <%--INSERT YOUR CODE HERE--%>
         <%--INSERT YOUR CODE HERE--%>
 
-    </div>
-
-</div>
-
-</body>
-</html>
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>

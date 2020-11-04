@@ -4,11 +4,9 @@
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
-        <h4>
-            <i class="fas fa-search-plus"></i> Search for teams:
-        </h4>
-        <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
-        <table class="table table-striped" cellspacing="0" width="100%">
+        <br>
+        <table class="table table-striped" id="teamsTable" cellspacing="0" width="100%">
+            <thead>
             <tr>
                 <th scope="row">#</th>
                 <th scope="row">Name</th>
@@ -17,7 +15,8 @@
                 <th scope="row">Last name</th>
                 <th scope="row">Action</th>
             </tr>
-            <tbody id="usersTable">
+            </thead>
+            <tbody>
             <% int i = 1;%>
             <% for (TeamDto team : teams) { %>
             <tr>
@@ -73,6 +72,16 @@
             </tr>
             <% } %>
             </tbody>
+            <tfoot>
+            <tr>
+                <th scope="row">#</th>
+                <th scope="row">Name</th>
+                <th scope="row">E-mail</th>
+                <th scope="row">First name</th>
+                <th scope="row">Last name</th>
+                <th scope="row">Action</th>
+            </tr>
+            </tfoot>
         </table>
     </div>
 </div>

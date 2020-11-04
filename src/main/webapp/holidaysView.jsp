@@ -1,18 +1,8 @@
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.stream.Collectors" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="pl">
-<title>Holidays list</title>
-<head>
-    <%@ include file="template/headSection.jsp" %>
-</head>
-<body>
-<div class="d-flex" id="wrapper">
-    <%@ include file="template/sidebar.jsp" %>
+<%@include file="template/header.jsp"%>
 
-    <div id="page-content-wrapper">
-        <%@ include file="template/headerbar.jsp" %>
+<!-- MAIN CONTENT GOES HERE -->
 
         <% UserDto user = (UserDto) request.getAttribute("user");%>
         <% List<DayOffDto> pendingHolidayRequests = (List<DayOffDto>) request.getAttribute("pendingHolidayRequests");%>
@@ -23,6 +13,13 @@
         <%@include file="features/holidaysView/holidaysDisplay.jsp"%>
         <% } %>
 
-    </div>
-
-</div>
+<script>
+    $(document).ready(function () {
+        $('#holidayRequestsTable').DataTable({
+            "dom":'<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+        });
+        $('#holidayRequestsTable_filter label').addClass('justify-content-sm-end');
+    });
+</script>
+<!-- END OF MAIN CONTENT -->
+<%@include file="template/footer.jsp"%>

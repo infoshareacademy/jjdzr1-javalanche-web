@@ -19,12 +19,8 @@
     <% int numberOfDaysOf = (int) request.getAttribute("numberOfDaysOff");%>
     <div id="calendar" class="container-fluid calendar">
         <br>
-        <h4>
-            <i class="fas fa-search-plus"></i> Search for employee:
-        </h4>
-        <input class="form-control" id="myInput" type="text" placeholder="Type here..."><br>
 
-        <table class="calendar" cellspacing="0" cellpadding="0">
+        <table class="calendar" id="calendarTable" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
                 <th scope="col" class=""></th>
@@ -52,7 +48,7 @@
                 %>
             </tr>
             </thead>
-            <tbody id="calendarTable">
+            <tbody>
             <% for (int i = 0; i < users.size(); i++) { %>
             <tr>
                 <td>
@@ -131,6 +127,9 @@
             </tr>
             <% } %>
             </tbody>
+            <tfoot>
+
+            </tfoot>
         </table>
     </div>
 </div>
