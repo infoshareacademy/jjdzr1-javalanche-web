@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,25 +73,26 @@ public class AddHolidayRequestServlet extends HttpServlet {
             userRepository.update(user);
             dayOffRepository.create(dayOff);
         }
+
     }
 
     private int appendUsersHolidayRequests(User user, DayOff dayOff, List<DayOff> overlappingRequests) {
-        List<LocalDate> listOfDaysOff = new ArrayList<>();
+        Set<LocalDate> listOfDaysOff = new HashSet<>();
 
         overlappingRequests
-                .forEach(entry -> listOfDaysOff.addAll(entry.getListOfDays()));
+                .stream().map(entry -> listOfDaysOff
+                        .addAll(entry
+                                .getListOfDays())).collect(Collectors.toSet()).size();
 
         listOfDaysOff
                 .stream()
                 .filter(date -> dayOff.getFirstDay().isAfter(date) | dayOff.getLastDay().isBefore(date));
 
-        int numberOfDaysOffRemainingToAdd = listOfDaysOff.size();
-
         Set<DayOff> setOfDaysOffRequestsToAppend = user.getDaysOff();
         setOfDaysOffRequestsToAppend.removeAll(overlappingRequests.stream().collect(Collectors.toSet()));
         setOfDaysOffRequestsToAppend.add(dayOff);
         user.setDaysOff(setOfDaysOffRequestsToAppend);
-        return numberOfDaysOffRemainingToAdd;
+        return listOfDaysOff.size();
     }
 
     private void clearOverlappingHolidayRequests(List<DayOff> overlappingRequests) {

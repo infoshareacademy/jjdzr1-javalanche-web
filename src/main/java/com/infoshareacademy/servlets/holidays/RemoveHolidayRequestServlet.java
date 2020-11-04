@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
                 .collect(Collectors.toList());
         DayOff dayOff = foundHoliday.get(0);
 
-        int amountOfDaysOffToReturn = dayOff.getListOfDays().size();
+        int amountOfDaysOffToReturn = new HashSet<>(dayOff.getListOfDays()).size();
         user.setDaysOffLeft(user.getDaysOffLeft() + amountOfDaysOffToReturn);
         userRepository.update(user);
 

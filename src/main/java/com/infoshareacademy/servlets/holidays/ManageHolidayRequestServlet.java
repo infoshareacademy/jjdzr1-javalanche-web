@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @WebServlet("/manageholidays")
 public class ManageHolidayRequestServlet extends HttpServlet {
@@ -63,7 +67,7 @@ public class ManageHolidayRequestServlet extends HttpServlet {
         int holidayRequestId = Integer.parseInt(req.getParameter("holidayId"));
         DayOff dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
 
-        int amountOfDaysOffToReturn = dayOff.getListOfDays().size();
+        int amountOfDaysOffToReturn = new HashSet<>(dayOff.getListOfDays()).size();
         User user = dayOff.getUser();
         user.setDaysOffLeft(user.getDaysOffLeft() + amountOfDaysOffToReturn);
         userRepository.update(user);

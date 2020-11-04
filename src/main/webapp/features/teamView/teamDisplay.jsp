@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <% List<UserDto> team = (List<UserDto>) request.getAttribute("team"); %>
-    <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>
+    <% List<UserDto> team = (List<UserDto>) request.getAttribute("employeesInTeam"); %><%--
+    <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>--%>
     <br>
     <h3><%=teamLeader.getTeam().getName()%>:</h3>
     <br><br>
@@ -193,14 +193,6 @@
     </script>
 
     <% } %>
-    <br><br>
-    <div class="row justify-content-sm-start">
-        <div class="col-sm-2">
-            <button type="button" class="btn btn-primary">
-                Add user to team
-            </button>
-        </div>
-    </div>
 
 </div>
 
@@ -212,3 +204,15 @@
         $('#usersTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
+
+<div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style="position: absolute; bottom: 15px; right: 15px">
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#addtoteammodal">Add to team</button>
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#removefromteammodal">Remove from team</button>
+</div>
+
+<%@ include file="addEmployeesToTeam.jsp" %>
+<%@ include file="removeEmployeesFromTeam.jsp" %>

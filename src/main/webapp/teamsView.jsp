@@ -25,5 +25,6 @@
         $('#teamsTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
+
 <!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>
