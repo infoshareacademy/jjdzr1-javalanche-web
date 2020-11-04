@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet("/removefromteam")
-public class removeEmployeesFromTeamServlet extends HttpServlet {
+public class RemoveEmployeesFromTeamServlet extends HttpServlet {
 
     @Inject
     private UserRepository userRepository;
@@ -65,7 +65,7 @@ public class removeEmployeesFromTeamServlet extends HttpServlet {
             String[] employeesChosenForRemovalFromTeam = req.getParameterValues("selectedUsersToRemoveFromTeam");
             removeUsersFromTeamFormHandler(req, employeesChosenForRemovalFromTeam);
 
-            view = getServletContext().getRequestDispatcher("/teamView.jsp");
+            view = getServletContext().getRequestDispatcher("/teamDisplay.jsp");
 
             resp.sendRedirect(req.getContextPath() + "/team");
         }

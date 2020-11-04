@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet("/addtoteam")
-public class addEmployeesToTeamServlet extends HttpServlet {
+public class AddEmployeesToTeamServlet extends HttpServlet {
 
     @Inject
     private UserRepository userRepository;
@@ -42,7 +42,7 @@ public class addEmployeesToTeamServlet extends HttpServlet {
             String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
             addUsersToTeamFormHandler(req, employeesChosenForATeam);
 
-            view = getServletContext().getRequestDispatcher("/teamView.jsp");
+            view = getServletContext().getRequestDispatcher("/teamDisplay.jsp");
 
             resp.sendRedirect(req.getContextPath() + "/team");
         }
