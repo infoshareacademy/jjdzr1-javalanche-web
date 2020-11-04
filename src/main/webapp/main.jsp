@@ -2,6 +2,8 @@
 
 <!-- MAIN CONTENT GOES HERE -->
 
+        <%@ include file="features/validator.jsp" %>
+
         <%@ include file="features/calendarView/calendar.jsp" %>
 
         <%@ include file="features/calendarView/placeHolidayRequestDay.jsp" %>

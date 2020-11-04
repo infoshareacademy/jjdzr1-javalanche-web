@@ -36,10 +36,10 @@ public class ManageHolidayRequestServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
-            manageHolidayRequestDecision(req);
-            view = getServletContext().getRequestDispatcher("/holidaysView.jsp");
+            performRequestWithValidation(req);
 
-            resp.sendRedirect(req.getContextPath() + "/holidays");
+            view = getServletContext().getRequestDispatcher("/holidays");
+            //resp.sendRedirect(req.getContextPath() + "/holidays");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
@@ -47,11 +47,32 @@ public class ManageHolidayRequestServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    private void manageHolidayRequestDecision(HttpServletRequest req) {
-        switch (req.getQueryString()){
-            case "acceptholiday" -> acceptHolidayRequest(req);
-            case "declineholiday" -> rejectHolidayRequest(req);
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String decision = "";
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            decision = manageHolidayRequestDecision(req);
+            message = decision + " successfully";
+            status = true;
+        } catch (Exception e){
+            message = decision + " unsuccessfully";
         }
+
+        req.getSession().setAttribute("task", "Holiday request");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
+    }
+
+    private String manageHolidayRequestDecision(HttpServletRequest req) {
+        if ("acceptholiday".equals(req.getQueryString())) {
+            acceptHolidayRequest(req);
+            return "accepted";
+        }
+        rejectHolidayRequest(req);
+        return "rejected";
     }
 
     private void acceptHolidayRequest(HttpServletRequest req) {

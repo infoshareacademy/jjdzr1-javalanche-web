@@ -7,6 +7,8 @@
 <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>
 <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
+<%@include file="features/validator.jsp" %>
+
 <% if (teamLeader.getTeam() == null || teamLeader.getTeam().getUserEmail().isEmpty()) { %>
 <%@include file="features/teamView/noTeamLeaderDisplay.jsp" %>
 <% } else { %>

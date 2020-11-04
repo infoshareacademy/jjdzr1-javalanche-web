@@ -37,15 +37,31 @@ public class RemoveHolidayRequestServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            withdrawHoliday(req);
-            view = getServletContext().getRequestDispatcher("/main.jsp");
-
-            resp.sendRedirect(req.getContextPath() + "/main");
+            performRequestWithValidation(req);
+            view = getServletContext().getRequestDispatcher("/main");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            withdrawHoliday(req);
+            message = "withdrawn successfully";
+            status = true;
+        } catch (Exception e){
+            message = "withdrawn unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Holiday request");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     private void withdrawHoliday(HttpServletRequest req) {

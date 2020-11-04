@@ -7,10 +7,11 @@
 
     <% List<UserDto> users = (List<UserDto>) request.getAttribute("users");%>
 
+    <%@include file="features/validator.jsp" %>
+
     <div class="container-fluid" style="overflow: auto">
         <br>
         <h3>Employees: </h3>
-        <br><br>
 
         <table id="employyesTable" class="table table-striped" width="100%">
             <thead>
@@ -266,7 +267,8 @@
     <br><br>
     <div class="row justify-content-sm-start">
         <div class="col-md-2 .ml-md-auto">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add new user</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUserModal"
+                    style="absolute: fixed; bottom: 20px; float: right">Add new user</button>
         </div>
     </div>
 </div>

@@ -43,10 +43,23 @@
                             </div>
 
                         </fieldset>
-                        <div class="clearfix"></div>
+                        <div style="margin-top: 20px">
+                            <% try { if (request.getSession().getAttribute("success").equals(false) & !request.getSession().getAttribute("message").toString().isEmpty()) {%>
+                            <div class="alert alert-danger" role="alert">
+                                <%=request.getSession().getAttribute("task")%>
+                                <%=" "%>
+                                <%=request.getSession().getAttribute("message")%>
+                            </div>
+                            <%} } catch (Exception ignored){
+
+                            } finally {
+                                request.getSession().removeAttribute("task");
+                                request.getSession().removeAttribute("message");
+                                request.getSession().removeAttribute("message");
+                            }%>
+                        </div>
                     </form>
 
-                    <div class="clearfix"></div>
 
                 </div> <!-- end login -->
                 <div class="logo">

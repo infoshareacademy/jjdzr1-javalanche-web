@@ -39,17 +39,34 @@ public class AddEmployeesToTeamServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null){
 
-            String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
-            addUsersToTeamFormHandler(req, employeesChosenForATeam);
+            performRequestWithValidation(req);
+            view = getServletContext().getRequestDispatcher("/team");
 
-            view = getServletContext().getRequestDispatcher("/teamDisplay.jsp");
-
-            resp.sendRedirect(req.getContextPath() + "/team");
         }
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            String[] employeesChosenForATeam = req.getParameterValues("selectedUsersForTeam");
+            addUsersToTeamFormHandler(req, employeesChosenForATeam);
+
+            message = "added to team successfully";
+            status = true;
+        } catch (Exception e) {
+            message = "added to team  unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Employees");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     public void addUsersToTeamFormHandler(HttpServletRequest req, String[] chosenEmployeesUsernames) {

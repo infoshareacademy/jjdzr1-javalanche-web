@@ -27,7 +27,6 @@ public class LoginServlet extends HttpServlet {
             userService.fillDefaultUser();
         }
         resp.setCharacterEncoding("UTF-8");
-        //TODO jeżeli użytkownik jest zalogowany to informacja, że taki użytkonik zalogowany w sesji
         RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
         view.forward(req, resp);
     }
@@ -53,8 +52,22 @@ public class LoginServlet extends HttpServlet {
 
             view.forward(req, resp);
         } else {
+            performRequestWithValidation(req);
             RequestDispatcher view = getServletContext().getRequestDispatcher("/login.jsp");
             view.forward(req, resp);
         }
+    }
+
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+            message = "unsuccessful";
+
+        req.getSession().setAttribute("task", "Logging");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 }

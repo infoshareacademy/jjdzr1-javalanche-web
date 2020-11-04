@@ -44,17 +44,35 @@ public class AddHolidayRequestServlet extends HttpServlet {
         RequestDispatcher view;
         if (req.getSession().getAttribute("username") != null) {
 
-            LocalDate startDay = LocalDate.parse(req.getParameter("StartDate"));
-            LocalDate endDay = LocalDate.parse(req.getParameter("EndDate"));
-            setNewHolidayRequest(startDay, endDay, req);
+            performRequestWithValidation(req);
 
-            view = getServletContext().getRequestDispatcher("/main.jsp");
+            view = getServletContext().getRequestDispatcher("/main");
 
-            resp.sendRedirect(req.getContextPath() + "/main");
         } else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
+    }
+
+    private void performRequestWithValidation(HttpServletRequest req) {
+        String decision = "";
+        String task = "";
+        String message = "";
+        boolean status = false;
+
+        try {
+            LocalDate startDay = LocalDate.parse(req.getParameter("StartDate"));
+            LocalDate endDay = LocalDate.parse(req.getParameter("EndDate"));
+            setNewHolidayRequest(startDay, endDay, req);
+            message = "placed successfully";
+            status = true;
+        } catch (Exception e){
+            message = "placed unsuccessfully";
+        }
+
+        req.getSession().setAttribute("task", "Holiday request");
+        req.getSession().setAttribute("message", message);
+        req.getSession().setAttribute("success", status);
     }
 
     public void setNewHolidayRequest(LocalDate startDay, LocalDate endDay, HttpServletRequest req) {

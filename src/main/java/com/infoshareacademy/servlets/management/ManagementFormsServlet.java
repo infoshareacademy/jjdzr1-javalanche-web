@@ -17,15 +17,6 @@ import java.io.IOException;
 @WebServlet("/management")
 public class ManagementFormsServlet extends HttpServlet {
 
-    @Inject
-    private UserService userService;
-
-    @Inject
-    private DayOffService dayOffService;
-
-    @Inject
-    private TeamService teamService;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -42,25 +33,14 @@ public class ManagementFormsServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = req.getSession();
         if (session.getAttribute("username") != null) {
+
             view = getServletContext().getRequestDispatcher("/management.jsp");
-            setAttributes(req, session);
         } else {
             view = getServletContext().getRequestDispatcher("/404.html");
         }
         view.forward(req, resp);
-        session.setAttribute("managementModificationStatus", "");
     }
 
-    private void setAttributes(HttpServletRequest req, HttpSession session){
-        req.setAttribute("levelOfAccess", req.getSession().getAttribute("levelOfAccess"));
-        req.setAttribute("users", userService.getAll());
-        req.setAttribute("daysOffRequests", dayOffService.pendingHolidayRequests(session.getAttribute("username").toString()));
-        req.setAttribute("usersWithoutTeam", userService.createListOfEmployeesWithoutTeam());
-        req.setAttribute("teamLeadersWithoutTeam", userService.createListOfTeamLeadersWithoutTeam());
-        req.setAttribute("teamsList", teamService.getAll());
-        req.setAttribute("loggedUser", userService.getByEmail(session.getAttribute("username").toString()));
-        req.setAttribute("holidayRequests", dayOffService.getAll());
-    }
 
 
 

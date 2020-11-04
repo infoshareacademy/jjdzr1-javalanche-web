@@ -50,5 +50,9 @@ public class DayOffRepository extends DayOffDao {
                 .setParameter("lastDay", dayOff.getLastDay())
                 .getResultList();
     }
+
+    public void uploadDaysOffForNewYear(){
+        entityManager.createQuery("UPDATE User set daysOffLeft = daysOffLeft + 26").executeUpdate();
+    }
 }
 
