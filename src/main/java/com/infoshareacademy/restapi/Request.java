@@ -12,11 +12,9 @@ import java.util.*;
 public class Request {
 
     public static final String API_URL = "http://localhost:8081/api/dayoff";
-    private Integer id;
-    private Integer userId;
-    private String updatedResponse = "";
-    private List<Request> requestList = new ArrayList<>();
-
+    private String id;
+    private String userId;
+    private String updatedResponse;
 
     public String sendGet() throws IOException {
         URL urlForGetRequest = new URL(API_URL);
@@ -24,8 +22,6 @@ public class Request {
         HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "application/json");
-
-
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
 
@@ -50,23 +46,11 @@ public class Request {
         return updatedResponse;
     }
 
-    public Map<String, String> jsonToList() {
-        Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
-      //  JsonObject object = new JsonParser().parse(updatedResponse).getAsJsonObject();
-      //  Request request[] = gson.fromJson(updatedResponse,Request[].class);
-                //(JsonObject) parser.parse(updatedResponse);
-        //Request jsonObject = gson.fromJson(object, Request.class);
-//        JsonObject jsonObject = object.getAsJsonObject("object");
-       // Set<Map.Entry<String, JsonElement>> entrySet = jsonObject.entrySet();
-        //requestList.add(jsonObject);
-        //return requestList;
-       // return entrySet;
-        Type mapType = new TypeToken<List<Map<String, String>>>(){}.getType();
-        //List<Map<Integer,Integer>> list = gson.fromJson(updatedResponse, typeOfList);
-        Map<String,String> stringMap = new Gson().fromJson(updatedResponse, mapType);
+    public List<Request> jsonToList() {
+        String json = updatedResponse;
+        Type listType = new TypeToken<ArrayList<Request>>(){}.getType();
 
-        return stringMap;
+        return new Gson().<ArrayList<Request>>fromJson(json, listType);
     }
 }
 
