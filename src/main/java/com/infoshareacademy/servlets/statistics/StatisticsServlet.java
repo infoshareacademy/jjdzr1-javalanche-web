@@ -23,9 +23,6 @@ public class StatisticsServlet extends HttpServlet {
     @Inject
     private DayOffService dayOffService;
 
-    @Inject
-    private TeamService teamService;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setRequestDispatcher(req, resp);
@@ -40,11 +37,9 @@ public class StatisticsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         List<DayOffDto> dayOffDtoList = new ArrayList<DayOffDto>(dayOffService.getAll());
-        Integer dayOffs =dayOffService.getAll().size();
+        Integer dayOffs = dayOffService.getAll().size();
 
-        //            UserDto user = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-                    req.setAttribute("dayOffs", dayOffDtoList);
-        //            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
+        req.setAttribute("dayOffs", dayOffDtoList);
         if (req.getSession().getAttribute("username") != null)
             view = getServletContext().getRequestDispatcher("/statisticsView.jsp");
         else {
