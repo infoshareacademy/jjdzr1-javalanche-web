@@ -1,6 +1,8 @@
 package com.infoshareacademy.servlets.statistics;
 
+import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
 
@@ -12,11 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @WebServlet("/statistics")
 public class StatisticsServlet extends HttpServlet {
 
     @Inject
-    private UserService userService;
+    private DayOffService dayOffService;
 
     @Inject
     private TeamService teamService;
@@ -34,8 +39,11 @@ public class StatisticsServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
+        List<DayOffDto> dayOffDtoList = new ArrayList<DayOffDto>(dayOffService.getAll());
+        Integer dayOffs =dayOffService.getAll().size();
+
         //            UserDto user = userService.getByEmail(String.valueOf(req.getSession().getAttribute("username")));
-        //            req.setAttribute("teamLeader", user);
+                    req.setAttribute("dayOffs", dayOffDtoList);
         //            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
         if (req.getSession().getAttribute("username") != null)
             view = getServletContext().getRequestDispatcher("/statisticsView.jsp");

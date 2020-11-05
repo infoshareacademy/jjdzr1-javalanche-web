@@ -1,9 +1,12 @@
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.infoshareacademy.DTO.TeamDto" %>
+<%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
 <%@include file="template/header.jsp" %>
 
 <!-- MAIN CONTENT GOES HERE -->
+<%--<%DayOffDto dayOffs = request.getAttribute("dayOffs");%>--%>
+<% List<DayOffDto> dayOffDtos = (List<DayOffDto>) request.getAttribute("dayOffs");%>
 <% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
 <% UserDto admin = (UserDto) request.getAttribute("admin");%>
 <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
@@ -34,9 +37,10 @@
             </tr>
             </thead>
             <tbody>
-
+            <% int i = 0;%>
+            <%i = dayOffDtos.size();%>
             <tr>
-                <td>all holidays
+                <td><%=i%>
                 </td>
                 <td>2 weeks
                 </td>
