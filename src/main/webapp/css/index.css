@@ -36,12 +36,13 @@ body {
 }
 
 a {
-    color: #eee;
+    color: #f8f9fa;
     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+    cursor:pointer;
+    color: #f8f9fa;
 }
 
 input {
@@ -156,7 +157,7 @@ fieldset {
 
 
 .back-to-login:hover {
-    color: #ffffff !important;
+    color: white !important;
 }
 
 

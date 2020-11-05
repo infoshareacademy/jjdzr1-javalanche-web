@@ -30,7 +30,7 @@
 
         </div>
         <p><br></p>
-        <div class="back-to-login" style="nav-down: auto; ">
+        <div class="back-to-login" style="nav-down: auto;">
             <p>
                 <a href="/login">Back to login page</a>
             </p>

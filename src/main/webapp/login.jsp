@@ -35,10 +35,10 @@
 
                             <div>
                                 <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text"
-                                                                                                     href="#">Forgot password?
+                                 href="#">Forgot password?
                                 </a></span>
                                 <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit"
-                                                                                                          value="Log in"></span>
+                                value="Log in"></span>
                             </div>
 
                         </fieldset>
