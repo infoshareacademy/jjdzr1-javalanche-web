@@ -1,16 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.infoshareacademy.DTO.TeamDto" %>
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
+<%@ page import="com.infoshareacademy.restapi.Request" %>
 <%@include file="template/header.jsp" %>
 
 <!-- MAIN CONTENT GOES HERE -->
-<%--<%DayOffDto dayOffs = request.getAttribute("dayOffs");%>--%>
 <% List<DayOffDto> dayOffDtos = (List<DayOffDto>) request.getAttribute("dayOffs");%>
-<% List<TeamDto> teams = (List<TeamDto>) request.getAttribute("teams");%>
-<% UserDto admin = (UserDto) request.getAttribute("admin");%>
-<% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
-<% List<UserDto> usersInTeam = (List<UserDto>) request.getAttribute("userWithTeam");%>
+<% Integer longHolidays = (Integer) request.getAttribute("longHolidays");%>
 
 <%@include file="features/validator.jsp" %>
 
@@ -33,7 +31,6 @@
                 <th scope="row">All holidays</th>
                 <th scope="row">2 weeks +</th>
                 <th scope="row">Percentage</th>
-
             </tr>
             </thead>
             <tbody>
@@ -42,13 +39,23 @@
             <tr>
                 <td><%=i%>
                 </td>
-                <td>2 weeks
+                <c:if test="${requestScope.longHolidays>=0}">
+                    <td><%=longHolidays%>
+                    </td>
+                </c:if>
                 </td>
-                <td>percentage
+                <td>Statistics service is offline.<br>
+                    Try again later...
                 </td>
-
+                </td>
+                <c:if test="${requestScope.longHolidays>=0}">
+                    <td><%=(longHolidays / i) * 100%> %
+                    </td>
+                </c:if>
+                <td>Statistics service is offline.<br>
+                    Try again later...
+                </td>
             </tr>
-
             </tbody>
             <tfoot>
             <tr>
