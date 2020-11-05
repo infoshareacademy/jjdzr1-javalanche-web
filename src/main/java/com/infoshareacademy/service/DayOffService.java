@@ -98,4 +98,15 @@ public class DayOffService {
         }
         return map;
     }
+    public List<DayOffDto> getAllLong(){
+        List<DayOffDto> allHoliday = getAll();
+        List<DayOffDto> longHoliday = new ArrayList<>();
+
+        for (int i = 0; i <=allHoliday.size() ; i++) {
+            allHoliday.get(i).getListOfDays().size();
+            if ()
+        }
+
+
+    }
 }

@@ -37,6 +37,7 @@ public class StatisticsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         List<DayOffDto> dayOffDtoList = new ArrayList<DayOffDto>(dayOffService.getAll());
+        List<DayOffDto> longHolidays = new ArrayList<DayOffDto>(dayOffService.);
 
 
         req.setAttribute("dayOffs", dayOffDtoList);

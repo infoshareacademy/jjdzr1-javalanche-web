@@ -31,7 +31,7 @@
             <thead>
             <tr>
                 <th scope="row">All holidays</th>
-                <th scope="row">2 weeks +</th>
+                <th scope="row">Long holidays</th>
                 <th scope="row">Percentage</th>
 
             </tr>
