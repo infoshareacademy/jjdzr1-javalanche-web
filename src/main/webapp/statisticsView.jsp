@@ -1,9 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.infoshareacademy.DTO.UserDto" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.infoshareacademy.DTO.TeamDto" %>
 <%@ page import="com.infoshareacademy.DTO.DayOffDto" %>
-<%@ page import="com.infoshareacademy.restapi.Request" %>
 <%@include file="template/header.jsp" %>
 
 <!-- MAIN CONTENT GOES HERE -->
