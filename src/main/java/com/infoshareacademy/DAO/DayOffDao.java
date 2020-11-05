@@ -33,4 +33,8 @@ public class DayOffDao implements DAO<DayOff> {
     public void delete(DayOff dayOff) {
         entityManager.remove(entityManager.contains(dayOff) ? dayOff : entityManager.merge(dayOff));
     }
+    public List getAllLong(){
+        return entityManager.createQuery("select count(listOfDays) from listDaysOff_table" +
+                "group by dayOff_id").getResultList();
+    }
 }

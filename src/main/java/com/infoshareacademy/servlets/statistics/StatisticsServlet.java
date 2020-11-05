@@ -1,7 +1,9 @@
 package com.infoshareacademy.servlets.statistics;
 
+import com.infoshareacademy.DAO.DayOffDao;
 import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
+import com.infoshareacademy.model.DayOff;
 import com.infoshareacademy.service.DayOffService;
 import com.infoshareacademy.service.TeamService;
 import com.infoshareacademy.service.UserService;
@@ -37,10 +39,11 @@ public class StatisticsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         List<DayOffDto> dayOffDtoList = new ArrayList<DayOffDto>(dayOffService.getAll());
-        List<DayOffDto> longHolidays = new ArrayList<DayOffDto>(dayOffService.);
+//        List<DayOffDto> longHolidays = new ArrayList<DayOffDto>(dayOffService.setListDaysWithoutWeekend()
 
 
         req.setAttribute("dayOffs", dayOffDtoList);
+        req.setAttribute("dayOffAll", dayOffDtoList);
         if (req.getSession().getAttribute("username") != null)
             view = getServletContext().getRequestDispatcher("/statisticsView.jsp");
         else {

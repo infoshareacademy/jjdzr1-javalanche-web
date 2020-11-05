@@ -7,6 +7,7 @@ import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.NationalHolidayRepository;
 
+import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -98,15 +99,27 @@ public class DayOffService {
         }
         return map;
     }
-    public List<DayOffDto> getAllLong(){
-        List<DayOffDto> allHoliday = getAll();
-        List<DayOffDto> longHoliday = new ArrayList<>();
+//    public List<DayOffDto> getAllLong() {
+//        List<DayOff> dayOffs = dayOffRepository.getAllLong();
+//        for (int i = 0; i < dayOffs.size() ; i++) {
+//            if(dayOffs.get(i).)
+//        }
+//        List<DayOff> dayOffs = dayOffRepository.getAll();
+//        dayOffs.stream()
+//                .forEach(setListDaysWithoutWeekend(startDay,endDay))
+//        .
+//        ;
+//
+//
+//        List<DayOffDto> allHoliday = getAll();
+//        List<DayOffDto> longHoliday = new ArrayList<>();
+//
+//        for (int i = 0; i <=allHoliday.size() ; i++) {
+//            List<LocalDate> list = dayOffs.get(i).getListOfDays();
+//           if(list.get(i).getDayOfWeek().toString().equals("SATURDAY") || list.get(i).getDayOfWeek().toString().equals("SUNDAY")){
+//
+//           }else if(nationalHolidayRepository.findByDate(list)!=null)
 
-        for (int i = 0; i <=allHoliday.size() ; i++) {
-            allHoliday.get(i).getListOfDays().size();
-            if ()
-        }
 
-
-    }
+//    }
 }
