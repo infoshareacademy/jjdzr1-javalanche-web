@@ -1,21 +1,23 @@
 package com.infoshareacademy.restapi;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.mysql.cj.xdevapi.JsonArray;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Request {
+
     public static final String API_URL = "http://localhost:8081/api/dayoff";
-    String updatedResponse = "";
+    private Integer id;
+    private Integer userId;
+    private String updatedResponse = "";
+    private List<Request> requestList = new ArrayList<>();
+
+
     public String sendGet() throws IOException {
         URL urlForGetRequest = new URL(API_URL);
         String readLine = null;
@@ -47,12 +49,24 @@ public class Request {
         System.out.println(updatedResponse);
         return updatedResponse;
     }
-    public Map jsonToList (){
+
+    public Map<String, String> jsonToList() {
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
-        JsonObject object = (JsonObject) parser.parse(updatedResponse);
+      //  JsonObject object = new JsonParser().parse(updatedResponse).getAsJsonObject();
+      //  Request request[] = gson.fromJson(updatedResponse,Request[].class);
+                //(JsonObject) parser.parse(updatedResponse);
+        //Request jsonObject = gson.fromJson(object, Request.class);
+//        JsonObject jsonObject = object.getAsJsonObject("object");
+       // Set<Map.Entry<String, JsonElement>> entrySet = jsonObject.entrySet();
+        //requestList.add(jsonObject);
+        //return requestList;
+       // return entrySet;
+        Type mapType = new TypeToken<List<Map<String, String>>>(){}.getType();
+        //List<Map<Integer,Integer>> list = gson.fromJson(updatedResponse, typeOfList);
+        Map<String,String> stringMap = new Gson().fromJson(updatedResponse, mapType);
 
-
-      }
+        return stringMap;
     }
 }
+

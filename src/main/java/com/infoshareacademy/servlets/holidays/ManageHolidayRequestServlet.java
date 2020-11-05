@@ -12,11 +12,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.stream.Collectors;
+
+import static com.infoshareacademy.restapi.Request.API_URL;
 
 @WebServlet("/manageholidays")
 public class ManageHolidayRequestServlet extends HttpServlet {
@@ -35,13 +44,12 @@ public class ManageHolidayRequestServlet extends HttpServlet {
     private void setRequestDispatcher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
-        if (req.getSession().getAttribute("username") != null){
+        if (req.getSession().getAttribute("username") != null) {
             performRequestWithValidation(req);
 
             view = getServletContext().getRequestDispatcher("/holidays");
             //resp.sendRedirect(req.getContextPath() + "/holidays");
-        }
-        else {
+        } else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
@@ -57,7 +65,7 @@ public class ManageHolidayRequestServlet extends HttpServlet {
             decision = manageHolidayRequestDecision(req);
             message = decision + " successfully";
             status = true;
-        } catch (Exception e){
+        } catch (Exception e) {
             message = decision + " unsuccessfully";
         }
 
@@ -82,7 +90,10 @@ public class ManageHolidayRequestServlet extends HttpServlet {
         dayOff = dayOffRepository.findDaysOffByDayOffId(holidayRequestId);
         dayOff.setAccepted(true);
         dayOffRepository.update(dayOff);
+
+        isTenDaysLong(dayOff);
     }
+
 
     private void rejectHolidayRequest(HttpServletRequest req) {
         int holidayRequestId = Integer.parseInt(req.getParameter("holidayId"));
@@ -100,5 +111,37 @@ public class ManageHolidayRequestServlet extends HttpServlet {
 
     }
 
+    private boolean isTenDaysLong(DayOff dayOff) {
+        boolean isTenDaysLong = false;
+        if (dayOff.getListOfDays().size() > 9) {
+            isTenDaysLong = true;
+        }
+        return isTenDaysLong;
+    }
 
+    public void sendPost(String id, String userId) throws IOException {
+        URL url = new URL(API_URL);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setRequestProperty("Accept", "application/json");
+        con.setDoOutput(true);
+        String jsonInputString = "{\"id\": " + id + ", \"userId\": " + userId + "}";
+
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+        int code = con.getResponseCode();
+        System.out.println(code);
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+        }
+    }
 }

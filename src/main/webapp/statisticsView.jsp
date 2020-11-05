@@ -11,14 +11,6 @@
 
 <%@include file="features/validator.jsp" %>
 
-<% if (teams.isEmpty()) { %>
-<%@include file="features/teamsView/noTeamsDisplay.jsp" %>
-<% } else { %>
-<%@include file="features/teamsView/teamsDisplay.jsp" %>
-<% } %>
-</div>
-
-</div>
 <script>
     $(document).ready(function () {
         $('#teamsTable').DataTable({
@@ -28,6 +20,41 @@
     });
 </script>
 
-<!-- END OF MAIN CONTENT -->
+<div class="container-fluid">
+    <div class="container-fluid" style="overflow: auto">
+        <br>
+        <H3>Holiday statistics</H3>
+        <table class="table table-striped" id="holidayRequestsTable" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th scope="row">All holidays</th>
+                <th scope="row">2 weeks +</th>
+                <th scope="row">Percentage</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>all holidays
+                </td>
+                <td>2 weeks
+                </td>
+                <td>percentage
+                </td>
+
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th scope="row">All holidays</th>
+                <th scope="row">2 weeks +</th>
+                <th scope="row">Percentage</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
 <%@include file="template/footer.jsp" %>
 

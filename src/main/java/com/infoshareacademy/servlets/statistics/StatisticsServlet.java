@@ -38,7 +38,7 @@ public class StatisticsServlet extends HttpServlet {
         //            req.setAttribute("teamLeader", user);
         //            req.setAttribute("team", userService.getUsersFromTeam(user.getEmail()));
         if (req.getSession().getAttribute("username") != null)
-            view = getServletContext().getRequestDispatcher("/statisticsView/statistics.jsp");
+            view = getServletContext().getRequestDispatcher("/statisticsView.jsp");
         else {
             view = getServletContext().getRequestDispatcher("/badrequest_404");
         }

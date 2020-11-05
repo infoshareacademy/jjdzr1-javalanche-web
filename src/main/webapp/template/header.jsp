@@ -58,6 +58,9 @@
                     <i class="fab fa-algolia"></i> Holidays</a>
                 <a href="/management" id="management" class="list-group-item list-group-item-action bg-light"><i
                         class="fas fa-cog"></i> Management</a>
+                <a href="/statistics" id="statistics" class="list-group-item list-group-item-action bg-light">
+
+                    </i> Statistics</a>
             </c:if>
         </div>
     </div>

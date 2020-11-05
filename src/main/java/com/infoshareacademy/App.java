@@ -11,8 +11,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.infoshareacademy.restapi.Request.API_URL;
 
 /**
  * jAvalanche
@@ -170,5 +173,31 @@ public class App {
 
         Request request = new Request();
         System.out.println(request.sendGet());
-    }
-}
+        System.out.println(request.jsonToList());
+//
+//        URL url = new URL(API_URL);
+//        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//        con.setRequestMethod("POST");
+//        con.setRequestProperty("Content-Type", "application/json");
+//        con.setRequestProperty("Accept", "application/json");
+//        con.setDoOutput(true);
+//        String jsonInputString = "{\"id\": \"3\", \"userId\": \"5\"}";
+//
+//        try (OutputStream os = con.getOutputStream()) {
+//            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+//            os.write(input, 0, input.length);
+//        }
+//        con.setConnectTimeout(5000);
+//        con.setReadTimeout(5000);
+//        int code = con.getResponseCode();
+//        System.out.println(code);
+//
+//        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+//            StringBuilder response = new StringBuilder();
+//            String responseLine = null;
+//            while ((responseLine = br.readLine()) != null) {
+//                response.append(responseLine.trim());
+//            }
+//            System.out.println(response.toString());
+//    }
+}}
