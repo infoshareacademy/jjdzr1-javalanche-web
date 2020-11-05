@@ -46,17 +46,8 @@
                 </td>
                 <td>percentage
                 </td>
-
             </tr>
-
             </tbody>
-            <tfoot>
-            <tr>
-                <th scope="row">All holidays</th>
-                <th scope="row">2 weeks +</th>
-                <th scope="row">Percentage</th>
-            </tr>
-            </tfoot>
         </table>
     </div>
 </div>

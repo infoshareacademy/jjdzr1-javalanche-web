@@ -37,7 +37,7 @@ public class StatisticsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         RequestDispatcher view;
         List<DayOffDto> dayOffDtoList = new ArrayList<DayOffDto>(dayOffService.getAll());
-        Integer dayOffs = dayOffService.getAll().size();
+
 
         req.setAttribute("dayOffs", dayOffDtoList);
         if (req.getSession().getAttribute("username") != null)
