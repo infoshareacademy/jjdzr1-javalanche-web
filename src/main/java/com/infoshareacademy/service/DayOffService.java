@@ -3,7 +3,6 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.DTO.DayOffDto;
 import com.infoshareacademy.DTO.UserDto;
 import com.infoshareacademy.model.DayOff;
-import com.infoshareacademy.model.User;
 import com.infoshareacademy.repository.DayOffRepository;
 import com.infoshareacademy.repository.NationalHolidayRepository;
 
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @LocalBean

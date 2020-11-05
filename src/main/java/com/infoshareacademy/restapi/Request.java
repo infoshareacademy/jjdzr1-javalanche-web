@@ -9,11 +9,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
+import static com.infoshareacademy.App.STDOUT;
+
 public class Request {
 
     public static final String API_URL = "http://localhost:8081/api/dayoff";
-    private String id;
-    private String userId;
     private String updatedResponse;
 
     public String sendGet() throws IOException {
@@ -39,7 +39,7 @@ public class Request {
             in.close();
 
         } else {
-            System.out.println("GET NOT WORKED");
+            STDOUT.warn("GET NOT WORKED");
         }
         connection.disconnect();
         System.out.println(updatedResponse);
@@ -48,7 +48,8 @@ public class Request {
 
     public List<Request> jsonToList() {
         String json = updatedResponse;
-        Type listType = new TypeToken<ArrayList<Request>>(){}.getType();
+        Type listType = new TypeToken<ArrayList<Request>>() {
+        }.getType();
 
         return new Gson().<ArrayList<Request>>fromJson(json, listType);
     }

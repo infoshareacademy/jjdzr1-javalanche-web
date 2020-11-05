@@ -51,7 +51,6 @@ public class StatisticsServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-
         req.setAttribute("dayOffs", dayOffDtoList);
         req.setAttribute("longHolidays", longHolidays);
         req.setAttribute("longHolidays1", dayOffs);
