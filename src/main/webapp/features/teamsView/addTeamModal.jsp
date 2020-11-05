@@ -49,7 +49,7 @@
     <div class="col-md-2 .ml-md-auto">
         <button type="button" class="btn btn-primary btn-lg" aria-label="Basic example"
                 data-toggle="modal" data-target="#addTeamModal"
-                style="position: fixed;bottom: 20px;right: 20px; ">Add new team
+                style="position: fixed;bottom: 20px;right: 20px;">Add new team
         </button>
     </div>
 </div>

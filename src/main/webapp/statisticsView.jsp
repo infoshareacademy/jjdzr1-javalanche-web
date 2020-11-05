@@ -9,24 +9,15 @@
 
 <%@include file="features/validator.jsp" %>
 
-<script>
-    $(document).ready(function () {
-        $('#teamsTable').DataTable({
-            "dom": '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 row justify-content-end"f>><"row"<"col-sm-12"tr>><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
-        });
-        $('#teamsTable_filter label').addClass('justify-content-sm-end');
-    });
-</script>
-
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
-        <H3>Holiday statistics</H3>
-        <table class="table table-striped" id="holidayRequestsTable" cellspacing="0" width="100%">
+        <H3>Holiday statistics</H3><br>
+        <table class="table table-striped" id="StatisticsTable" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th scope="row">All holidays</th>
-                <th scope="row">2 weeks +</th>
+                <th scope="row">Long holidays</th>
                 <th scope="row">Percentage</th>
             </tr>
             </thead>

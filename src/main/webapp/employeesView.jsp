@@ -328,7 +328,9 @@
     <div class="row justify-content-sm-start">
         <div class="col-md-2 .ml-md-auto">
             <c:if test="${sessionScope.levelOfAccess>1}">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add new user
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal"
+                    style="position: fixed;bottom: 20px;right: 20px;"
+            >Add new user
                 </c:if>
             </button>
         </div>
