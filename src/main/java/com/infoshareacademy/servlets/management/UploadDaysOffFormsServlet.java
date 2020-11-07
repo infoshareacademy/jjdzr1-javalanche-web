@@ -42,7 +42,7 @@ public class UploadDaysOffFormsServlet extends HttpServlet {
 
             view = getServletContext().getRequestDispatcher("/management.jsp");
         } else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
     }

@@ -9,7 +9,6 @@
 <% List<UserDto> teamLeaders = (List<UserDto>) request.getAttribute("teamLeaders");%>
 <% List<UserDto> usersInTeam = (List<UserDto>) request.getAttribute("userWithTeam");%>
 
-
 <%@include file="features/validator.jsp" %>
 
 <% if (teams.isEmpty()) { %>
@@ -31,3 +30,4 @@
 
 <!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp" %>
+

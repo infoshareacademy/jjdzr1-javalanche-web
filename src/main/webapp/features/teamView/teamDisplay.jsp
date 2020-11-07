@@ -1,9 +1,8 @@
 <div class="container-fluid">
-    <% List<UserDto> team = (List<UserDto>) request.getAttribute("employeesInTeam"); %><%--
-    <% UserDto teamLeader = (UserDto) request.getAttribute("teamLeader"); %>--%>
+    <% List<UserDto> team = (List<UserDto>) request.getAttribute("employeesInTeam"); %>
     <br>
-    <h3><%=teamLeader.getTeam().getName()%>:</h3>
-    <br><br>
+    <h3>Team: <%=teamLeader.getTeam().getName()%></h3>
+    <br>
     <div class="container-fluid">
         <table id="usersTable" class="table table-striped" style="width:100%">
             <thead>

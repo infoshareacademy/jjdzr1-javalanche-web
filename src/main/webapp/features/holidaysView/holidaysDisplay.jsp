@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
-
+        <h3>Holidays: </h3>
         <table class="table table-striped" id="holidayRequestsTable" cellspacing="0" width="100%">
             <thead>
             <tr>

@@ -29,39 +29,42 @@
 
                             <p><span class="fa fa-user"></span><input type="text" name="username" Placeholder="e-mail"
                                                                       required></p>
-                            <!-- JS because of IE support; better: placeholder="Username" -->
                             <p><span class="fa fa-lock"></span><input type="password" name="password"
                                                                       Placeholder="password" required>
-                            </p> <!-- JS because of IE support; better: placeholder="Password" -->
+                            </p>
 
                             <div>
                                 <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text"
-                                                                                                     href="#">Forgot password?
+                                 href="#">Forgot password?
                                 </a></span>
                                 <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit"
-                                                                                                          value="Log in"></span>
+                                value="Log in"></span>
                             </div>
 
                         </fieldset>
                         <div style="margin-top: 20px">
-                            <% try { if (request.getSession().getAttribute("success").equals(false) & !request.getSession().getAttribute("message").toString().isEmpty()) {%>
+                            <% try {
+                                if (request.getSession().getAttribute("success").equals(false) & !request.getSession().getAttribute("message").toString().isEmpty()) {%>
                             <div class="alert alert-danger" role="alert">
                                 <%=request.getSession().getAttribute("task")%>
                                 <%=" "%>
                                 <%=request.getSession().getAttribute("message")%>
                             </div>
-                            <%} } catch (Exception ignored){
+                            <%
+                                    }
+                                } catch (Exception ignored) {
 
-                            } finally {
-                                request.getSession().removeAttribute("task");
-                                request.getSession().removeAttribute("message");
-                                request.getSession().removeAttribute("message");
-                            }%>
+                                } finally {
+                                    request.getSession().removeAttribute("task");
+                                    request.getSession().removeAttribute("message");
+                                    request.getSession().removeAttribute("message");
+                                }
+                            %>
                         </div>
                     </form>
 
 
-                </div> <!-- end login -->
+                </div>
                 <div class="logo">
                     <img src="/images/javalanche2.jpg" alt="logo" width="360" height="150"/>
 
