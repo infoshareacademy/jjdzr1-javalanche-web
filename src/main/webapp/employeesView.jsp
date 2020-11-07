@@ -46,7 +46,7 @@
                 </td>
                 <% } %>
                 <td>
-                    <c:if test="${sessionScope.levelOfAccess>1}">
+                    <c:if test="${sessionScope.levelOfAccess>2}">
                         <div class="row">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group mr-2" role="group">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${sessionScope.levelOfAccess==1}">
+                    <c:if test="${sessionScope.levelOfAccess==1 || sessionScope.levelOfAccess==2}">
                         <div class="row">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group mr-2" role="group">
@@ -327,7 +327,7 @@
     <br><br>
     <div class="row justify-content-sm-start">
         <div class="col-md-2 .ml-md-auto">
-            <c:if test="${sessionScope.levelOfAccess>1}">
+            <c:if test="${sessionScope.levelOfAccess>2}">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal"
                     style="position: fixed;bottom: 20px;right: 20px;"
             >Add new user
