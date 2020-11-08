@@ -13,15 +13,16 @@
     display:table-cell;
     vertical-align:middle;
     outline:none;
+    overflow: hidden;
 }
 
- .button:hover{
+.button:hover{
 
- }
+}
 
- .button:disabled{
-     outline:none;
- }
+.button:disabled{
+    outline:none;
+}
 
 .button-col-header-weekday{
     color: #98a0a6;
@@ -147,6 +148,7 @@
     height: 32px;
     position: center;
     background-color: #ededed;
+
 }
 
 .button-row-weekday:hover{
@@ -189,6 +191,24 @@ table.calendar thead{
 table.calendar thead th{
     border-bottom: 4px solid #848484;
 }
+
+
+table.calendar :before,
+table.calendar :after{
+    z-index: -10;
+    position: absolute;
+}
+
+table.calendar thead th:nth-child(n+2):before,
+table.calendar thead th:nth-child(n+2):after{
+    z-index: 5;
+    position: absolute;
+    background-color: #0c5460;
+    display: none;
+    content: none;
+}
+
+
 
 table.calendar thead th {
     position: -webkit-sticky;
@@ -239,3 +259,7 @@ table.calendar tr td:last-of-type button{
     overflow: auto;  !important;
 }
 
+
+table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled) {
+    padding-right: 0px;
+}
