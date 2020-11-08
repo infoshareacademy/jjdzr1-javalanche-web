@@ -16,4 +16,3 @@
 <% } %>
 <!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp" %>
-

@@ -30,4 +30,4 @@ nbdist/
 src/taskSummary.md
 
 db
-web.xml
+/src/main/webapp/WEB-INF/web.xml

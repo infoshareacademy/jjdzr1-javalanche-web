@@ -37,7 +37,7 @@ public class EmployeesViewServlet extends HttpServlet {
             req.setAttribute("users", userService.getAll());
         }
         else {
-            view = getServletContext().getRequestDispatcher("/404.html");
+            view = getServletContext().getRequestDispatcher("/badrequest_404");
         }
         view.forward(req, resp);
     }

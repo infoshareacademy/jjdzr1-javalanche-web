@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@include file="template/header.jsp"%>
 
-<!-- MAIN CONTENT GOES HERE -->
 
 
         <%@include file="features/validator.jsp"%>
@@ -24,5 +23,4 @@
         $('#holidayRequestsTable_filter label').addClass('justify-content-sm-end');
     });
 </script>
-<!-- END OF MAIN CONTENT -->
 <%@include file="template/footer.jsp"%>

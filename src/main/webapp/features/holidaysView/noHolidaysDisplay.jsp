@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body">
                 <p><%=user.getFirstName()%> <%=user.getLastName()%></p>
-                <p>There are no teams in the system</p>
+                <p>There are no holidays in the system</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

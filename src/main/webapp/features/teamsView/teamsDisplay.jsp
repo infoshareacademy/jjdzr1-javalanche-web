@@ -4,6 +4,7 @@
 <div class="container-fluid">
     <div class="container-fluid" style="overflow: auto">
         <br>
+        <h3>Teams: </h3>
         <br>
         <table class="table table-striped" id="teamsTable" cellspacing="0" width="100%">
             <thead>
